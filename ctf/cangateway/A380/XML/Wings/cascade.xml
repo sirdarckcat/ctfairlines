@@ -1,0 +1,17 @@
+<?xml version="1.0"?> 
+
+<PropertyList>
+	<path>../../Models/Wings/cascade.ac</path>
+
+<animation>
+	<type>select</type>
+	<object-name>cascade</object-name>
+	<condition>
+		<greater-than>
+		<property>engines/engine[1]/reverser-pos-norm</property>
+		<value>0</value>
+		</greater-than>
+	</condition>
+</animation> 
+
+</PropertyList>

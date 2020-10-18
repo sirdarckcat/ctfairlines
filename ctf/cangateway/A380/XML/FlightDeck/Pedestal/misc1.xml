@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/misc1.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+	
+    <animation>
+       <type>material</type>
+       <object-name>backlight</object-name>
+       <emission>
+         <red>0.325</red>
+         <green>0.184</green>
+         <blue>0.001</blue>
+         <factor-prop>/controls/lighting/panel-norm</factor-prop>
+       </emission>
+    </animation>
+    
+    <!-- animation>
+     <type>rotate</type>
+     <object-name>COCKPIT-LT</object-name>
+     <property>/controls/lighting/dome-norm</property>
+     <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>0.5</ind><dep>-220</dep></entry>
+      </interpolation>
+      <center>
+        <x-m>0.027000</x-m>
+        <y-m>0.010900</y-m>
+        <z-m>-0.028500</z-m>
+      </center>
+
+      <axis>
+        <x>0.000000</x>
+        <y>0.000000</y>
+        <z>-1.000000</z>
+      </axis>
+   </animation -->
+   
+   
+   <animation>
+     <type>pick</type>
+     <object-name>COCKPIT-LT</object-name>
+     <!--  scrollwheel -->
+     <action>
+       <button>3</button>
+       <repeatable>true</repeatable>
+       <binding>
+         <command>property-adjust</command>
+	<property>/controls/lighting/dome-norm</property>
+	<step>0.05</step>
+	<max>0.40</max>
+	<min>0.00</min>
+       </binding>
+     </action>
+     <!-- scrollwheel -->
+     <action>
+       <button>4</button>
+       <repeatable>true</repeatable>
+       <binding>
+         <command>property-adjust</command>
+	<property>/controls/lighting/dome-norm</property>
+	<step>-0.05</step>
+	<max>0.40</max>
+	<min>0.00</min>
+       </binding>
+     </action>
+  </animation>
+  
+  
+  <!-- animation>
+     <type>rotate</type>
+     <object-name>PANEL-LT</object-name>
+     <property>/controls/lighting/panel-norm</property>
+     <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>0.6</ind><dep>-220</dep></entry>
+      </interpolation>
+      <center>
+        <x-m>0.026600</x-m>
+        <y-m>0.010900</y-m>
+        <z-m>-0.073400</z-m>
+      </center>
+
+      <axis>
+        <x>0.000000</x>
+        <y>0.000000</y>
+        <z>-1.000000</z>
+      </axis>
+   </animation -->
+
+<animation>
+     <type>pick</type>
+     <object-name>PANEL-LT</object-name>
+     <!--  scrollwheel -->
+     <action>
+       <button>3</button>
+       <repeatable>true</repeatable>
+       <binding>
+         <command>property-adjust</command>
+	<property>/controls/lighting/panel-norm</property>
+	<step>0.05</step>
+	<max>0.60</max>
+	<min>0.00</min>
+       </binding>
+     </action>
+     <!-- scrollwheel -->
+     <action>
+       <button>4</button>
+       <repeatable>true</repeatable>
+       <binding>
+         <command>property-adjust</command>
+	<property>/controls/lighting/panel-norm</property>
+	<step>-0.05</step>
+	<max>0.60</max>
+	<min>0.00</min>
+       </binding>
+     </action>
+  </animation>
+
+    <!-- animation>
+     <type>rotate</type>
+     <object-name>PEDESTAL-LT</object-name>
+     <property>/controls/lighting/pedestal-norm</property>
+     <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>0.5</ind><dep>-220</dep></entry>
+      </interpolation>
+      <center>
+        <x-m>0.027000</x-m>
+        <y-m>0.010900</y-m>
+        <z-m>-0.011490</z-m>
+      </center>
+
+      <axis>
+        <x>0.000000</x>
+        <y>0.000000</y>
+        <z>-1.000000</z>
+      </axis>
+   </animation -->
+
+<animation>
+     <type>pick</type>
+     <object-name>PEDESTAL-LT</object-name>
+     <!--  scrollwheel -->
+     <action>
+       <button>3</button>
+       <repeatable>true</repeatable>
+       <binding>
+         <command>property-adjust</command>
+	<property>/controls/lighting/pedestal-norm</property>
+	<step>0.05</step>
+	<max>0.40</max>
+	<min>0.00</min>
+       </binding>
+     </action>
+     <!-- scrollwheel -->
+     <action>
+       <button>4</button>
+       <repeatable>true</repeatable>
+       <binding>
+         <command>property-adjust</command>
+	<property>/controls/lighting/pedestal-norm</property>
+	<step>-0.05</step>
+	<max>0.40</max>
+	<min>0.00</min>
+       </binding>
+     </action>
+  </animation>
+</PropertyList> 
+ 

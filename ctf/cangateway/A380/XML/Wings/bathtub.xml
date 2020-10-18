@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../Models/Wings/bathtub.3ds</path>
+
+	<model>
+	    <condition>
+	    <not>
+	      <property>sim/rendering/rembrandt/enabled</property>
+	    </not>
+	    </condition>
+		<path>Aircraft/A380/XML/Lights/light-cone-left.xml</path>
+		<name>Land.Light.L</name>
+		<offsets>
+			<x-m>-3.72</x-m>
+			<y-m>-5.70</y-m>
+			<z-m>-0.53</z-m>
+			<pitch-deg>-3.0</pitch-deg>
+		</offsets>
+	</model>
+
+	<model>
+	  <condition>
+	    <not>
+	      <property>sim/rendering/rembrandt/enabled</property>
+	    </not>
+	  </condition>
+		<path>Aircraft/A380/XML/Lights/light-cone-right.xml</path>
+		<name>Land.Light.R</name>
+		<offsets>
+			<x-m>-3.72</x-m>
+			<y-m> 5.70</y-m>
+			<z-m>-0.53</z-m>
+			<pitch-deg>-3.0</pitch-deg>
+		</offsets>
+	</model>
+	
+	<model>
+	    <condition>
+	      <property>sim/rendering/rembrandt/enabled</property>
+	    </condition>
+		<path>Aircraft/A380/XML/Lights/light-cone-rembrandt.xml</path>
+		<name>Land.Rembrandt.L</name>
+		<offsets>
+			<x-m>-3.72</x-m>
+			<y-m>-5.70</y-m>
+			<z-m>-0.53</z-m>
+			<pitch-deg>-2.0</pitch-deg>
+			<heading-deg>3.0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+	  <condition>
+	      <property>sim/rendering/rembrandt/enabled</property>
+	  </condition>
+		<path>Aircraft/A380/XML/Lights/light-cone-rembrandt.xml</path>
+		<name>Land.Rembrandt.R</name>
+		<offsets>
+			<x-m>-3.72</x-m>
+			<y-m> 5.70</y-m>
+			<z-m>-0.53</z-m>
+			<pitch-deg>-2.0</pitch-deg>
+			<heading-deg>357.0</heading-deg>
+		</offsets>
+	</model>
+	
+	
+
+ 
+	<animation>
+		<type>select</type>
+		<object-name>Land.Light.L</object-name>
+		<object-name>Land.Light.R</object-name>
+		<object-name>Land.Rembrandt.L</object-name>
+		<object-name>Land.Rembrandt.R</object-name>
+		<condition>
+		  <and>
+			<property>/controls/switches/landing-lights</property>
+			<greater-than>
+			  <property>/systems/electrical/outputs/landing-lights</property>
+			  <value>90</value>
+			</greater-than>
+	          </and>
+		</condition>
+	</animation>
+
+</PropertyList> 

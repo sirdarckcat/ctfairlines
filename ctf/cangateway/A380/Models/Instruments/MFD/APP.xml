@@ -1,0 +1,554 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>APPR</name>
+    <w-base>256</w-base>
+    <h-base>256</h-base>
+    <params>
+      <inputs>
+        <lh-vor-adf>instrumentation/efis[0]/inputs/lh-vor-adf</lh-vor-adf>
+        <rh-vor-adf>instrumentation/efis[0]/inputs/rh-vor-adf</rh-vor-adf>
+      </inputs>
+    </params>
+
+    <layers>
+      
+      <!-- ILS Directional -->
+		<layer>
+			<condition>
+				<and>	
+					<equals>
+						<property>/instrumentation/nav[0]/nav-loc</property>
+						<value>true</value>
+					</equals>
+					<equals>
+						<property>/instrumentation/nav[0]/in-range</property>
+						<value>true</value>
+					</equals>			
+				</and>			
+			</condition>
+			<name>ILS Heading</name>
+			<emissive>true</emissive>
+			<w>20</w>
+			<h>177</h>
+			<texture>
+				<path>Aircraft/A320neo/Models/Instruments/MFD/Airbus-extra-symbols.png</path>
+
+				<!-- Orign is down left-->
+				<x1>0.162</x1>
+				<y1>0</y1>
+				<x2>0.273</x2>
+				<y2>1</y2>
+			</texture>
+			<transformations>
+				<!-- ROSE center -->
+				<transformation>
+					<type>y-shift</type>
+					<offset>-12</offset>
+				</transformation>
+				<!-- Correct our heading deviation -->
+				<transformation>
+					<type>rotation</type>
+					<property>orientation/heading-deg</property>
+					<scale>-1</scale>
+				</transformation>
+				<!-- Correct ILS Source heading -->
+				<transformation>
+					<type>rotation</type>
+					<property>instrumentation/nav/heading-deg</property>
+				</transformation>
+			</transformations>
+		</layer>
+
+		<!-- ILS Deflection bar -->
+		<layer>
+			<condition>
+				<and>	
+					<equals>
+						<property>/instrumentation/nav[0]/nav-loc</property>
+						<value>true</value>
+					</equals>
+					<equals>
+						<property>/instrumentation/nav[0]/in-range</property>
+						<value>true</value>
+					</equals>			
+				</and>			
+			</condition>
+			<name>ILS Heading</name>
+			<emissive>true</emissive>
+			<w>4</w>
+			<h>77</h>
+			<texture>
+				<path>Aircraft/A320neo/Models/Instruments/ND/res/A320neo_symbols.png</path>
+
+				<!-- Orign is down left-->
+				<x1>0.289</x1>
+				<y1>0</y1>
+				<x2>0.304</x2>
+				<y2>0.535</y2>
+			</texture>
+			<transformations>
+				<!-- ROSE center -->
+				<transformation>
+					<type>y-shift</type>
+					<offset>-12</offset>
+				</transformation>
+				<!-- Correct our heading deviation -->
+				<transformation>
+					<type>rotation</type>
+					<property>orientation/heading-deg</property>
+					<scale>-1</scale>
+				</transformation>
+				<!-- Correct ILS Source heading -->
+				<transformation>
+					<type>rotation</type>
+					<property>instrumentation/nav/heading-deg</property>
+				</transformation>
+				<!-- ILS Deflection -->
+				<transformation>
+					<type>x-shift</type>
+					<property>instrumentation/nav[0]/heading-needle-deflection</property>
+					<scale>4.124</scale>
+				</transformation>
+			</transformations>
+		</layer>
+	<!-- ILS Deflection Horizontal Scale Bar -->
+		<layer>
+			<condition>
+				<and>	
+					<equals>
+						<property>/instrumentation/nav[0]/nav-loc</property>
+						<value>true</value>
+					</equals>
+					<equals>
+						<property>/instrumentation/nav[0]/in-range</property>
+						<value>true</value>
+					</equals>			
+				</and>			
+			</condition>
+			<name>HorizontalScaleBar</name>
+			<emissive>true</emissive>
+			<w>7</w>
+			<h>77</h>
+			<texture>
+				<path>Aircraft/A320neo/Models/Instruments/ND/res/A320neo_symbols.png</path>
+
+				<!-- Orign is down left-->
+				<x1>0.121</x1>
+				<y1>0.554</y1>
+				<x2>0.150</x2>
+				<y2>0.927</y2>
+			</texture>
+			<transformations>
+				<!-- ROSE center -->
+				<transformation>
+					<type>y-shift</type>
+					<offset>-12</offset>
+				</transformation>
+				<!-- from vertical to horizontal -->
+				<transformation>
+					<type>rotation</type>
+					<offset>90</offset>
+				</transformation>
+				<!-- Correct our heading deviation -->
+				<transformation>
+					<type>rotation</type>
+					<property>orientation/heading-deg</property>
+					<scale>-1</scale>
+				</transformation>
+				<!-- Correct ILS Source heading -->
+				<transformation>
+					<type>rotation</type>
+					<property>instrumentation/nav/heading-deg</property>
+				</transformation>
+			</transformations>
+		</layer>
+
+	<!-- GlideSlope Scale -->
+		<!-- layer>
+			<name>gs scale</name>
+			<w>12</w>
+			<h>90</h>
+			<texture>
+				<path>Aircraft/A320neo/Models/Instruments/ND/res/symbols.png</path>
+				<x1>0.528</x1>
+				<y1>0.470</y1>
+				<x2>0.579</x2>
+				<y2>0.849</y2>
+			</texture>
+			<transformations>
+				<transformation>
+					<type>y-shift</type>
+					<offset>-12</offset>
+				</transformation>
+				<transformation>
+					<type>x-shift</type>
+					<offset>120</offset>
+				</transformation>
+			</transformations>
+			<emissive>true</emissive>
+		</layer -->
+	<!-- GlideSlope Pointer -->
+		<!-- layer>
+			<condition>
+				<equals>
+					<property>/instrumentation/nav[0]/gs-in-range</property>
+					<value>true</value>
+				</equals>
+			</condition>
+			<name>gs pointer</name>
+			<w>10</w>
+			<h>16</h>
+			<texture>
+				<path>Aircraft/A320neo/Models/Instruments/ND/res/symbols.png</path>
+				<x1>0.686</x1>
+				<y1>0.833</y1>
+				<x2>0.761</x2>
+				<y2>0.952</y2>
+			</texture>
+			<transformations>
+				<transformation>
+					<type>y-shift</type>
+					<offset>-12</offset>
+				</transformation>
+				<transformation>
+					<type>x-shift</type>
+					<offset>120</offset>
+				</transformation>
+				<transformation>
+					<type>y-shift</type>
+					<property>instrumentation/nav/gs-needle-deflection-norm</property>
+					<interpolation>
+					<entry><ind>-1</ind><dep>-57.285</dep></entry>
+					<entry><ind>0</ind><dep>0</dep></entry>
+					<entry><ind>1</ind><dep>57.285</dep></entry>
+					</interpolation>
+				</transformation>
+			</transformations>
+			<emissive>true</emissive>
+		</layer -->
+
+		
+
+
+<!-- full mode -->
+
+        <!-- layer>
+            <condition>
+                <property>instrumentation/efis/inputs/nd-centered</property>
+            </condition>
+            <name>hdg1</name>
+            <w>220</w>
+            <h>220</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/hsi.png</path>
+                <x1>0</x1>
+                <y1>0</y1>
+                <x2>1</x2>
+                <y2>1</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer -->
+
+        <!-- layer>
+            <name>deviation scale</name>
+            <w>78</w>
+            <h>6</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.215</x1>
+                <y1>0.488</y1>
+                <x2>0.566</x2>
+                <y2>0.515</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>deflection bar</name>
+            <w>5</w>
+            <h>50</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.731</x1>
+                <y1>0.019</y1>
+                <x2>0.788</x2>
+                <y2>0.274</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+                <transformation>
+                    <type>x-shift</type>
+                    <property>instrumentation/nav/heading-needle-deflection</property>
+                    <scale>3.553</scale>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>crs head</name>
+            <w>14</w>
+            <h>58</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.787</x1>
+                <y1>0.406</y1>
+                <x2>0.879</x2>
+                <y2>0.806</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>54</offset>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>crs tail</name>
+            <w>5</w>
+            <h>56</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.816</x1>
+                <y1>0.017</y1>
+                <x2>0.849</x2>
+                <y2>0.394</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-53</offset>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer -->
+
+        <!-- layer>
+            <name>hdgbug</name>
+            <emissive>true</emissive>
+            <w>12</w>
+            <h>6</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.078</x1>
+                <y1>0.737</y1>
+                <x2>0.125</x2>
+                <y2>0.762</y2>
+            </texture>
+           <transformations>
+            <transformation>
+                <type>y-shift</type>
+                <offset>-12</offset>
+            </transformation>
+            <transformation>
+                <type>rotation</type>
+                <property>autopilot/internal/fdm-heading-bug-error-deg</property>
+            </transformation>
+            <transformation>
+                <type>y-shift</type>
+                <offset>92</offset>
+            </transformation>
+        </transformations>
+        </layer -->
+
+        <!-- layer>
+            <name>maskfull</name>
+            <emissive>true</emissive>
+            <w>256</w>
+            <h>256</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/maskfull.png</path>
+                <x1>0.0</x1>
+                <y1>0.0</y1>
+                <x2>1.0</x2>
+                <y2>1.0</y2>
+            </texture>
+        </layer -->
+
+        <layer>
+            <name>gs scale 2</name>
+            <w>12</w>
+            <h>90</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.528</x1>
+                <y1>0.470</y1>
+                <x2>0.579</x2>
+                <y2>0.849</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-10</offset>
+                </transformation>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>120</offset>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>gs pointer 2</name>
+            <w>10</w>
+            <h>16</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.686</x1>
+                <y1>0.833</y1>
+                <x2>0.761</x2>
+                <y2>0.952</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-10</offset>
+                </transformation>
+                <transformation>
+                    <type>x-shift</type>
+                    <offset>120</offset>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <property>instrumentation/nav/gs-needle-deflection-norm</property>
+                    <interpolation>
+                        <entry><ind>-1</ind><dep>-57.285</dep></entry>
+                        <entry><ind>0</ind><dep>0</dep></entry>
+                        <entry><ind>1</ind><dep>57.285</dep></entry>
+                    </interpolation>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <!-- layer>
+            <name>aircraft symbol</name>
+            <w>20</w>
+            <h>30</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.659</x1>
+                <y1>0.447</y1>
+                <x2>0.784</x2>
+                <y2>0.608</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer -->
+
+        <!-- layer>
+            <condition>
+               	 <greater-than>
+                    <property>environment/wind-speed-kt</property>
+                    <value>0.99</value>
+                </greater-than>
+            </condition>
+            <name>wind arrow</name>
+            <emissive>true</emissive>
+            <w>6</w>
+            <h>18</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.138</x1>
+                <y1>0.555</y1>
+                <x2>0.204</x2>
+                <y2>0.776</y2>
+            </texture>
+           <transformations>
+            <transformation>
+                <type>y-shift</type>
+                <offset>88</offset>
+            </transformation>
+            <transformation>
+                <type>x-shift</type>
+                <offset>-105</offset>
+            </transformation>
+            <transformation>
+                <type>rotation</type>
+                <property>orientation/heading-magnetic-deg</property>
+                <scale>-1</scale>
+            </transformation>
+            <transformation>
+                <type>rotation</type>
+                <property>environment/wind-from-heading-deg</property>
+            </transformation>
+            </transformations>
+        </layer -->
+
+</layers>
+
+</PropertyList>

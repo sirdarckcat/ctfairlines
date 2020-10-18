@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/eng_master.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Instruments</texture-path>
+
+  <animation>
+    <type>pick</type>
+    <object-name>SWITCH1</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>/controls/engines/engine[0]/master</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>SWITCH1</object-name>
+    <property>/controls/engines/engine[0]/master</property>
+    <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>1</ind><dep>-26</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0.044</x-m>
+      <y-m>0.038</y-m>
+      <z-m>0.000</z-m>
+    </center>  
+  </animation>
+  
+  
+    <animation>
+    <type>pick</type>
+    <object-name>SWITCH2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>/controls/engines/engine[1]/master</property>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>SWITCH2</object-name>
+    <property>/controls/engines/engine[1]/master</property>
+    <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>1</ind><dep>-26</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0.044</x-m>
+      <y-m>0.086</y-m>
+      <z-m>0.000</z-m>
+    </center>  
+  </animation>
+  
+  
+  
+  <animation>
+    <type>pick</type>
+    <object-name>SWITCH3</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>/controls/engines/engine[2]/master</property>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>SWITCH3</object-name>
+    <property>/controls/engines/engine[2]/master</property>
+    <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>1</ind><dep>-26</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0.044</x-m>
+      <y-m>0.133</y-m>
+      <z-m>0.000</z-m>
+    </center>  
+  </animation>
+  
+  
+  
+  
+  <animation>
+    <type>pick</type>
+    <object-name>SWITCH4</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>/controls/engines/engine[3]/master</property>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>SWITCH4</object-name>
+    <property>/controls/engines/engine[3]/master</property>
+    <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>1</ind><dep>-26</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0.044</x-m>
+      <y-m>0.181</y-m>
+      <z-m>0.000</z-m>
+    </center>  
+  </animation>
+</PropertyList> 
+ 

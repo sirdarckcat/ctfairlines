@@ -1,0 +1,2777 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <params>
+    <inputs>
+      <ls>instrumentation/efis[0]/inputs/ls</ls>
+    </inputs>
+  </params>
+	<path>../../../Models/FlightDeck/FrontPanel/pfd3.ac</path> 
+	<!-- texture-path>../../../Textures/Instruments</texture-path -->
+	<texture-path>Aircraft/A380/Textures/Panels/pfd/</texture-path>
+
+<!-- animation>
+   <type>select</type>
+   <object-name>FDbars</object-name>
+   <condition>
+   <and>
+     <or>
+       <equals>
+         <property>sim/current-view/view-number</property>
+         <value>0</value>
+       </equals>
+       <equals>
+           <property>sim/current-view/view-number</property>
+           <value>9</value>
+       </equals>
+     </or>
+     <equals>
+         <property>/instrumentation/flightdirector/fd-on</property>
+         <value>1</value>
+     </equals>
+   </and>
+   </condition>
+ </animation -->
+ 
+  <animation>
+   <type>select</type>
+   <object-name>GSscale</object-name>
+   <condition>
+     <and>
+       <or>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>0</value>
+         </equals>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>9</value>
+         </equals>
+       </or>
+       <!-- property>instrumentation/efis[0]/inputs/ls</property -->
+       <property alias="/params/inputs/ls"/>
+       <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+     </and>
+   </condition>
+ </animation>
+ 
+ <animation>
+   <type>select</type>
+   <object-name>flare-post</object-name>
+   <condition>
+     <equals>
+     <property>instrumentation/afs/flight-control-flare-mode</property>
+     <value><false/></value>
+   </equals>
+   </condition>
+ </animation>
+
+ <animation>
+   <type>select</type>
+   <object-name>GSneedle</object-name>
+   <condition>
+     <and>
+       <or>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>0</value>
+         </equals>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>9</value>
+         </equals>
+       </or>
+       <property>/instrumentation/nav[0]/gs-in-range</property>
+       <!-- property>instrumentation/efis[0]/inputs/ls</property -->
+       <property alias="/params/inputs/ls"/>
+       <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+     </and>
+   </condition>
+ </animation>
+
+ <animation>
+   <type>translate</type>
+   <object-name>GSneedle</object-name>
+   <property>/instrumentation/nav[0]/gs-needle-deflection-norm</property>
+   <interpolation>
+     <entry>
+       <ind> -1.0</ind>
+       <dep>-0.04</dep>
+     </entry>
+     <entry>
+       <ind> 0.0</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+       <ind> 1.0</ind>
+       <dep>0.04</dep>
+     </entry>
+  </interpolation>
+  <!-- interpolation>
+    <entry>
+      <ind></ind>
+      <dep></dep>
+    </entry>
+    <entry>
+      <ind>0.0</ind>
+      <dep>0.0</dep>
+    </entry>
+    <entry>
+      <ind></ind>
+      <dep></dep>
+    </entry>
+  </interpolation -->
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+   <type>select</type>
+   <object-name>LOCscale</object-name>
+   <condition>
+     <and>
+       <or>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>0</value>
+         </equals>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>9</value>
+         </equals>
+       </or>
+       <!-- property>instrumentation/efis[0]/inputs/ls</property -->
+       <property alias="/params/inputs/ls"/>
+       <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+     </and>
+   </condition>
+ </animation>
+
+ <animation>
+   <type>select</type>
+   <object-name>LOCneedle</object-name>
+   <condition>
+     <and>
+       <or>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>0</value>
+         </equals>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>9</value>
+         </equals>
+       </or>
+       <property>/instrumentation/nav[0]/nav-loc</property>
+       <property>/instrumentation/nav[0]/in-range</property>
+       <!-- property>instrumentation/efis[0]/inputs/ls</property -->
+       <property alias="/params/inputs/ls"/>
+       <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+     </and>
+   </condition>
+ </animation>
+
+ <animation>
+   <type>translate</type>
+   <object-name>LOCneedle</object-name>
+   <property>/instrumentation/nav[0]/heading-needle-deflection-norm</property>
+   <interpolation>
+    <entry>
+      <ind>-1.0</ind>
+      <dep>-0.035</dep>
+    </entry>
+    <entry>
+      <ind>0.0</ind>
+      <dep>0.0</dep>
+    </entry>
+    <entry>
+      <ind>1.0</ind>
+      <dep>0.035</dep>
+    </entry>
+  </interpolation>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+  <!-- animation>
+   <type>rotate</type>
+   <object-name>FDbars</object-name>
+   <property>/autopilot/internal/target-roll-deg</property>
+   <axis>
+     <x>1.0</x>
+     <y>0.0</y>
+     <z>0.0</z>
+   </axis>
+   <center>
+     <x-m>0.007</x-m>
+     <y-m>-0.014</y-m>
+     <z-m>0.005</z-m>
+   </center>
+ </animation -->
+
+ <!-- animation>
+   <type>translate</type>
+   <object-name>FDbars</object-name>
+   <property>/autopilot/settings/target-pitch-deg</property>
+   <factor>0.0014</factor>
+   <axis>
+     <x>0.0</x>
+     <y>0.0</y>
+     <z>1.0</z>
+   </axis>
+   <center>
+     <x-m>0.007</x-m>
+     <y-m>-0.014</y-m>
+     <z-m>0.005</z-m>
+   </center>
+ </animation -->
+
+ <animation>
+   <type>select</type>
+   <object-name>VSIneedle</object-name>
+   <condition>
+     <and>
+       <or>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>0</value>
+         </equals>
+         <equals>
+           <property>sim/current-view/view-number</property>
+           <value>9</value>
+         </equals>
+       </or>
+       <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+     </and>
+  </condition>
+ </animation>
+
+	<!-- animation>
+   		<type>textranslate</type>
+   		<object-name>ASIribbon</object-name>
+   		<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+   		<interpolation>
+     		<entry>
+       			<ind>0.0</ind>
+       			<dep>0.0</dep>
+     		</entry>
+     		<entry>
+       			<ind>100.0</ind>
+       			<dep>0.1350</dep>
+     		</entry>
+     		<entry>
+       			<ind>200.0</ind>
+       			<dep>0.2700</dep>
+     		</entry>
+     		<entry>
+       			<ind>300.0</ind>
+       			<dep>0.4050</dep>
+     		</entry>
+     		<entry>
+       			<ind>400.0</ind>
+		        <dep>0.5400</dep>
+     		</entry>
+     		<entry>
+       			<ind>500.0</ind>
+       			<dep>0.6750</dep>
+     		</entry>
+     		<entry>
+       			<ind>600.0</ind>
+       			<dep>0.8100</dep>
+     		</entry>
+   		</interpolation>
+   		<axis>
+     			<x>0</x>
+     			<y>1</y>
+     			<z>0</z>
+   		</axis>
+	</animation -->
+
+
+
+ <!-- animation>
+   <type>textranslate</type>
+   <object-name>ALTribbon</object-name>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   <factor>0.000669</factor>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation -->
+ 
+ <animation>
+		<name>Altimeter tape 1 select</name>
+		<type>select</type>
+		<object-name>AltTape1</object-name>
+		<condition>
+		  <and>
+			<less-than>
+				<property>instrumentation/altimeter/indicated-altitude-ft</property>
+				<value>9600</value>
+			</less-than>
+			<equals>
+			  <property>instrumentation/efis[0]/metric</property>
+			  <value>0</value>
+			</equals>
+		      </and>
+		</condition>
+	</animation>
+	<animation>
+		<name>Altimeter tape 1 translate</name>
+		<type>textranslate</type>
+		<object-name>AltTape1</object-name>
+		<property>instrumentation/altimeter/indicated-altitude-ft</property>
+		<condition>
+		  <equals>
+	            <property>instrumentation/efis[0]/metric</property>
+	            <value>0</value>
+		  </equals>
+		</condition>
+		<interpolation>
+			<entry><ind>0</ind><dep>0</dep></entry>
+			<entry><ind>9600</ind><dep>0.9035</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+		</axis>
+	</animation>
+
+	<animation>
+		<name>Altimeter tape 2 select</name>
+		<type>select</type>
+		<object-name>AltTape2</object-name>
+		<condition>
+			<and>
+				<greater-than-equals>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>9600</value>
+				</greater-than-equals>
+				<less-than>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>19200</value>
+				</less-than>
+				<equals>
+			  <property>instrumentation/efis[0]/metric</property>
+			  <value>0</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<name>Altimeter tape 2 translate</name>
+		<type>textranslate</type>
+		<object-name>AltTape2</object-name>
+		<property>instrumentation/altimeter/indicated-altitude-ft</property>
+		<condition>
+		  <equals>
+	            <property>instrumentation/efis[0]/metric</property>
+	            <value>0</value>
+		  </equals>
+		</condition>
+		<interpolation>
+			<entry><ind>9600</ind><dep>0</dep></entry>
+			<entry><ind>19200</ind><dep>0.9035</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+		</axis>
+	</animation>
+
+	<animation>
+		<name>Altimeter tape 3 select</name>
+		<type>select</type>
+		<object-name>AltTape3</object-name>
+		<condition>
+			<and>
+				<greater-than-equals>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>19200</value>
+				</greater-than-equals>
+				<less-than>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>28800</value>
+				</less-than>
+				<equals>
+			  <property>instrumentation/efis[0]/metric</property>
+			  <value>0</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<name>Altimeter tape 3 translate</name>
+		<type>textranslate</type>
+		<object-name>AltTape3</object-name>
+		<property>instrumentation/altimeter/indicated-altitude-ft</property>
+		<condition>
+		  <equals>
+	            <property>instrumentation/efis[0]/metric</property>
+	            <value>0</value>
+		  </equals>
+		</condition>
+		<interpolation>
+			<entry><ind>19200</ind><dep>0</dep></entry>
+			<entry><ind>28800</ind><dep>0.9035</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+		</axis>
+	</animation>
+
+	<animation>
+		<name>Altimeter tape 4 select</name>
+		<type>select</type>
+		<object-name>AltTape4</object-name>
+		<condition>
+			<and>
+				<greater-than-equals>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>28800</value>
+				</greater-than-equals>
+				<less-than>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>38400</value>
+				</less-than>
+				<equals>
+			  <property>instrumentation/efis[0]/metric</property>
+			  <value>0</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<name>Altimeter tape 4 translate</name>
+		<type>textranslate</type>
+		<object-name>AltTape4</object-name>
+		<property>instrumentation/altimeter/indicated-altitude-ft</property>
+		<condition>
+		  <equals>
+	            <property>instrumentation/efis[0]/metric</property>
+	            <value>0</value>
+		  </equals>
+		</condition>
+		<interpolation>
+			<entry><ind>28800</ind><dep>0</dep></entry>
+			<entry><ind>38400</ind><dep>0.9035</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+		</axis>
+	</animation>
+
+	<animation>
+		<name>Altimeter tape 5 select</name>
+		<type>select</type>
+		<object-name>AltTape5</object-name>
+		<condition>
+			<and>
+				<greater-than-equals>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>38400</value>
+				</greater-than-equals>
+				<less-than>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>48000</value>
+				</less-than>
+				<equals>
+			  <property>instrumentation/efis[0]/metric</property>
+			  <value>0</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<name>Altimeter tape 5 translate</name>
+		<type>textranslate</type>
+		<object-name>AltTape5</object-name>
+		<property>instrumentation/altimeter/indicated-altitude-ft</property>
+		<condition>
+		  <equals>
+	            <property>instrumentation/efis[0]/metric</property>
+	            <value>0</value>
+		  </equals>
+		</condition>
+		<interpolation>
+			<entry><ind>38400</ind><dep>0</dep></entry>
+			<entry><ind>48000</ind><dep>0.9035</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+		</axis>
+	</animation>
+
+	<animation>
+		<name>Altimeter tape 6 select</name>
+		<type>select</type>
+		<object-name>AltTape6</object-name>
+		<condition>
+			<and>
+				<greater-than-equals>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>48000</value>
+				</greater-than-equals>
+				<less-than>
+					<property>instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>57600</value>
+				</less-than>
+				<equals>
+			  <property>instrumentation/efis[0]/metric</property>
+			  <value>0</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<name>Altimeter tape 6 translate</name>
+		<type>textranslate</type>
+		<object-name>AltTape6</object-name>
+		<property>instrumentation/altimeter/indicated-altitude-ft</property>
+		<condition>
+		  <equals>
+	            <property>instrumentation/efis[0]/metric</property>
+	            <value>0</value>
+		  </equals>
+		</condition>
+		<interpolation>
+			<entry><ind>48000</ind><dep>0</dep></entry>
+			<entry><ind>57600</ind><dep>0.9035</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+		</axis>
+	</animation>
+
+
+  <animation>
+   <type>textranslate</type>
+   <object-name>ASIribbon</object-name>
+   <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+   <interpolation>
+     <entry>
+       <ind> 0.0</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+        <ind>100.0</ind>
+	<dep>0.135</dep>
+     </entry>
+     <entry>
+        <ind>200.0</ind>
+	<dep>0.268</dep>
+     </entry>
+     <entry>
+         <ind>300.0</ind>
+	 <dep>0.403</dep>
+     </entry>
+     <entry>
+        <ind>400.0</ind>
+	<dep>0.537</dep>
+     </entry>
+     <entry>
+       <ind>640.0</ind>
+       <dep>0.8610</dep>
+     </entry>
+     <!-- entry>
+       <ind> 100.0</ind>
+       <dep>0.1490</dep>
+     </entry>
+     <entry>
+       <ind> 200.0</ind>
+       <dep>0.2980</dep>
+     </entry>
+     <entry>
+       <ind> 300.0</ind>
+       <dep>0.4455</dep>
+     </entry>
+     <entry>
+       <ind> 400.0</ind>
+       <dep>0.5945</dep>
+     </entry>
+     <entry>
+       <ind> 500.0</ind>
+       <dep>0.7425</dep>
+     </entry>
+     <entry>
+       <ind> 600.0</ind>
+       <dep>0.8890</dep>
+     </entry-->
+   </interpolation>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ 
+ 
+  <animation>
+   <type>translate</type>
+   <object-name>VLSribbon</object-name>
+   <property>/instrumentation/airspeed-indicator/vls-pos-norm</property>
+   <factor>-0.086</factor>
+   <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ 
+ 
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit1</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>0</value>
+     </equals>
+   </condition>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   <factor>0.00001</factor>
+   <step>10000.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit2</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>0</value>
+     </equals>
+   </condition>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   <factor>0.0001</factor>
+   <step>1000.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit3</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>0</value>
+     </equals>
+   </condition>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   <factor>0.001</factor>
+   <step>100.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit4</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>0</value>
+     </equals>
+   </condition>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   <factor>0.01</factor>
+   <step>10.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit5</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>0</value>
+     </equals>
+   </condition>
+   <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   <factor>0.1</factor>
+   <step>1.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation> 
+ <!--  metric -->
+  <!-- animation>
+   <type>textranslate</type>
+   <object-name>alt_digit1</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>1</value>
+     </equals>
+   </condition>
+   <property>position/altitude-m</property>
+   <factor>0.00001</factor>
+   <step>10000.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit2</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>1</value>
+     </equals>
+   </condition>
+   <property>position/altitude-m</property>
+   <factor>0.0001</factor>
+   <step>1000.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit3</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>1</value>
+     </equals>
+   </condition>
+   <property>position/altitude-m</property>
+   <factor>0.001</factor>
+   <step>100.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit4</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>1</value>
+     </equals>
+   </condition>
+   <property>position/altitude-m</property>
+   <factor>0.01</factor>
+   <step>10.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>alt_digit5</object-name>
+   <condition>
+     <equals>
+       <property>instrumentation/efis[0]/metric</property>
+       <value>1</value>
+     </equals>
+   </condition>
+   <property>position/altitude-m</property>
+   <factor>0.1</factor>
+   <step>1.0</step>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation -->
+ 
+ 
+ 	<animation>
+   		<type>texmultiple</type>
+   		<object-name>horizon</object-name>
+   		<transform>
+     			<property>/orientation/pitch-deg</property>
+     			<subtype>textranslate</subtype>
+     			<factor>0.0046875</factor>
+     			<axis>
+       				<x>0</x>
+       				<y>1</y>
+       				<z>0</z>
+     			</axis>
+   		</transform>
+   		<transform>
+     			<property>/orientation/roll-deg</property>
+     			<subtype>texrotate</subtype>
+     			<center>
+       				<x>0.25</x>
+       				<y>0.50</y>
+    			</center>
+     			<axis>
+       				<x>0</x>
+       				<y>0</y>
+       				<z>-1</z>
+     			</axis>
+   		</transform>
+ 	</animation>
+
+ <!-- animation>
+   <type>translate</type>
+   <object-name>VSIneedle</object-name>
+   <property>/autopilot/internal/vert-speed-fpm</property>
+   <interpolation>
+     <entry>
+       <ind>-6000.0</ind>
+       <dep>-0.037</dep>
+     </entry>
+     <entry>
+       <ind>0.0</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+       <ind>6000.0</ind>
+       <dep>0.037</dep>
+     </entry>
+   </interpolation>
+   <axis>
+     <x>0.0</x>
+     <y>0.0</y>
+     <z>1.0</z>
+   </axis>
+   <center>
+     <x-m>0.00</x-m>
+     <y-m>0.084</y-m>
+     <z-m>0.004</z-m>
+   </center>
+ </animation -->
+
+ <animation>
+   <type>rotate</type>
+   <object-name>VSIneedle</object-name>
+   <!-- property>/autopilot/internal/vert-speed-fpm</property -->
+   <property>/instrumentation/vertical-speed-indicator/indicated-speed-fpm</property>
+   <!-- property>/instrumentation/afs/test-indicated-speed-fpm</property -->
+   <interpolation>
+     <entry>
+       <ind>-6000.0</ind>
+       <dep>-15.0</dep>
+     </entry>
+     <entry>
+       <ind>-2000.0</ind>
+       <dep>-12.0</dep>
+     </entry>
+     <entry>
+       <ind>-1000.0</ind>
+       <dep>-6.8</dep>
+     </entry>
+     <entry>
+       <ind>-500.0</ind>
+       <dep>-4</dep>
+     </entry>
+     <entry>
+       <ind>0.0</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+       <ind>500.0</ind>
+       <dep>4</dep>
+     </entry>
+     <entry>
+       <ind>1000.0</ind>
+       <dep>6.8</dep>
+     </entry>
+     <entry>
+       <ind>2000.0</ind>
+       <dep>12.0</dep>
+     </entry>
+     <entry>
+       <ind>6000.0</ind>
+       <dep>15.0</dep>
+     </entry>
+   </interpolation>
+   <center>
+ <x-m>-0.130200</x-m>
+ <y-m>0.003450</y-m>
+ <z-m>-0.155100</z-m>
+</center>
+
+<axis>
+ <x>0.000000</x>
+ <y>-1.000000</y>
+ <z>0.000000</z>
+</axis>
+
+   <!-- axis>
+     <x>-1.0</x>
+     <y>0.0</y>
+     <z>0.0</z>
+   </axis>
+   <center>
+     <x-m>0.00</x-m>
+     <y-m>0.084</y-m>
+     <z-m>0.004</z-m>
+   </center -->
+ </animation>
+ 
+ 
+ <text>
+   <name>ias.kt</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.065</x-m>
+    <y-m>0.010</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type type="string">number-value</type>
+    <property type="string">/velocities/airspeed-kt</property>
+    <format>%0.0f</format>
+    <!-- truncate type="bool">true</truncate -->
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.008</character-size>
+    <alignment>left-bottom</alignment>
+ </text>
+ 
+  <text>
+   <name>ias.mach</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.065</x-m>
+    <y-m>0.010</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type type="string">number-value</type>
+    <property type="string">/instrumentation/airspeed-indicator/indicated-mach</property>
+    <format>%1.2f</format>
+    <!-- truncate type="bool">true</truncate -->
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.008</character-size>
+    <alignment>left-bottom</alignment>
+ </text>
+ 
+ <animation>
+   <type>select</type>
+   <object-name>ias.kt</object-name>
+   <condition>
+      <and>
+        <equals>
+           <property>/instrumentation/afs/changeover-mode</property>
+           <value>0</value>
+        </equals>
+        <greater-than>
+           <property>/velocities/airspeed-kt</property>
+           <value>10</value>
+        </greater-than>
+        <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+        </greater-than>
+      </and>
+   </condition>
+ </animation>
+ 
+  <animation>
+   <type>select</type>
+   <object-name>ias.mach</object-name>
+   <condition>
+      <and>
+        <equals>
+           <property>/instrumentation/afs/changeover-mode</property>
+           <value>1</value>
+        </equals>
+        <greater-than>
+           <property>/velocities/airspeed-kt</property>
+           <value>10</value>
+        </greater-than>
+        <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+      </and>
+   </condition>
+ </animation>
+
+<!-- LNAV annun -->
+
+<text>
+  <name>APlnav.hdg</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>HDG</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+ <animation>
+   <type>select</type>
+     <object-name>APlnav.hdg</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav</property>
+           <value>1</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+<text>
+  <name>APlnav.track</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>TRK</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+<animation>
+   <type>select</type>
+     <object-name>APlnav.track</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav</property>
+           <value>2</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+      </and>
+      </condition>
+ </animation>
+ 
+ 
+ <text>
+  <name>APlnav.loc</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>LOC</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APlnav.loc</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav</property>
+           <value>3</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+      </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APlnav.nav</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>NAV</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+ 
+  <animation>
+   <type>select</type>
+     <object-name>APlnav.nav</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav</property>
+           <value>4</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+      </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APlnav.rwy</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>RWY</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+ 
+  <animation>
+   <type>select</type>
+     <object-name>APlnav.rwy</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav</property>
+           <value>5</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+ 
+  <text>
+  <name>APlnav.loc.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>LOC</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APlnav.loc.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav-arm</property>
+           <value>3</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+      </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APlnav.nav.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.096</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>NAV</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+ 
+  <animation>
+   <type>select</type>
+     <object-name>APlnav.nav.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/lnav-arm</property>
+           <value>4</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+
+ 
+ <!-- SPD annun -->
+ <text>
+  <name>APspd.toga</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR TOGA</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+ 
+  <animation>
+   <type>select</type>
+     <object-name>APspd.toga</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+           <value>1</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+
+ <text>
+  <name>APspd.flex</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type type="string">number-value</type>
+  <property type="string">/instrumentation/flightdirector/flex-temp</property>
+  <format>FLEX %2.0f</format>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+ 
+  <animation>
+   <type>select</type>
+     <object-name>APspd.flex</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+           <value>2</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+
+
+<text>
+  <name>APspd.thrclb</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR CLB</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.thrclb</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+           <value>3</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APspd.speed</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>SPEED</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.speed</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+           <value>4</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+ <text>
+  <name>APspd.mach</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>MACH</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+ <animation>
+   <type>select</type>
+     <object-name>APspd.mach</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+           <value>5</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+<text>
+  <name>APspd.crz</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>MACH</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.crz</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+           <value>6</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+<text>
+  <name>APspd.thridl</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR IDL</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.thridl</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+	   <value>8</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+<text>
+  <name>APspd.thrdes</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR DES</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.thrdes</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd</property>
+	   <value>7</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+<text>
+  <name>APspd.thrlvr</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.177</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR LVR</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+   <animation>
+   <type>select</type>
+     <object-name>APspd.thrlvr</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>/instrumentation/flightdirector/spd-arm</property>
+	   <value>3</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+<text>
+  <name>APspd.thrdes.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR DES</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.thrdes.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd-arm</property>
+	   <value>7</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+<text>
+  <name>APspd.crz.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>SPEED</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.crz.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd-arm</property>
+           <value>6</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+<text>
+  <name>APspd.thridl.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>THR IDL</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.thridl.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/spd-arm</property>
+	   <value>8</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+
+ <!-- VNAV annun -->
+ 
+ <text>
+  <name>APvnav.alt</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>ALT</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+ <text>
+  <name>APvnav.altcrz</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0661</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>ALT CRZ</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.alt</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>1</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+   <animation>
+   <type>select</type>
+     <object-name>APvnav.altcrz</object-name>
+       <condition>
+       <and>
+	 <equals>
+	   <property>instrumentation/flightdirector/vnav</property>
+           <value>7</value>
+	 </equals>
+	 <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APvnav.vs</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>V/S</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+ 
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.vs</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>2</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+  <text>
+  <name>APvnav.opclb</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>OP CLB</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.0065</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.opclb</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>3</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+  <text>
+  <name>APvnav.fpa</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>FPA</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.fpa</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>4</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APvnav.opdes</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>OP DES</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.0065</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.opdes</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>5</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APvnav.clb</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>CLB</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.clb</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>6</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+
+ 
+ <text>
+  <name>APvnav.des</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>DES</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.des</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>8</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ 
+ <text>
+  <name>APvnav.gs</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>G/S</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.gs</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>9</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APvnav.srs</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>SRS</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.srs</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav</property>
+           <value>10</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+  <text>
+  <name>APvnav.clb.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>CLB</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.clb.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav-arm</property>
+           <value>6</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+
+  <text>
+  <name>APvnav.des.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>DES</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.des.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav-arm</property>
+           <value>8</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APvnav.alt.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>ALT</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+ <text>
+  <name>APvnav.altcrz.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>ALT CRZ</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.0065</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.alt.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav-arm</property>
+           <value>1</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+   <animation>
+   <type>select</type>
+     <object-name>APvnav.altcrz.arm</object-name>
+       <condition>
+       <and>
+	 <equals>
+	   <property>instrumentation/flightdirector/vnav-arm</property>
+           <value>7</value>
+	 </equals>
+	 <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation> 
+ 
+  <text>
+  <name>APvnav.gs.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.0665</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>G/S</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APvnav.gs.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/vnav-arm</property>
+           <value>9</value>
+         </equals>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+  <text>
+  <name>AP.rwycat</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.122</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>text-value</type>
+  <property>instrumentation/afs/rwy-cat</property>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>AP.rwycat</object-name>
+       <condition>
+       <and>
+         <equals>
+           <property>instrumentation/flightdirector/autopilot-on</property>
+           <value>1</value>
+         </equals>
+         <or>
+           <equals>
+             <property>instrumentation/flightdirector/lnav</property>
+             <value>3</value>
+           </equals>
+	   <!-- equals>
+             <property>instrumentation/flightdirector/vnav</property>
+             <value>5</value>
+           </equals>
+	   <equals>
+             <property>instrumentation/flightdirector/vnav</property>
+             <value>6</value>
+           </equals -->
+           <equals>
+             <property>instrumentation/flightdirector/lnav-arm</property>
+             <value>3</value>
+           </equals>
+         </or>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+   <name>AP.autopilot1</name>
+   <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.149</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>AP1</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+ </text>
+ <text>
+   <name>AP.autopilot2</name>
+   <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.149</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>AP2</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+ </text>
+ <text>
+   <name>AP.autopilot12</name>
+   <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.196</x-m>
+    <y-m>0.149</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>AP1+2</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+ </text>
+ <text>
+   <name>AP.autothrust</name>
+   <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.149</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>A/THR</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+ </text>
+ 
+ <animation>
+   <type>select</type>
+   <object-name>AP.autopilot1</object-name>
+   <condition>
+     <and>
+       <equals>
+         <property>controls/autoflight/autopilot[0]/engage</property>
+         <value>1</value>
+       </equals>
+       <equals>
+         <property>controls/autoflight/autopilot[1]/engage</property>
+         <value>0</value>
+       </equals>
+     </and>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>AP.autopilot2</object-name>
+   <condition>
+     <and>
+       <equals>
+         <property>controls/autoflight/autopilot[0]/engage</property>
+         <value>0</value>
+       </equals>
+       <equals>
+         <property>controls/autoflight/autopilot[1]/engage</property>
+         <value>1</value>
+       </equals>
+     </and>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>AP.autopilot12</object-name>
+   <condition>
+     <and>
+       <equals>
+         <property>controls/autoflight/autopilot[0]/engage</property>
+         <value>1</value>
+       </equals>
+       <equals>
+         <property>controls/autoflight/autopilot[1]/engage</property>
+         <value>1</value>
+       </equals>
+     </and>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>AP.autothrust</object-name>
+   <condition>
+     <property>instrumentation/flightdirector/at-on</property>
+   </condition>
+ </animation>
+ 
+<text>
+  <name>APspd.brklo.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>BRK LO</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.brklo.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+	   <property>controls/gear/autobrakes</property>
+           <value>1</value>
+         </equals>
+	 <equal>
+	   <property>autopilot/autobrake/engaged</property>
+	   <value>0</value>
+	 </equal>
+	 <equal>
+	   <property>autopilot/autobrake/selected</property>
+	   <value>1</value>
+	 </equal>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APspd.brkmed.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>BRK MED</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.brkmed.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+	   <property>controls/gear/autobrakes</property>
+           <value>2</value>
+         </equals>
+	 <equal>
+	   <property>autopilot/autobrake/engaged</property>
+	   <value>0</value>
+	 </equal>
+	 <equal>
+	   <property>autopilot/autobrake/selected</property>
+	   <value>1</value>
+	 </equal>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+ <text>
+  <name>APspd.brkhi.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>BRK HI</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.brkhi.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+	   <property>controls/gear/autobrakes</property>
+           <value>3</value>
+         </equals>
+	 <equal>
+	   <property>autopilot/autobrake/engaged</property>
+	   <value>0</value>
+	 </equal>
+	 <equal>
+	   <property>autopilot/autobrake/selected</property>
+	   <value>1</value>
+	 </equal>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+  <text>
+  <name>APspd.brkmax.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>BRK MAX</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.brkmax.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+	   <property>controls/gear/autobrakes</property>
+           <value>4</value>
+         </equals>
+	 <equal>
+	   <property>autopilot/autobrake/engaged</property>
+	   <value>0</value>
+	 </equal>
+	 <equal>
+	   <property>autopilot/autobrake/selected</property>
+	   <value>1</value>
+	 </equal>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+<text>
+  <name>APspd.brkrto.arm</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.189</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>BRK RTO</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.007</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+
+  <animation>
+   <type>select</type>
+     <object-name>APspd.brkrto.arm</object-name>
+       <condition>
+       <and>
+         <equals>
+	   <property>autopilot/autobrake/rto-selected</property>
+	   <value>1</value>
+         </equals>
+	 <equal>
+	   <property>autopilot/autobrake/engaged</property>
+	   <value>0</value>
+	 </equal>
+         <greater-than>
+           <property>systems/electrical/outputs/efis</property>
+           <value>15</value>
+         </greater-than>
+       </and>
+      </condition>
+ </animation>
+ 
+  <animation>
+   <type>select</type>
+   <object-name>spd-grp-up</object-name>
+   <condition>
+      <and>
+        <greater-than>
+           <property>/autopilot/internal/speed-trend-norm</property>
+           <value>0.015</value>
+        </greater-than>
+        <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+      </and>
+   </condition>
+ </animation>
+  <animation>
+   <type>textranslate</type>
+   <object-name>spd-trend-up</object-name>
+   <property>/autopilot/internal/speed-trend-norm</property>
+   <factor>0.21</factor>
+   <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ 
+
+ 
+ <animation>
+   <type>select</type>
+   <object-name>spd-grp-down</object-name>
+   <condition>
+      <and>
+        <less-than>
+           <property>/autopilot/internal/speed-trend-norm</property>
+           <value>-0.015</value>
+        </less-than>
+        <greater-than>
+         <property>systems/electrical/outputs/efis</property>
+         <value>15</value>
+       </greater-than>
+      </and>
+   </condition>
+ </animation>
+ <animation>
+   <type>textranslate</type>
+   <object-name>spd-trend-down</object-name>
+   <property>/autopilot/internal/speed-trend-norm</property>
+   <factor>0.21</factor>
+   <axis>
+     <x>0</x>
+     <y>-1</y>
+     <z>0</z>
+   </axis>
+ </animation>
+ 
+ 
+  <text>
+  <name>aice.eng</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.05</x-m>
+    <y-m>0.026</y-m>
+    <z-m>0.005</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>ENG A.ICE</text>
+  <font>helvetica_bold.txf</font>
+  <character-size type="double">0.0065</character-size>
+  <alignment>center-bottom</alignment> 
+</text>
+<animation>
+   <type>select</type>
+   <object-name>aice.eng</object-name>
+   <condition>
+     <or>
+       <equals>
+         <property>/controls/anti-ice/engine[0]/inlet-heat</property>
+         <value>1</value>
+       </equals>
+       <equals>
+         <property>/controls/anti-ice/engine[1]/inlet-heat</property>
+         <value>1</value>
+       </equals>
+       <equals>
+         <property>/controls/anti-ice/engine[2]/inlet-heat</property>
+         <value>1</value>
+       </equals>
+       <equals>
+         <property>/controls/anti-ice/engine[4]/inlet-heat</property>
+         <value>1</value>
+       </equals>
+    </or>
+   </condition>
+ </animation>
+
+ 
+ 
+
+<animation>
+   <type>material</type>
+   <object-name>APlnav.hdg</object-name>
+   <object-name>APlnav.track</object-name>
+   <object-name>APlnav.loc</object-name>
+   <object-name>APlnav.nav</object-name>
+   <object-name>APlnav.rwy</object-name>
+   <object-name>APspd.toga</object-name>
+   <object-name>APspd.flex</object-name>
+   <object-name>APspd.thrclb</object-name>
+   <object-name>APspd.speed</object-name>
+   <object-name>APspd.mach</object-name>
+   <object-name>APspd.crz</object-name>
+   <object-name>APvnav.altcrz</object-name>
+   <object-name>APspd.thridl</object-name>
+   <object-name>APspd.thrdes</object-name>
+   <object-name>APvnav.alt</object-name>
+   <object-name>APvnav.vs</object-name>
+   <object-name>APvnav.opclb</object-name>
+   <object-name>APvnav.fpa</object-name>
+   <object-name>APvnav.opdes</object-name>
+   <object-name>APvnav.clb</object-name>
+   <object-name>APvnav.des</object-name>
+   <object-name>APvnav.gs</object-name>
+   <object-name>APvnav.srs</object-name>
+   <object-name>ias.kt</object-name>
+   <object-name>ias.mach</object-name>
+   <object-name>aice.eng</object-name>
+   <emission>
+     <red>0.2</red>
+     <green>0.6</green>
+     <blue>0.2</blue>
+   </emission>
+   <ambient>
+      <red>0.2</red>
+      <green>0.6</green>
+      <blue>0.2</blue>
+   </ambient>
+   <diffuse>
+      <red>0.2</red>
+      <green>0.6</green>
+      <blue>0.2</blue>
+   </diffuse>
+   <shininess>128.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+</animation>
+
+
+<animation>
+   <type>material</type>>
+   <object-name>APlnav.loc.arm</object-name>
+   <object-name>APlnav.nav.arm</object-name>
+   <!-- object-name>APlnav.rwy.arm</object-name -->
+   <object-name>APspd.crz.arm</object-name>
+   <object-name>APspd.thridl.arm</object-name>
+   <object-name>APspd.thrdes.arm</object-name>
+   <object-name>APvnav.altcrz.arm</object-name>
+   <object-name>APvnav.alt.arm</object-name>
+   <object-name>APvnav.clb.arm</object-name>
+   <object-name>APvnav.des.arm</object-name>
+   <object-name>APvnav.gs.arm</object-name>
+   <object-name>APspd.brklo.arm</object-name>
+   <object-name>APspd.brkmed.arm</object-name>
+   <object-name>APspd.brkhi.arm</object-name>
+   <object-name>APspd.brkmax.arm</object-name>
+   <object-name>APspd.brkrto.arm</object-name>
+   <emission>
+     <red>0.12</red>
+     <green>0.63</green>
+     <blue>0.94</blue>
+   </emission>
+   <ambient>
+      <red>0.12</red>
+      <green>0.63</green>
+      <blue>0.94</blue>
+   </ambient>
+   <diffuse>
+      <red>0.12</red>
+      <green>0.63</green>
+      <blue>0.94</blue>
+   </diffuse>
+   <shininess>128.0</shininess>
+   <transparency><alpha>0.7</alpha></transparency>
+</animation>
+
+
+<animation>
+   <type>material</type>
+   <object-name>APspd.thrlvr</object-name>
+   <object-name>AP.rwycat</object-name>
+   <object-name>AP.autopilot1</object-name>
+   <object-name>AP.autopilot2</object-name>
+   <object-name>AP.autopilot12</object-name>
+   <object-name>AP.autothrust</object-name>
+   <emission>
+     <red>0.6</red>
+     <green>0.6</green>
+     <blue>0.6</blue>
+   </emission>
+   <ambient>
+      <red>0.6</red>
+      <green>0.6</green>
+      <blue>0.6</blue>
+   </ambient>
+   <diffuse>
+      <red>0.6</red>
+      <green>0.6</green>
+      <blue>0.6</blue>
+   </diffuse>
+   <shininess>128.0</shininess>
+   <transparency><alpha>0.7</alpha></transparency>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>ALTribbon</object-name>
+  <object-name>ASIribbon</object-name>
+  <object-name>alt_grp</object-name>
+  <object-name>horizon</object-name>
+  <object-name>PFD_Mask</object-name>
+  <object-name>VS_scale</object-name>
+  <condition>
+    <greater-than>
+      <property>systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+  </condition>
+</animation>
+
+</PropertyList> 

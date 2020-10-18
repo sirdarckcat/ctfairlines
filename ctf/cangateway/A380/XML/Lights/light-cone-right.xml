@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  	<path>../../Models/Lights/light-cone.ac</path>
+	<texture-path>Aircraft/A380/Textures/Common/</texture-path>
+
+  	<effect>
+            <inherits-from>Effects/light-cone</inherits-from>
+    		<object-name>Cone</object-name>
+ 	</effect>
+
+
+  
+ </PropertyList>

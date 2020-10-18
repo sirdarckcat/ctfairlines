@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/FrontPanel/panel-light.ac</path> 
+
+
+<animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>panelSrc</name>
+   <object-name>panel-light</object-name>
+   <nopreview/>
+   <position>
+     <x>-0.2487</x>
+     <y>0.0052</y>
+     <z>0.1861</z>
+   </position>
+   <direction>
+     <x>0</x>
+     <y>0</y>
+     <z>-1</z>
+   </direction>
+   <ambient>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </ambient>
+    <diffuse>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </diffuse>
+    <specular>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </specular>
+   <attenuation>
+      <c>  0.5 </c>
+      <l>  0.01 </l>
+      <q>  0.0002 </q>
+    </attenuation>
+    <exponent>  2.0 </exponent>
+    <cutoff>   80.0   </cutoff>
+    <near-m>    0.0   </near-m>
+    <far-m>     0.4 </far-m>
+ </animation>
+ 
+ <!-- attenuation>
+      <c>  1.2 </c>
+      <l>  0.0 </l>
+      <q>  0.4 </q>
+    </attenuation>
+    <exponent>  0.1 </exponent>
+    <cutoff>   84.0   </cutoff>
+    <near-m>    0.0   </near-m>
+    <far-m>     1.5 </far-m -->
+ 
+ <animation>
+    <type>select</type>
+    <object-name>panelSrc</object-name>
+    <condition>
+      <property>controls/switches/panel-lights</property>
+    </condition>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>panel-light</object-name>
+    <condition>
+        <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </animation>
+
+</PropertyList>

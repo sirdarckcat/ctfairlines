@@ -1,0 +1,74 @@
+<?xml version="1.0"?> 
+
+<PropertyList>
+	<path>../../Models/Wings/cowling.ac</path>
+	<texture-path>Aircraft/A380/Textures/Livery/House/</texture-path>
+
+	<!-- MP Livery Update -->
+	<nasal> 
+	<load> var livery_update = aircraft.livery_update.new("Aircraft/A380/XML/Liveries"); </load> 
+	<unload> 
+		livery_update.stop(); 
+	</unload> 
+	</nasal> 
+
+	<animation> 
+		<type>material</type> 
+		<object-name>fancowl</object-name> 
+		<object-name>cowl1</object-name> 
+		<object-name>cowl2</object-name>
+		<object-name>cowl3</object-name>
+		<object-name>cowl4</object-name>
+		<property-base>sim/model/cowling</property-base> 
+		<texture-prop>texture</texture-prop> 
+		<texture>cowling.png</texture> 
+	</animation> 
+
+
+	
+	<model>
+		<path>Aircraft/A380/XML/Wings/cascade.xml</path>
+	</model>
+
+	<animation>
+		<type>translate</type>
+		<object-name>cowl3</object-name>
+		<property>engines/engine[2]/reverser-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0.0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.65</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>translate</type>
+		<object-name>cowl4</object-name>
+		<property>engines/engine[2]/reverser-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0.0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.65</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+</PropertyList>

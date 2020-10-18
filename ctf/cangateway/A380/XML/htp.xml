@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../Models/htp.3ds</path> 
+
+<!-- Elevator Animation -->
+
+ <animation>
+  <type>rotate</type>
+  <object-name>elev1</object-name>
+  <property>controls/flight/elevator</property>
+  <factor>20</factor>
+  <offset-deg>0</offset-deg>   
+  <center>
+   <x-m>11.74</x-m>
+   <y-m>-9.46</y-m>
+   <z-m>1.39</z-m>
+  </center>
+  <axis>
+   <x>-1.9</x>
+   <y>4</y>
+   <z>-0.5</z>
+  </axis>
+ </animation>
+ 
+<animation>
+  <type>rotate</type>
+  <object-name>elev2</object-name>
+  <property>controls/flight/elevator</property>
+  <factor>20</factor>
+  <offset-deg>0</offset-deg>   
+  <center>
+   <x-m>8.87</x-m>
+   <y-m>-3.48</y-m>
+   <z-m>0.65</z-m>
+  </center>
+  <axis>
+   <x>-1.9</x>
+   <y>4</y>
+   <z>-0.5</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>elev3</object-name>
+  <property>controls/flight/elevator</property>
+  <factor>20</factor>
+  <offset-deg>0</offset-deg>   
+  <center>
+   <x-m>8.87</x-m>
+   <y-m>3.48</y-m>
+   <z-m>0.65</z-m>
+  </center>
+  <axis>
+   <x>1.9</x>
+   <y>4</y>
+   <z>0.5</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>elev4</object-name>
+  <property>controls/flight/elevator</property>
+  <factor>20</factor>
+  <offset-deg>0</offset-deg>   
+  <center>
+   <x-m>11.74</x-m>
+   <y-m>9.46</y-m>
+   <z-m>1.39</z-m>
+  </center>
+  <axis>
+   <x>1.9</x>
+   <y>4</y>
+   <z>0.5</z>
+  </axis>
+ </animation>
+
+<!-- End of Elevator Animation -->
+
+</PropertyList>

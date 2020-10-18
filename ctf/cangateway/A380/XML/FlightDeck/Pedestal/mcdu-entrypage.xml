@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>ap text</name>
+    <w-base>450</w-base>
+    <h-base>450</h-base>
+
+    <layers>
+    
+    <!-- FROM label and field -->
+    <layer>
+      <name>label.depart</name>
+      <type>text</type>
+      <font>arial_black</font>
+      <point-size>10</point-size>
+      <color>
+            <red>0.7</red>
+            <green>0.7</green>
+            <blue>0.7</blue>
+      </color>
+      <chunks>
+         <chunk>
+	    <type>literal</type>
+            <text>FROM</text>
+	 </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	      <type>x-shift</type>
+              <offset>20</offset>
+          </transformation>
+          <transformation>
+                <type>y-shift</type>
+                <offset>200</offset>
+	 </transformation>
+      </transformations>
+    </layer>	 
+    
+    
+      <layer>
+        <condition>
+            <equals>
+                <property>/instrumentation/mcdu/field-select</property>
+		<value>1</value>
+            </equals>
+        </condition>
+      <name>bkgnd.depart</name>
+      <texture>
+        <path>Aircraft/A380/Textures/Common/trans-dgrey-bg.png</path>
+      </texture>
+      <w>50</w>
+      <h>12</h>
+      <transformations>
+        <transformation>
+          <type>x-shift</type>
+          <offset>90</offset>
+        </transformation>
+        <transformation>
+          <type>y-shift</type>
+          <offset>204</offset>
+        </transformation>
+      </transformations>
+    </layer>
+   
+     <layer>
+      <name>field.depart</name>
+      <type>text</type>
+      <font>arial_black</font>
+      <point-size>10</point-size>
+      <color>
+            <red>0.1</red>
+            <green>0.2</green>
+            <blue>0.6</blue>
+      </color>
+      <chunks>
+	 <chunk>
+	        <type>text-value</type>
+                <property>/instrumentation/afs/depart-airport</property>
+	 </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	      <type>x-shift</type>
+              <offset>80</offset>
+          </transformation>
+          <transformation>
+                <type>y-shift</type>
+                <offset>200</offset>
+	 </transformation>
+      </transformations>
+    </layer>
+
+    <!-- TO label and field -->
+    <layer>
+      <name>label.arrive</name>
+      <type>text</type>
+      <font>arial_black</font>
+      <point-size>10</point-size>
+      <color>
+            <red>0.7</red>
+            <green>0.7</green>
+            <blue>0.7</blue>
+      </color>
+      <chunks>
+         <chunk>
+	    <type>literal</type>
+            <text>TO</text>
+	 </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	      <type>x-shift</type>
+              <offset>120</offset>
+          </transformation>
+          <transformation>
+                <type>y-shift</type>
+                <offset>200</offset>
+	 </transformation>
+      </transformations>
+    </layer>
+
+
+
+    <layer>
+        <condition>
+            <equals>
+                <property>/instrumentation/mcdu/field-select</property>
+		<value>2</value>
+            </equals>
+        </condition>
+      <name>bkgnd.arrive</name>
+      <texture>
+        <path>Aircraft/A380/Textures/Common/trans-dgrey-bg.png</path>
+      </texture>
+      <w>40</w>
+      <h>10</h>
+      <transformations>
+        <transformation>
+          <type>x-shift</type>
+          <offset>170</offset>
+        </transformation>
+        <transformation>
+          <type>y-shift</type>
+          <offset>204</offset>
+        </transformation>
+      </transformations>
+    </layer>
+
+    <layer>
+      <name>field.arrive</name>
+      <type>text</type>
+      <font>arial_black</font>
+      <point-size>10</point-size>
+      <color>
+            <red>0.1</red>
+            <green>0.2</green>
+            <blue>0.6</blue>
+      </color>
+      <chunks>
+	 <chunk>
+	        <type>text-value</type>
+                <property>/instrumentation/afs/arrive-airport</property>
+	 </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	      <type>x-shift</type>
+              <offset>160</offset>
+          </transformation>
+          <transformation>
+                <type>y-shift</type>
+                <offset>200</offset>
+	 </transformation>
+      </transformations>
+    </layer>
+
+
+    
+  </layers>
+</PropertyList>

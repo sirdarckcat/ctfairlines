@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  	<path>../../Models/Lights/light-cone02.ac</path>
+	
+	
+<animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>LightCone</name>
+   <object-name>cone</object-name>
+   <nopreview/>
+   <position>
+     <x>0.00</x>
+     <y>0.00</y>
+     <z>0.00</z>
+   </position>
+   <direction>
+     <x>-1.0</x>
+     <y>0.0</y>
+     <z>0.00</z>
+   </direction>
+   <ambient>
+     <r>0.9</r>
+     <g>0.804</g>
+     <b>0.5</b>
+     <a>1.0</a>
+   </ambient>
+   <diffuse>
+     <r>0.9</r>
+     <g>0.9</g>
+     <b>0.8</b>
+     <a>1.0</a>
+   </diffuse>
+   <specular>
+     <r>0.7</r>
+     <g>0.7</g>
+     <b>0.7</b>
+     <a>1.0</a>
+   </specular>
+   <attenuation>
+     <c>0.1</c>
+     <l>0.001</l>
+     <q>0.0009</q>
+   </attenuation>
+   <exponent>500.0</exponent>
+   <cutoff>20</cutoff>
+   <near-m>0</near-m>
+   <far-m>90</far-m>
+ </animation>
+ 
+ <animation>
+    <type>select</type>
+    <object-name>cone</object-name>
+    <condition>
+        <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </animation>
+
+  
+ </PropertyList>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Connection>
+  <FGC_FG>
+    <Txt>CAN Gateway</Txt>
+    <IP>127.0.0.1</IP>
+    <RecvPort>8000</RecvPort>
+    <Protocol>/fgcl/conf/playback.xml</Protocol>
+  </FGC_FG>
+  <CanAerospace>
+    <Item>
+      <Txt>CAN Aerospace</Txt>
+      <IP>default</IP>
+    </Item>
+  </CanAerospace>
+</Connection>

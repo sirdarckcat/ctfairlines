@@ -1,0 +1,25 @@
+<?xml version="1.0"?> 
+
+<PropertyList>
+	<path>../Models/high.3ds</path>
+	<texture-path>../Textures</texture-path>
+
+	<animation>
+		<type>spin</type>
+		<object-name>FanFront</object-name>
+		<object-name>FanBack</object-name>
+		<object-name>cone</object-name>
+		<property>engines/engine[2]/n1</property>
+		<factor>30</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+</PropertyList>

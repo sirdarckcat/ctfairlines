@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+
+<!-- 
+
+    The ECAM page select buttons panel
+    
+    
+    Author: S. Hamilton - Aug 2009
+
+
+
+-->
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/ecam.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Instruments</texture-path>
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam eng btn</object-name>
+  <action>                               
+    <button>0</button>                   
+    <binding>                            
+      <command>property-assign</command> 
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>                          
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam apu btn</object-name>
+  <action>                               
+    <button>0</button>                   
+    <binding>                            
+      <command>property-assign</command> 
+      <property>/instrumentation/ecam/page</property>
+      <value>apu</value>                             
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam bleed btn</object-name>
+  <action>                                 
+    <button>0</button>                     
+    <binding>                              
+      <command>property-assign</command>   
+      <property>/instrumentation/ecam/page</property>
+      <value>bleed</value>                           
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam cond btn</object-name>
+  <action>                                
+    <button>0</button>                    
+    <binding>                             
+      <command>property-assign</command>  
+      <property>/instrumentation/ecam/page</property>
+      <value>conditioning</value>                    
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam press btn</object-name>
+  <action>                                 
+    <button>0</button>                     
+    <binding>                              
+      <command>property-assign</command>   
+      <property>/instrumentation/ecam/page</property>
+      <value>pressure</value>                        
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam door btn</object-name>
+  <action>                                
+    <button>0</button>                    
+    <binding>                             
+      <command>property-assign</command>  
+      <property>/instrumentation/ecam/page</property>
+      <value>door</value>                            
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam elec ac btn</object-name>
+  <action>                                   
+    <button>0</button>                       
+    <binding>                                
+      <command>property-assign</command>     
+      <property>/instrumentation/ecam/page</property>
+      <value>elec ac</value>                         
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam elec dc btn</object-name>
+  <action>                                   
+    <button>0</button>                       
+    <binding>                                
+      <command>property-assign</command>     
+      <property>/instrumentation/ecam/page</property>
+      <value>elec dc</value>                         
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam video btn</object-name>
+  <action>                                 
+    <button>0</button>                     
+    <binding>                              
+      <command>property-assign</command>   
+      <property>/instrumentation/ecam/page</property>
+      <value>video</value>                           
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam fuel btn</object-name>
+  <action>                                
+    <button>0</button>                    
+    <binding>                             
+      <command>property-assign</command>  
+      <property>/instrumentation/ecam/page</property>
+      <value>fuel</value>                            
+    </binding>                                       
+  </action>                                          
+</animation>                                         
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam wheel btn</object-name>
+  <action>                                 
+    <button>0</button>                     
+    <binding>                              
+      <command>property-assign</command>
+      <property>/instrumentation/ecam/page</property>
+      <value>wheel</value>
+    </binding>
+  </action>
+</animation>
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam hyd btn</object-name>
+  <action>
+    <button>0</button>
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/ecam/page</property>
+      <value>hydraulic</value>
+    </binding>
+  </action>
+</animation>
+
+
+<animation>
+  <type>pick</type>
+  <object-name>ecam f/ctl btn</object-name>
+  <action>
+    <button>0</button>
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/ecam/page</property>
+      <value>flight control</value>
+    </binding>
+  </action>
+</animation>
+
+</PropertyList> 
+ 

@@ -1,0 +1,905 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
+MATERIAL "8 - Default.001" rgb 0.25098 0.313726 0.376471 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 32 trans 0
+MATERIAL "3 - Default.001" rgb 0.588235 0.588235 0.588235 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 32 trans 0
+MATERIAL "1 - Default.001" rgb 0.12549 0.188235 0.188235 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 32 trans 0
+MATERIAL "7 - Default.001" rgb 0.188235 0.188235 0.25098 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 32 trans 0
+MATERIAL "2 - Default.001" rgb 0 0 0 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 32 trans 0
+OBJECT world
+kids 12
+OBJECT poly
+name "Box01_8 - Default.001"
+data 21
+Box01_8 - Default.001
+crease 30.000000
+numvert 8
+0 0 0
+0 0 -0.3
+-0.005 0 0
+-0.005 0 -0.3
+0.015 -0.25 0
+0.015 -0.25 -0.3
+-0.005 -0.25 0
+-0.005 -0.25 -0.3
+numsurf 10
+SURF 0x20
+mat 1
+refs 3
+2 0 0
+0 0 0
+3 0 0
+SURF 0x20
+mat 1
+refs 3
+3 0 0
+0 0 0
+1 0 0
+SURF 0x20
+mat 1
+refs 3
+5 0 0
+4 0 0
+7 0 0
+SURF 0x20
+mat 1
+refs 3
+6 0 0
+7 0 0
+4 0 0
+SURF 0x20
+mat 1
+refs 3
+1 0 0
+0 0 0
+5 0 0
+SURF 0x20
+mat 1
+refs 3
+5 0 0
+0 0 0
+4 0 0
+SURF 0x20
+mat 1
+refs 3
+3 0 0
+1 0 0
+7 0 0
+SURF 0x20
+mat 1
+refs 3
+5 0 0
+7 0 0
+1 0 0
+SURF 0x20
+mat 1
+refs 3
+0 0 0
+2 0 0
+4 0 0
+SURF 0x20
+mat 1
+refs 3
+6 0 0
+4 0 0
+2 0 0
+kids 0
+OBJECT poly
+name "CHRONO01_3 - Defa"
+data 17
+CHRONO01_3 - Defa
+crease 30.000000
+numvert 8
+-0.06375 0.001 -0.28625
+-0.068168 0.001 -0.284418
+-0.07 0.001 -0.28
+-0.068168 0.001 -0.275582
+-0.06375 0.001 -0.27375
+-0.059332 0.001 -0.275582
+-0.0575 0.001 -0.28
+-0.059332 0.001 -0.284418
+numsurf 6
+SURF 0x20
+mat 2
+refs 3
+5 0 0
+6 0 0
+7 0 0
+SURF 0x20
+mat 2
+refs 3
+4 0 0
+5 0 0
+7 0 0
+SURF 0x20
+mat 2
+refs 3
+3 0 0
+4 0 0
+7 0 0
+SURF 0x20
+mat 2
+refs 3
+2 0 0
+3 0 0
+7 0 0
+SURF 0x20
+mat 2
+refs 3
+1 0 0
+2 0 0
+7 0 0
+SURF 0x20
+mat 2
+refs 3
+0 0 0
+1 0 0
+7 0 0
+kids 0
+OBJECT poly
+name "MAST_CAUT_1 - Def"
+data 17
+MAST_CAUT_1 - Def
+crease 30.000000
+numvert 4
+-0.069934 -0.0025 -0.254934
+-0.069934 -0.0025 -0.235066
+-0.050066 -0.0025 -0.235066
+-0.050066 -0.0025 -0.254934
+numsurf 2
+SURF 0x20
+mat 3
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 3
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "MAST_WARN_1 - Def"
+data 17
+MAST_WARN_1 - Def
+crease 30.000000
+numvert 4
+-0.039934 -0.0025 -0.254934
+-0.039934 -0.0025 -0.235066
+-0.020066 -0.0025 -0.235066
+-0.020066 -0.0025 -0.254934
+numsurf 2
+SURF 0x20
+mat 3
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 3
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "Object01_1 - Defa"
+data 17
+Object01_1 - Defa
+crease 30.000000
+numvert 14
+-0.005 0 -0.300002
+-0.101495 0 -0.300002
+-0.101495 -0.12 -0.300002
+-0.005 -0.12 -0.300002
+-0.005 0 0
+-0.053111 0 -1e-006
+-0.053111 -0.12 -1e-006
+-0.005 -0.12 0
+-0.005 0 0
+-0.005 0 -0.300002
+-0.10419 0 -0.29999
+-0.08012 0 -0.228928
+-0.05339 0 -0.187744
+-0.053111 0 -1e-006
+numsurf 8
+SURF 0x20
+mat 3
+refs 3
+2 0 0
+0 0 0
+3 0 0
+SURF 0x20
+mat 3
+refs 3
+1 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 3
+refs 3
+6 0 0
+7 0 0
+4 0 0
+SURF 0x20
+mat 3
+refs 3
+5 0 0
+6 0 0
+4 0 0
+SURF 0x20
+mat 3
+refs 3
+9 0 0
+10 0 0
+11 0 0
+SURF 0x20
+mat 3
+refs 3
+13 0 0
+8 0 0
+9 0 0
+SURF 0x20
+mat 3
+refs 3
+12 0 0
+13 0 0
+9 0 0
+SURF 0x20
+mat 3
+refs 3
+12 0 0
+9 0 0
+11 0 0
+kids 0
+OBJECT poly
+name "Object02_7 - Defa"
+data 17
+Object02_7 - Defa
+crease 30.000000
+numvert 32
+-0.04839 0 -0.0025
+-0.098388 0 -0.297626
+-0.098388 0.0675 -0.297615
+-0.062227 0.067526 -0.190859
+-0.04839 0.067526 -0.169539
+-0.05089 0.0675 -3e-006
+-0.06839 0 -0.187768
+-0.06589 0 -2.1e-005
+-0.09512 0 -0.228952
+-0.11669 0 -0.300015
+-0.115702 0.07 -0.297502
+-0.079115 0.07 -0.189485
+-0.06839 0.067526 -0.169562
+-0.06589 0.0675 -2.1e-005
+-0.04839 0 -0.187744
+-0.07512 0 -0.228928
+-0.05089 0 -3e-006
+-0.10169 0 -0.299997
+-0.10169 0.0675 -0.299986
+-0.100983 0.07 -0.297484
+-0.064396 0.07 -0.189467
+-0.05089 0.07 -0.168875
+-0.04839 0.0675 -0.0025
+-0.05089 0.07 -0.002503
+-0.06839 0 -0.002524
+-0.118388 0 -0.29765
+-0.11669 0.0675 -0.300003
+-0.118388 0.0675 -0.297639
+-0.082227 0.067526 -0.190882
+-0.06589 0.07 -0.168893
+-0.06589 0.07 -0.002521
+-0.06839 0.0675 -0.002524
+numsurf 60
+SURF 0x20
+mat 4
+refs 3
+27 0 0
+8 0 0
+28 0 0
+SURF 0x20
+mat 4
+refs 3
+27 0 0
+25 0 0
+8 0 0
+SURF 0x20
+mat 4
+refs 3
+6 0 0
+28 0 0
+8 0 0
+SURF 0x20
+mat 4
+refs 3
+12 0 0
+28 0 0
+6 0 0
+SURF 0x20
+mat 4
+refs 3
+24 0 0
+12 0 0
+6 0 0
+SURF 0x20
+mat 4
+refs 3
+24 0 0
+31 0 0
+12 0 0
+SURF 0x20
+mat 4
+refs 3
+19 0 0
+11 0 0
+20 0 0
+SURF 0x20
+mat 4
+refs 3
+11 0 0
+19 0 0
+10 0 0
+SURF 0x20
+mat 4
+refs 3
+17 0 0
+26 0 0
+18 0 0
+SURF 0x20
+mat 4
+refs 3
+26 0 0
+17 0 0
+9 0 0
+SURF 0x20
+mat 4
+refs 3
+20 0 0
+29 0 0
+21 0 0
+SURF 0x20
+mat 4
+refs 3
+29 0 0
+20 0 0
+11 0 0
+SURF 0x20
+mat 4
+refs 3
+21 0 0
+30 0 0
+23 0 0
+SURF 0x20
+mat 4
+refs 3
+30 0 0
+21 0 0
+29 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+7 0 0
+16 0 0
+SURF 0x20
+mat 4
+refs 3
+7 0 0
+5 0 0
+13 0 0
+SURF 0x20
+mat 4
+refs 3
+3 0 0
+15 0 0
+2 0 0
+SURF 0x20
+mat 4
+refs 3
+15 0 0
+1 0 0
+2 0 0
+SURF 0x20
+mat 4
+refs 3
+15 0 0
+3 0 0
+14 0 0
+SURF 0x20
+mat 4
+refs 3
+14 0 0
+3 0 0
+4 0 0
+SURF 0x20
+mat 4
+refs 3
+4 0 0
+0 0 0
+14 0 0
+SURF 0x20
+mat 4
+refs 3
+22 0 0
+0 0 0
+4 0 0
+SURF 0x20
+mat 4
+refs 3
+15 0 0
+9 0 0
+1 0 0
+SURF 0x20
+mat 4
+refs 3
+25 0 0
+15 0 0
+8 0 0
+SURF 0x20
+mat 4
+refs 3
+14 0 0
+8 0 0
+15 0 0
+SURF 0x20
+mat 4
+refs 3
+8 0 0
+14 0 0
+6 0 0
+SURF 0x20
+mat 4
+refs 3
+0 0 0
+6 0 0
+14 0 0
+SURF 0x20
+mat 4
+refs 3
+6 0 0
+16 0 0
+24 0 0
+SURF 0x20
+mat 4
+refs 3
+2 0 0
+18 0 0
+19 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+22 0 0
+23 0 0
+SURF 0x20
+mat 4
+refs 3
+10 0 0
+26 0 0
+27 0 0
+SURF 0x20
+mat 4
+refs 3
+13 0 0
+30 0 0
+31 0 0
+SURF 0x20
+mat 4
+refs 3
+1 0 0
+9 0 0
+17 0 0
+SURF 0x20
+mat 4
+refs 3
+24 0 0
+16 0 0
+7 0 0
+SURF 0x20
+mat 4
+refs 3
+10 0 0
+27 0 0
+11 0 0
+SURF 0x20
+mat 4
+refs 3
+28 0 0
+11 0 0
+27 0 0
+SURF 0x20
+mat 4
+refs 3
+9 0 0
+25 0 0
+26 0 0
+SURF 0x20
+mat 4
+refs 3
+27 0 0
+26 0 0
+25 0 0
+SURF 0x20
+mat 4
+refs 3
+11 0 0
+28 0 0
+29 0 0
+SURF 0x20
+mat 4
+refs 3
+12 0 0
+29 0 0
+28 0 0
+SURF 0x20
+mat 4
+refs 3
+24 0 0
+7 0 0
+31 0 0
+SURF 0x20
+mat 4
+refs 3
+13 0 0
+31 0 0
+7 0 0
+SURF 0x20
+mat 4
+refs 3
+29 0 0
+12 0 0
+30 0 0
+SURF 0x20
+mat 4
+refs 3
+31 0 0
+30 0 0
+12 0 0
+SURF 0x20
+mat 4
+refs 3
+2 0 0
+19 0 0
+3 0 0
+SURF 0x20
+mat 4
+refs 3
+20 0 0
+3 0 0
+19 0 0
+SURF 0x20
+mat 4
+refs 3
+19 0 0
+18 0 0
+10 0 0
+SURF 0x20
+mat 4
+refs 3
+26 0 0
+10 0 0
+18 0 0
+SURF 0x20
+mat 4
+refs 3
+1 0 0
+17 0 0
+2 0 0
+SURF 0x20
+mat 4
+refs 3
+18 0 0
+2 0 0
+17 0 0
+SURF 0x20
+mat 4
+refs 3
+3 0 0
+20 0 0
+4 0 0
+SURF 0x20
+mat 4
+refs 3
+21 0 0
+4 0 0
+20 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+23 0 0
+13 0 0
+SURF 0x20
+mat 4
+refs 3
+30 0 0
+13 0 0
+23 0 0
+SURF 0x20
+mat 4
+refs 3
+4 0 0
+21 0 0
+22 0 0
+SURF 0x20
+mat 4
+refs 3
+23 0 0
+22 0 0
+21 0 0
+SURF 0x20
+mat 4
+refs 3
+16 0 0
+0 0 0
+5 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+0 0 0
+22 0 0
+SURF 0x20
+mat 4
+refs 3
+15 0 0
+25 0 0
+9 0 0
+SURF 0x20
+mat 4
+refs 3
+6 0 0
+0 0 0
+16 0 0
+kids 0
+OBJECT poly
+name "Object03_7 - Defa"
+data 17
+Object03_7 - Defa
+crease 30.000000
+numvert 14
+-0.053111 -0.180997 -1e-006
+-0.053111 -0.41638 -0.300001
+-0.053111 0 -1e-006
+-0.103911 -0.126064 -0.300001
+-0.10419 0 -0.299995
+-0.063111 -0.180998 -1.2e-005
+-0.063111 -0.416381 -0.300012
+-0.06339 -1e-006 -0.187755
+-0.063111 -1e-006 -1.2e-005
+-0.113911 -0.126065 -0.300012
+-0.09012 -1e-006 -0.228939
+-0.11419 -1e-006 -0.300005
+-0.05339 0 -0.187744
+-0.08012 0 -0.228928
+numsurf 18
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+7 0 0
+6 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+8 0 0
+7 0 0
+SURF 0x20
+mat 4
+refs 3
+7 0 0
+9 0 0
+6 0 0
+SURF 0x20
+mat 4
+refs 3
+7 0 0
+10 0 0
+9 0 0
+SURF 0x20
+mat 4
+refs 3
+10 0 0
+11 0 0
+9 0 0
+SURF 0x20
+mat 4
+refs 3
+0 0 0
+6 0 0
+1 0 0
+SURF 0x20
+mat 4
+refs 3
+6 0 0
+0 0 0
+5 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 4
+refs 3
+5 0 0
+2 0 0
+8 0 0
+SURF 0x20
+mat 4
+refs 3
+1 0 0
+9 0 0
+3 0 0
+SURF 0x20
+mat 4
+refs 3
+9 0 0
+1 0 0
+6 0 0
+SURF 0x20
+mat 4
+refs 3
+3 0 0
+11 0 0
+4 0 0
+SURF 0x20
+mat 4
+refs 3
+11 0 0
+3 0 0
+9 0 0
+SURF 0x20
+mat 4
+refs 3
+12 0 0
+0 0 0
+1 0 0
+SURF 0x20
+mat 4
+refs 3
+2 0 0
+0 0 0
+12 0 0
+SURF 0x20
+mat 4
+refs 3
+1 0 0
+3 0 0
+12 0 0
+SURF 0x20
+mat 4
+refs 3
+3 0 0
+13 0 0
+12 0 0
+SURF 0x20
+mat 4
+refs 3
+3 0 0
+4 0 0
+13 0 0
+kids 0
+OBJECT poly
+name "Rectangle0_2 - De"
+data 17
+Rectangle0_2 - De
+crease 30.000000
+numvert 4
+-0.04 0.001 -0.29
+-0.04 0.001 -0.27
+-0.02 0.001 -0.27
+-0.02 0.001 -0.29
+numsurf 2
+SURF 0x20
+mat 5
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 5
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "Rectangle1_2 - De"
+data 17
+Rectangle1_2 - De
+crease 30.000000
+numvert 4
+-0.04 0.001 -0.255
+-0.04 0.001 -0.235
+-0.02 0.001 -0.235
+-0.02 0.001 -0.255
+numsurf 2
+SURF 0x20
+mat 5
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 5
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "Rectangle2_2 - De"
+data 17
+Rectangle2_2 - De
+crease 30.000000
+numvert 4
+-0.07 0.001 -0.255
+-0.07 0.001 -0.235
+-0.05 0.001 -0.235
+-0.05 0.001 -0.255
+numsurf 2
+SURF 0x20
+mat 5
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 5
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "Rectangle3_2 - De"
+data 17
+Rectangle3_2 - De
+crease 30.000000
+numvert 4
+-0.04 0.001 -0.035
+-0.04 0.001 -0.015
+-0.02 0.001 -0.015
+-0.02 0.001 -0.035
+numsurf 2
+SURF 0x20
+mat 5
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 5
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0
+OBJECT poly
+name "SSP_1 - Default.001"
+data 19
+SSP_1 - Default.001
+crease 30.000000
+numvert 4
+-0.039934 -0.0025 -0.289934
+-0.039934 -0.0025 -0.270066
+-0.020066 -0.0025 -0.270066
+-0.020066 -0.0025 -0.289934
+numsurf 2
+SURF 0x20
+mat 3
+refs 3
+3 0 0
+0 0 0
+2 0 0
+SURF 0x20
+mat 3
+refs 3
+2 0 0
+0 0 0
+1 0 0
+kids 0

@@ -1,0 +1,15 @@
+<?xml version="1.0"?> 
+
+<PropertyList> 
+	<sim> 
+		<model> 
+			<livery> 
+				<name type="string">Qantas Airways</name> 
+				<texture>../QFA/A380.rgb</texture> 
+			</livery> 
+			<cowling>
+				<texture>../QFA/cowling.png</texture>
+			</cowling>
+		</model> 
+	</sim> 
+</PropertyList> 

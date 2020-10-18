@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/placeholders.3ds</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+
+ <!--  left hand RMP display -->
+ 
+  <model>
+    <name>rmp.left</name>
+    <path>Aircraft/A380/XML/FlightDeck/Pedestal/rmp.xml</path>
+    <offsets>
+      <x-m>0.0</x-m>
+      <y-m>-0.002</y-m>
+      <z-m>0.0</z-m>
+    </offsets>
+  </model>
+     
+  <!--  right hand RMP display -->
+
+  <model>
+    <name>rmp.right</name>
+    <path>Aircraft/A380/XML/FlightDeck/Pedestal/rmp.xml</path>
+    <offsets>
+      <x-m>0.0</x-m>
+      <y-m>0.3633</y-m>
+      <z-m>0.0</z-m>
+    </offsets>
+  </model>
+  
+</PropertyList> 
+ 

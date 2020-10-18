@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../Models/FlightDeck/flightdeck.ac</path> 
+	<texture-path>../../Textures/Common</texture-path>
+
+<!-- Load the front panel -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/FrontPanel/frontpanel.xml</path>
+		<offsets>
+			<!--
+			<x-m>0.83691</x-m>
+			<z-m>0.63578</z-m>
+			-->
+			<x-m>0.83864</x-m>
+			<z-m>0.62594</z-m>
+			<pitch-deg>80.0</pitch-deg>
+		</offsets>
+	</model>
+
+	<!-- Load the overhead panel -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/overhead.xml</path>
+		<offsets>
+			<!--<x-m>1.09059</x-m>
+			<z-m>1.29219</z-m>-->
+			<x-m>1.12329</x-m>
+			<z-m>1.31467</z-m>
+			<pitch-deg>161.367</pitch-deg>
+		</offsets>
+	</model>
+
+	<!-- Load the pedestal -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/pedestal.xml</path>
+		<offsets>
+			<x-m>0.83691</x-m>
+			<z-m>0.5</z-m>
+		</offsets>
+	</model>
+	
+	
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/cockpit-light.xml</path>
+		<offsets>
+			<!--
+			<x-m>0.83691</x-m>
+			<z-m>0.63578</z-m>
+			-->
+			<x-m>1.1</x-m>
+			<z-m>1.3</z-m>
+			<y-m>0.51</y-m>
+			<pitch-deg>0.0</pitch-deg>
+		</offsets>
+	</model>
+	
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/cockpit-light.xml</path>
+		<offsets>
+			<!--
+			<x-m>0.83691</x-m>
+			<z-m>0.63578</z-m>
+			-->
+			<x-m>1.1</x-m>
+			<z-m>1.3</z-m>
+			<y-m>-0.5</y-m>
+			<pitch-deg>350.0</pitch-deg>
+		</offsets>
+	</model>
+
+ <!-- animation>
+        <type>material</type>
+        <object-name>Object03</object-name>
+        <emission>
+            <red>0.31</red>
+            <green>0.47</green>
+            <blue>0.47</blue>
+            <factor-prop>controls/lighting/panel-norm[1]</factor-prop>	
+        </emission>
+    </animation -->
+
+</PropertyList> 

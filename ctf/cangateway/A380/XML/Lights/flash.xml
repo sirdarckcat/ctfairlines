@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>../../Models/Lights/flash.ac</path>
+  <texture-path>Aircraft/A380/Textures/Common/</texture-path>
+
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>Light</object-name>
+  </animation>
+
+  <animation>
+    <type>alpha-test</type>
+    <alpha-factor>0.01</alpha-factor>
+  </animation>
+
+  <animation>
+    <type>billboard</type>
+    <object-name>Light</object-name>
+    <spherical type="bool">true</spherical>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>Light</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>/sim/model/A380/lighting/strobe/state</property>
+          <value>1</value>
+        </equals>
+        <greater-than>
+          <property>/controls/switches/strobe</property>
+          <value>0</value>
+        </greater-than>
+        <greater-than>
+          <property>/systems/electrical/outputs/strobe-lights</property>
+          <value>90</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+
+  <!-- animation>
+    <type>select</type>
+    <object-name>Light</object-name>
+    <condition>
+      <property>/controls/switches/nav-lights</property>
+    </condition>
+  </animation -->
+
+  <animation>
+    <type>dist-scale</type>
+    <object-name>Light</object-name>
+    <interpolation>
+      <entry>
+        <ind>0</ind>
+        <dep>1</dep>
+      </entry>
+      <entry>
+        <ind>20</ind>
+        <dep>2</dep>
+      </entry>
+      <entry>
+        <ind>1500</ind>
+        <dep>2</dep>
+      </entry>
+    </interpolation>
+  </animation>
+
+</PropertyList>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+<name>TAT Panel</name>
+<background>Aircraft/A380/Models/FlightDeck/transparent-red.png</background>
+<w>400</w>
+<h>80</h>
+
+<instruments>
+
+    <instrument include="ecam_temp-page.xml">
+        <name>temp page</name>
+        <x>00</x>
+        <y>00</y>
+        <w>400</w>
+        <h>80</h>
+    </instrument>
+
+ </instruments>
+
+</PropertyList>

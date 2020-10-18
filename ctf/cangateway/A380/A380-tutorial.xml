@@ -1,0 +1,1132 @@
+<PropertyList>
+  <tutorial>
+    <name>Pre-flight</name>
+    <description>
+This tutorial will start off at Sydney Intl (YSSY), we will first adjust the fuel and weight (use the Menu) to achieve the correct balance, then we will start the APU, enter our flight plan, start the engines, adjust the flaps and release the parking park. At that point you are ready to move to the next tutorial where we will start the take off roll through to reaching cruise level.
+
+NOTE: Ensure you unpacked the YSSY.xml and YMML.xml Level-D FMS files in the FMS/ folder, the README.txt file in that folder lists the latest websites to download the FMS files for free or for a fee.
+
+
+Before starting the tutorial, take some time to read over this introduction to the cockpit and make sure you understand where each display or panel is.
+
+P E D E S T A L
+The thrust levers can be used to directly control the thrust applied to the running engines, there is also 4 detents (use SHIFT + Page Up/Down) that will enable the Auto Thrust. Directly below the thrust levers are the engine master switches, pushing the switches down (away from thrust levers) will cut off the engines.
+Below the engine master switches are fourteen buttons to change the current ECAM page in the System Display. To the right (First Officers side) is the Flaps lever, there are four positions. To the left is the speedbrake and parking brake.
+
+M A I N   I N S T R U M E N T   P A N E L
+Directly above the thrust levers is the System Display (SD). It is divided into the ECAM pages in the top half, and the permanent data area across the middle.  
+The ECAM should be displaying the DOORS page, it will automatically change to the appropriate page when needed, for example the ENGINES page will display once you start the engines.  The permanent data area of the System Display has three columns and shows temperature, current UTC time, Gross Weight in kilograms, Centre of Gravity as a percentage and total Fuel On Board (FOB) in kilograms.
+
+To the left and right of the System Display are two Multi Function Displays (MFD), these are used to enter your Flight Plan and set various performance characteristics. 
+Use the keyboard directly below the MFD to change data in the MFD after clicking in the input box on the MFD screen, you can not use your computer keyboard.
+
+
+Above the System Display is the Engine/Warning Display (E/WD), this has the four; engine thrust gauges, N1 and Exhaust Gas Temperature gauges in the top half, there is a message box in the bottom half of the E/WD.
+
+In front of the Capt and First Officer is a Navigation Display (ND) and a Primary Flight Display (PFD). The Navigation Display is the inner display and the PFD is the outer display. You control what is displayed on the Navigation Display from the EFIS on the glareshield.
+
+G L A R E S H I E L D
+On the glareshield, in the middle is the Auto Flight System Control Panel (AFS CP) used to set the flight guidance values for (from left to right); Speed (SPD), Heading (HDG), Alitutde (ALT) and Vertical Speed (V/S). Use your centre mouse scrollwheel scrolling up or down to change the values. If no value is displayed then that flight guidance parameter is in "managed" mode, if it is showing a value then that flight guidance parameter is in "selected" mode. In selected mode the Auto Flight System will attain and hold the value that you set. In "managed" mode, the Auto Flight System will be directed by the Flight Management Computer which takes into account, the phase of flight the aircraft is in and the flight plan as entered on the MFD and the performance characteristics as entered on the MFD.
+
+When one of the flight guidance parameters is in "managed" mode, you can use the mouse scrollwheel to change the selected value without it effecting the current "managed" mode, once you change to "selected" mode for that parameter, the Auto Flight System will change to the selected value. 
+
+To the left and right of the AFS CP, there is a Captain and First Officer Electronic Flight Instrument System (EFIS), this has a dial for the current altitude (either in inHg or kPa) and controls the display of information on the Navigation Display (ND) and Primary Flight Display (PFD).
+    </description>
+    <audio-dir>Aircraft/A380/tutorial</audio-dir>
+    <timeofday>afternoon</timeofday>
+    <presets>
+      <airport-id>YSSY</airport-id>
+      <on-ground>1</on-ground>
+      <runway>34L</runway>
+      <altitude-ft>-9999</altitude-ft>
+      <latitude-deg>-9999</latitude-deg>
+      <longitude-deg>-9999</longitude-deg>
+      <heading-deg>0</heading-deg>
+      <airspeed-kt>0</airspeed-kt>
+      <glideslope-deg>0</glideslope-deg>
+      <offset-azimuth>0</offset-azimuth>
+      <offset-distance>0</offset-distance>
+    </presets>
+
+    <init>
+      <set>
+        <property>/instrumentation/afs/FROM</property>
+	<value>YSSY</value>
+      </set>
+      <set>
+        <property>/controls/gear/brake-parking</property>
+        <value>1</value>
+      </set>
+      <set>
+        <property>/controls/flight/flaps</property>
+        <value>0.0</value>
+      </set>
+      <set>
+        <property>/controls/engines/engine/throttle</property>
+        <value>0.0</value>
+      </set>
+      <set>
+        <property>/instrumentation/adf/frequencies/selected-khz</property>
+        <value>340</value>
+      </set>
+      <set>
+        <property>/environment/weather-scenario</property>
+        <value>Fair weather</value>
+      </set>
+      <set>
+        <property>/sim/sound/enabled</property>
+	<value>1</value>
+      </set>
+      <set>
+        <property>/controls/flight/elevator-trim</property>
+        <value>0.0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[0]/level-gal_us</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[0]/level-lbs</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[3]/level-gal_us</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[3]/level-lbs</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[4]/level-gal_us</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[4]/level-lbs</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[5]/level-gal_us</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[5]/level-lbs</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[10]/level-gal_us</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/consumables/fuel/tank[10]/level-lbs</property>
+	<value>0</value>
+      </set>
+      <set>
+        <property>/sim/current-view/heading-offset-deg</property>
+	<value>324</value>
+      </set>
+      <set>
+        <property>/sim/current-view/field-of-view</property>
+	<value>36</value>
+      </set>
+      <set>
+        <property>/sim/current-view/pitch-offset-deg</property>
+	<value>-36</value>
+      </set>
+    </init>
+
+    <step>
+      <message>Set fuel to around 94100 kg and payload less than 480 500kg with 33% CG on the System Display</message>
+      <error>
+       <message>Under the Equipment Menu is the Fuel and Payload dialog</message>
+       <condition>
+         <and>
+	   <equals>
+	     <property>/consumables/fuel/tank[0]/level-lbs</property>
+	     <value>0</value>
+	   </equals>
+	   <equals>
+	     <property>/consumables/fuel/tank[3]/level-lbs</property>
+	     <value>0</value>
+	   </equals>
+	   <equals>
+	     <property>/consumables/fuel/tank[4]/level-lbs</property>
+	     <value>0</value>
+	   </equals>
+	   <equals>
+	     <property>/consumables/fuel/tank[5]/level-lbs</property>
+	     <value>0</value>
+	   </equals>
+	   <equals>
+	     <property>/consumables/fuel/tank[10]/level-lbs</property>
+	     <value>0</value>
+	   </equals>
+	 </and>
+       </condition>
+      </error>
+      <error>
+        <message>Adjust tanks 0 and 3 to around 16700 lbs</message>
+	<condition>
+	<and>
+	  <greater-than>
+	     <property>/consumables/fuel/tank[0]/level-lbs</property>
+	     <value>16780</value>
+	  </greater-than>
+	  <less-than>
+	    <property>/consumables/fuel/tank[0]/level-lbs</property>
+	     <value>15000</value>
+	  </less-than>
+	  <greater-than>
+	     <property>/consumables/fuel/tank[3]/level-lbs</property>
+	     <value>16780</value>
+	  </greater-than>
+	  <less-than>
+	    <property>/consumables/fuel/tank[3]/level-lbs</property>
+	     <value>15000</value>
+	  </less-than>
+	</and>
+	</condition>
+      </error>
+      <error>
+        <message>Adjust tanks 4 and 5 to around 18100 lbs</message>
+	<condition>
+	<and>
+	  <greater-than>
+	     <property>/consumables/fuel/tank[4]/level-lbs</property>
+	     <value>18100</value>
+	  </greater-than>
+	  <less-than>
+	    <property>/consumables/fuel/tank[4]/level-lbs</property>
+	     <value>15000</value>
+	  </less-than>
+	  <greater-than>
+	     <property>/consumables/fuel/tank[5]/level-lbs</property>
+	     <value>18100</value>
+	  </greater-than>
+	  <less-than>
+	    <property>/consumables/fuel/tank[5]/level-lbs</property>
+	     <value>15000</value>
+	  </less-than>
+	</and>
+	</condition>
+      </error>
+      <error>
+        <message>Adjust tank 10 to around 14770 lbs</message>
+	<condition>
+	<and>
+	  <greater-than>
+	     <property>/consumables/fuel/tank[10]/level-lbs</property>
+	     <value>14770</value>
+	  </greater-than>
+	  <less-than>
+	    <property>/consumables/fuel/tank[10]/level-lbs</property>
+	     <value>5000</value>
+	  </less-than>
+	</and>
+	</condition>
+      </error>
+      <error>
+        <message>Ensure matching tanks are the same value</message>
+	<condition>
+	<or>
+	  <not-equals>
+	    <property>/consumables/fuel/tank[0]/level-gal_us</property>
+	    <property>/consumables/fuel/tank[3]/level-gal_us</property>
+	  </not-equals>
+	  <not-equals>
+	    <property>/consumables/fuel/tank[4]/level-gal_us</property>
+	    <property>/consumables/fuel/tank[5]/level-gal_us</property>
+	  </not-equals>
+	</or>
+	</condition>
+      </error>
+      <error>
+        <message>Adjust tanks and payload to achieve 33% CG on System Display</message>
+	<condition>
+	  <or>
+	    <less-than>
+	      <property>/fdm/jsbsim/inertia/gwcg</property>
+	      <value>28.0</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/inertia/gwcg</property>
+	      <value>34.0</value>
+	    </greater-than>
+	  </or>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <greater-than>
+	      <property>/fdm/jsbsim/inertia/gwcg</property>
+	      <value>29</value>
+	    </greater-than>
+	    <less-than>
+	      <property>/fdm/jsbsim/inertia/gwcg</property>
+	      <value>34</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/inertia/weight-kg</property>
+	      <value>440000</value>
+	    </greater-than>
+	    <less-than>
+	      <property>/fdm/jsbsim/inertia/weight-kg</property>
+	      <value>480900</value>
+	    </less-than>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <view>
+        <heading-offset-deg>310.419</heading-offset-deg>  positive is left
+        <pitch-offset-deg>10.897</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>36</field-of-view>            default: 55; smaller zooms in
+      </view>  
+      <message>Start APU and turn on NAV lights</message>
+      <error>
+        <message>Press the APU MASTER button on the overhead</message>
+        <condition>
+	<equals>
+	  <property>/engines/engine[4]/off-start-run</property>
+	  <value>0</value>
+	</equals>
+	</condition>
+      </error>
+      <error>
+        <message>Watch APU page on System Display</message>
+	<condition>
+	  <equals>
+	    <property>/engines/engine[4]/off-start-run</property>
+	    <value>1</value>
+	  </equals>
+	</condition>
+      </error>
+      <error>
+        <message>Flick NAV light switch next to APU master button</message>
+	<condition>
+	  <and>
+	  <equals>
+	    <property>/controls/switches/nav-lights</property>
+	      <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/engines/engine[4]/off-start-run</property>
+	    <value>2</value>
+	  </equals>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/engines/engine[4]/off-start-run</property>
+	      <value>2</value>
+	    </equals>
+	    <equals>
+	      <property>/controls/switches/nav-lights</property>
+	      <value>1</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <view>
+        <heading-offset-deg>330.467</heading-offset-deg>  positive is left
+        <pitch-offset-deg>-40.321</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>33</field-of-view>            default: 55; smaller zooms in
+      </view>
+      <message>Enter Flight Number, YMML destination and Cruise FL 320 on MFD</message>
+      <error>
+        <message>Click your mouse inside the FLT NBR box on the MFD next to the System Display</message>
+	<condition>
+	  <and>
+	  <equals>
+	    <property>/instrumentation/afs/FLT_NBR</property>
+	  </equals>
+	  <not-equals>
+	    <property>/instrumentation/afs/TO</property>
+	    <value>YMML</value>
+	  </not-equals>
+	  <equals>
+	    <property>/instrumentation/afs/CRZ_FL</property>
+	    <value>300</value>
+	  </equals>
+	  </and>
+	</condition>
+      </error>
+      <error>
+        <message>Click your mouse inside the TO box, then click on the MFD keyboard to enter YMML</message>
+	<condition>
+	  <not-equals>
+	    <property>/instrumentation/afs/TO</property>
+	    <value>YMML</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <error>
+        <message>Click your mouse inside the CRZ FL box, then click on the CLR button several times and enter 320</message>
+	<condition>
+	  <and>
+	  <equals>
+	    <property>/instrumentation/afs/TO</property>
+	    <value>YMML</value>
+	  </equals>
+	  <not-equals>
+	    <property>/instrumentation/afs/CRZ_FL</property>
+	    <value>320</value>
+	  </not-equals>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/instrumentation/afs/TO</property>
+	      <value>YMML</value>
+	    </equals>
+	    <equals>
+	      <property>/instrumentation/afs/CRZ_FL</property>
+	      <value>320</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Click on Departures and select 34L runway, then select KAT1 SID</message>
+      <error>
+        <message>Click on the DEPARTURES button on the MFD and then click on 34L</message>
+	<condition>
+	  <and>
+	    <not-equals>
+	      <property>/instrumentation/mcdu[0]/page</property>
+	      <value>active.departure.dep</value>
+	    </not-equals>
+	    <not-equals>
+	      <property>/instrumentation/afs/dep-rwy</property>
+	      <value>34L</value>
+	    </not-equals>
+	  </and>
+	</condition>
+      </error>
+      <error>
+        <message>Click on SID and select KAT1</message>
+	<condition>
+	  <and>
+	    <not-equals>
+	      <property>/instrumentation/mcdu[0]/page</property>
+	      <value>active.departure.sid</value>
+	    </not-equals>
+	    <equals>
+	      <property>/instrumentation/afs/dep-rwy</property>
+	      <value>34L</value>
+	    </equals>
+	    <not-equals>
+	      <property>/instrumentation/afs/sid</property>
+	      <value>KAT1</value>
+	    </not-equals>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/instrumentation/afs/dep-rwy</property>
+	      <value>34L</value>
+	    </equals>
+	    <equals>
+	      <property>/instrumentation/afs/sid</property>
+	      <value>KAT1</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>In the ARRIVALS page, select runway 16 and ARBEY2 STAR</message>
+      <error>
+        <message>Select ARBEY2 STAR</message>
+	<condition>
+	  <not-equals>
+	    <property>/instrumentation/afs/star</property>
+	    <value>ARBEY2</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/instrumentation/afs/star</property>
+	      <value>ARBEY2</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Change to the 'T.O. Perf' Page</message>
+      <error>
+        <message>Click on ACTIVE first</message>
+	<condition>
+	<and>
+	 <not-equals>
+	  <property>/instrumentation/mcdu[0]/page</property>
+	  <value>active.init</value>
+	  </not-equals>
+	  <not-equals>
+	  <property>/instrumentation/mcdu[0]/page</property>
+	  <value>active.to_perf</value>
+	  </not-equals>
+	  </and>
+	</condition>
+      </error>
+      <error>
+        <message>Click on T.O. Perf at the bottom of the page</message>
+	<condition>
+	  <equals>
+	  <property>/instrumentation/mcdu[0]/page</property>
+	  <value>active.init</value>
+	  </equals>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	<equals>
+	  <property>/instrumentation/mcdu[0]/page</property>
+	  <value>active.to_perf</value>
+	  </equals>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Change THR RED to 900ft</message>
+      <error>
+        <message>Click inside the 'THR RED' box, then click 'CLR' several times</message>
+	<condition>
+	<greater-than>
+	  <property>/instrumentation/afs/thrust-reduce-alt</property>
+	  <value>900</value>
+	  </greater-than>
+	</condition>
+      </error>
+      <exit>
+      <condition>
+	<equals>
+	  <property>/instrumentation/afs/thrust-reduce-alt</property>
+	  <value>900</value>
+	  </equals>
+	</condition>
+      </exit>
+    </step>
+
+    <step>
+      <message>Change Transition Alt to 10 000ft</message>
+      <error>
+        <message>Click inside the 'TRANS' box, then click 'CLR' several times</message>
+	<condition>
+	<and>
+	  <less-than>
+	  <property>/instrumentation/afs/transition-ft</property>
+	  <value>10000</value>
+	  </less-than>
+	  <greater-than>
+	  <property>/instrumentation/afs/transition-ft</property>
+	  <value>800</value>  
+	  </greater-than>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+      <condition>
+	<equals>
+	  <property>/instrumentation/afs/transition-ft</property>
+	  <value>10000</value>
+	  </equals>
+	</condition>
+      </exit>
+    </step>
+
+    <step>
+      <message>Close all doors</message>
+      <error>
+        <message>Press 'd' and 'D' to close cargo doors</message>
+        <condition>
+          <equals>
+	    <property>/instrumentation/doors/forward-cargo/position-norm</property>
+	    <value>1</value>
+	  </equals>
+        </condition>
+      </error>
+      <error>
+        <message>Press '!' to close passenger door</message>
+        <condition>
+          <equals>
+	    <property>/instrumentation/doors/lower-left-pax1/position-norm</property>
+	    <value>1</value>
+	  </equals>
+        </condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/instrumentation/doors/lower-left-pax1/position-norm</property>
+	      <value>0</value>
+	    </equals>
+	    <equals>
+	      <property>/instrumentation/doors/forward-cargo/position-norm</property>
+	      <value>0</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <view>
+        <heading-offset-deg>310.419</heading-offset-deg>  positive is left
+        <pitch-offset-deg>10.897</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>36</field-of-view>            default: 55; smaller zooms in
+      </view> 
+      <message>Turn on strobe, beacon, seat-belts, no-smoking and switch engine master to IGN/START</message>
+      <error>
+        <message>Flick strobe switch once on the overhead</message>
+	<condition>
+	  <equals>
+	    <property>/controls/switches/strobe</property>
+	    <value>0</value>
+	  </equals>
+	</condition>
+      </error>
+      <error>
+        <message>Flick beacon switch once on the overhead</message>
+	<condition>
+	  <not-equals>
+	    <property>/controls/switches/beacon</property>
+	    <value>1</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <error>
+        <message>Flick seat-belt switch once on the overhead</message>
+	<condition>
+	  <not-equals>
+	    <property>/controls/switches/seat-belt</property>
+	    <value>1</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <error>
+        <message>Flick no-smoking switch once on the overhead</message>
+	<condition>
+	  <not-equals>
+	    <property>/controls/switches/smoking</property>
+	    <value>1</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <error>
+        <message>Turn Engine knob to IGN/START on the overhead</message>
+	<condition>
+	  <not-equals>
+	    <property>/controls/engines/ign-start</property>
+	    <value>1</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	  <equals>
+	    <property>/controls/switches/beacon</property>
+	    <value>1</value>
+	  </equals>
+	  <greater-than>
+	    <property>/controls/switches/strobe</property>
+	    <value>0</value>
+	  </greater-than>
+	  <greater-than>
+	    <property>/controls/switches/smoking</property>
+	    <value>0</value>
+	  </greater-than>
+	  <greater-than>
+	    <property>/controls/switches/seat-belt</property>
+	    <value>0</value>
+	  </greater-than>
+	  <equals>
+	    <property>/controls/engines/ign-start</property>
+	    <value>1</value>
+	  </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <view>
+        <heading-offset-deg>317.964</heading-offset-deg>  positive is left
+        <pitch-offset-deg>-39.889</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>41.7</field-of-view>            default: 55; smaller zooms in
+      </view>
+      <message>Start the engines in pairs on the pedestal, starting with the middle pair then outboard pair, waiting for N2 to reach 18%</message>
+      <error>
+        <message>Switch Engine Master for engine 2 and 3</message>
+	<condition>
+	  <and>
+	  <not-equals>
+	    <property>/controls/engines/engine[1]/master</property>
+	    <value>1</value>
+	  </not-equals>
+	  <not-equals>
+	    <property>/controls/engines/engine[2]/master</property>
+	    <value>1</value>
+	  </not-equals>
+	  </and>
+	</condition>
+      </error>
+      <error>
+        <message>Switch Engine Master for engine 1 and 4</message>
+	<condition>
+	 <and>
+	  <not-equals>
+	    <property>/controls/engines/engine[0]/master</property>
+	    <value>1</value>
+	  </not-equals>
+	  <not-equals>
+	     <property>/controls/engines/engine[3]/master</property>
+	    <value>1</value>
+	  </not-equals>
+	  <greater-than>
+	    <property>/engines/engine[1]/n2</property>
+	    <value>18</value>
+	  </greater-than>
+	  <greater-than>
+	    <property>/engines/engine[2]/n2</property>
+	    <value>18</value>
+	  </greater-than>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/engines/engine[0]/running</property>
+	      <value>1</value>
+	    </equals>
+	    <equals>
+	      <property>/engines/engine[1]/running</property>
+	      <value>1</value>
+	    </equals>
+	    <equals>
+	      <property>/engines/engine[2]/running</property>
+	      <value>1</value>
+	    </equals>
+	    <equals>
+	      <property>/engines/engine[3]/running</property>
+	      <value>1</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    
+    <step>
+      <view>
+        <heading-offset-deg>308.910</heading-offset-deg>  positive is left
+        <pitch-offset-deg>13.249</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>41.7</field-of-view>            default: 55; smaller zooms in
+      </view>
+      <message>Turn off APU on overhead and turn on landing lights</message>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/engines/engine[4]/off-start-run</property>
+	      <value>0</value>
+	    </equals>
+	    <equals>
+	      <property>/controls/switches/landing-light</property>
+	      <value>1</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+     <view>
+        <heading-offset-deg>358.70</heading-offset-deg>  positive is left
+        <pitch-offset-deg>-17.205</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>89.80</field-of-view>            default: 55; smaller zooms in
+      </view>
+      <message>Adjust your view towards the runway</message>
+      <exit>
+        <condition>
+	  <or>
+	    <less-than>
+	      <property>/sim/current-view/heading-offset-deg</property>
+	      <value>10.9</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/sim/current-view/heading-offset-deg</property>
+	      <value>350.0</value>
+	    </greater-than>
+	  </or>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Release the parking brakes and set flaps to 2</message>
+      <error>
+        <message>Release the parking brake using Shift B</message>
+        <condition>
+          <equals>
+            <property>/controls/gear/brake-parking</property>
+            <value>1</value>
+          </equals>
+        </condition>
+      </error>
+      <error>
+        <message>Increment flaps with ]</message>
+	<condition>
+	  <less-than>
+	     <property>/controls/flight/flaps</property>
+	     <value>0.5150</value>
+	  </less-than>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+          <and>
+	    <greater-than>
+	      <property>/controls/flight/flaps</property>
+	      <value>0.515</value>
+	    </greater-than>
+	    <equals>
+	      <property>/controls/gear/brake-parking</property>
+	      <value>0</value>
+	    </equals>
+	  </and>
+        </condition>
+      </exit>
+    </step>
+    
+    <end>
+      <message>Congratulations, you've completed the pre-flight startup! You are ready to continue to the Take Off tutorial.</message>
+    </end>
+  </tutorial>
+
+
+  <tutorial>
+    <interval>2</interval>
+    <view>
+        <heading-offset-deg>358.70</heading-offset-deg>  positive is left
+        <pitch-offset-deg>-17.205</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>89.80</field-of-view>            default: 55; smaller zooms in
+      </view>
+    <name>Take-off</name>
+    <description>
+    Welcome to the second FlightGear.org tutorial for the A380. For this tutorial you should have the flaps in the take off configuration, flight plan entered, the engines running and parking brake released. 
+    We are now ready to start the take-off roll, use Maximum Continuous Thrust (FLEX/MCT) this will enable Auto Thrust (A/THR), rotate the aircraft, retract the gears, enable the Auto Pilot (AP) and then adjust the flaps during the climb phase through to reaching our cruise flight level.
+    </description>
+    <step>
+    <view>
+        <heading-offset-deg>358.70</heading-offset-deg>  positive is left
+        <pitch-offset-deg>-17.205</pitch-offset-deg>      positive is up
+        <roll-offset-deg>0</roll-offset-deg>         positive is roll right
+        <x-offset-m>-0.55</x-offset-m>                 positive is move right
+        <y-offset-m>-1.56</y-offset-m>                 positive is move up
+        <z-offset-m>-19.5</z-offset-m>                 positive is move back
+        <field-of-view>89.80</field-of-view>            default: 55; smaller zooms in
+      </view>
+      <message>Push the stick forward so the elevator is up a quarter</message>
+      <error>
+        <message>Move the elevator the other way!</message>
+        <condition>
+	  <less-than>
+	    <property>/controls/flight/elevator</property>
+	    <value>0.0</value>
+	  </less-than>
+	</condition>
+      </error>
+      <error>
+        <message>Move the elevator to about quarter up</message>
+	<condition>
+	  <and>
+	    <less-than>
+	    <property>/controls/flight/elevator</property>
+	    <value>0.18</value>
+	  </less-than>
+	  <greater-than>
+	    <property>/controls/flight/elevator</property>
+	    <value>-0.1</value>
+	  </greater-than>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <greater-than>
+	    <property>/controls/flight/elevator</property>
+	    <value>0.18</value>
+	  </greater-than>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>increase thrust to about a third, so N1 is around 50%</message>
+      <error>
+        <message>Use the Page Up key to increase throttle, so N1 is around 50%</message>
+	<condition>
+	  <and>
+	    <less-than>
+	      <property>/engines/engine[0]/n1</property>
+	      <value>45</value>
+	    </less-than>
+	    <less-than>
+	      <property>/engines/engine[1]/n1</property>
+	      <value>45</value>
+	    </less-than>
+	    <less-than>
+	      <property>/engines/engine[2]/n1</property>
+	      <value>45</value>
+	    </less-than>
+	    <less-than>
+	      <property>/engines/engine[3]/n1</property>
+	      <value>45</value>
+	    </less-than>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <greater-than>
+	      <property>/controls/engines/engine[0]/throttle</property>
+	      <value>0.35</value>
+	    </greater-than>
+	    <greater-than>
+	      <property>/controls/engines/engine[1]/throttle</property>
+	      <value>0.35</value>
+	    </greater-than>
+	    <greater-than>
+	      <property>/controls/engines/engine[2]/throttle</property>
+	      <value>0.35</value>
+	    </greater-than>
+	    <greater-than>
+	      <property>/controls/engines/engine[3]/throttle</property>
+	      <value>0.35</value>
+	    </greater-than>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <interval>1</interval>
+      <message>Stay on the centre-line of the runway using the rudder.</message>
+      <exit>
+        <condition>
+          <greater-than>
+            <property>/velocities/airspeed-kt</property>
+            <value>5.0</value>
+          </greater-than>
+        </condition>
+      </exit>
+    </step>
+    
+    
+    <step>
+      <interval>1</interval>
+      <message>Use SHIFT+Page Up, to set throttle to FLEX (2nd detent)</message>
+      <error>
+        <message>Press SHIFT+Page Up, so throttle is 1/4 from the top</message>
+	<condition>
+	  <less-than>
+	    <property>/instrumentation/flightdirector/athr</property>
+	    <value>2</value>
+	  </less-than>
+	</condition>
+      </error>
+      <error>
+        <message>Press SHIFT+Page Down, to reduce throttle to FLEX detent</message>
+	<condition>
+	  <greater-than>
+	  <property>/instrumentation/flightdirector/athr</property>
+	  <value>2</value>
+	  </greater-than>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	 <equals>
+	  <property>/instrumentation/flightdirector/athr</property>
+	  <value>2</value>
+	 </equals>
+	</condition>
+      </exit>
+    </step>
+
+    <step>
+      <message>Start the rotate at 130 knots and climb straight out on heading 340 at 1800 feet per minute.</message>
+      <exit>
+         <condition>
+          <greater-than>
+            <property>/instrumentation/vertical-speed-indicator/indicated-speed-fpm</property>
+            <value>500</value>
+          </greater-than>
+        </condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Retract gears, this will enable SRS mode</message>
+      <exit>
+        <condition>
+	  <less-than>
+	    <property>/gear/gear[0]/position-norm</property>
+	    <value>1</value>
+	  </less-than>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Enable AP1 and push HDG button for managed mode</message>
+      <error>
+        <message>Push the AP 1 button</message>
+	<condition>
+	  <not-equals>
+	    <property>/instrumentation/flightdirector/autopilot-on</property>
+	    <value>1</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <error>
+        <message>Push the HDG button</message>
+	<condition>
+	  <not-equals>
+	    <property>/instrumentation/flightdirector/lnav</property>
+	    <value>4</value>
+	  </not-equals>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	  <and>
+	    <equals>
+	      <property>/instrumentation/flightdirector/autopilot-on</property>
+	      <value>1</value>
+	    </equals>
+	    <equals>
+	      <property>/instrumentation/flightdirector/lnav</property>
+	      <value>4</value>
+	    </equals>
+	  </and>
+	</condition>
+      </exit>
+    </step>
+
+    <step>
+      <message>THR LVR indicates you need to reduce thrust to CL detent</message>
+      <error>
+        <message>use SHIFT + Page Down to reduce thrust to CL</message>
+	<condition>
+	  <and>
+	    <greater-than>
+	      <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+	      <value>800</value>
+	    </greater-than>
+	    <not-equals>
+	     <property>/instrumentation/flightdirector/athr</property>
+	     <value>1</value>
+	   </not-equals>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <condition>
+	 <equals>
+	   <property>/instrumentation/flightdirector/athr</property>
+	   <value>1</value>
+	 </equals>
+	</condition>
+      </exit>
+    </step>
+    
+    <step>
+      <message>Between 5000ft and 5500ft retract flaps fully</message>
+      <error>
+        <message>Retract flaps to clean configuration</message>
+	<condition>
+	  <and>
+	    <greater-than>
+	      <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+	      <value>4900</value>
+	    </greater-than>
+	    <greater-than>
+	     <property>/controls/flight/flaps</property>
+	     <value>0.0</value>
+	   </greater-than>
+	  </and>
+	</condition>
+      </error>
+      <exit>
+        <greater-than>
+	     <property>/controls/flight/flaps</property>
+	     <value>0.0</value>
+	   </greater-than>
+      </exit>
+    </step>
+
+    <end>
+      <message>You can leave the aircraft in managed mode until ILS interception...</message>
+    </end>
+
+  </tutorial>
+</PropertyList>

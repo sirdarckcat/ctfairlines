@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/pedestal.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+	<offsets>
+		<x-m>0.220</x-m>
+		<y-m>-0.25713</y-m>
+	</offsets>
+	
+	<!-- Multifunctional displays -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/displays.xml</path>
+		<name>MDU</name>
+		<offsets>
+			<x-m>0.019645</x-m>
+			<y-m>0.257622</y-m>
+			<pitch-deg>30.0</pitch-deg>
+		</offsets>
+	</model>
+	
+	 <!--  Left (capt) MCDU keyboard and numpad -->
+	<model>
+	  <path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdu_keyboard_01.xml</path>
+	  <name>keys-left</name>
+	  <offsets>
+	    <x-m>0.06</x-m>
+	    <y-m>0.01</y-m>
+	    <z-m>0.008</z-m>
+	  </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdu_numpad_01.xml</path>
+	  <name>numkeys-left</name>
+	  <offsets>
+	    <x-m>0.105</x-m>
+	    <y-m>0.12</y-m>
+	    <z-m>0.008</z-m>
+	  </offsets>
+	</model>
+
+	<!-- right (f.o.) MCDU keyboard and numpad -->
+	
+	<model>
+	  <path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdu_keyboard_02.xml</path>
+	  <name>keys-left</name>
+	  <offsets>
+	    <x-m>0.06</x-m>
+	    <y-m>0.29</y-m>
+	    <z-m>0.008</z-m>
+	  </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdu_numpad_02.xml</path>
+	  <name>numkeys-left</name>
+	  <offsets>
+	    <x-m>0.105</x-m>
+	    <y-m>0.29</y-m>
+	    <z-m>0.008</z-m>
+	  </offsets>
+	</model>
+
+	<!-- Upper panel -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/eng_master.xml</path>
+		<name>eng_master</name>
+		<offsets>
+			<x-m>0.201873</x-m>
+			<y-m>0.148827</y-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/ecam.xml</path>
+		<name>ecam_ctl</name>
+		<offsets>
+			<x-m>0.284882</x-m>
+			<y-m>0.148827</y-m>
+		</offsets>
+	</model>
+
+	<!-- Lower panel -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/speedbrake.xml</path>
+		<name>speedbrake_ctl</name>
+		<offsets>
+			<x-m>0.423746</x-m>
+			<y-m>0.036839</y-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/flap.xml</path>
+		<name>flap_ctl</name>
+		<offsets>
+			<x-m>0.423746</x-m>
+			<y-m>0.332526</y-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/misc1.xml</path>
+		<name>misc1</name>
+		<offsets>
+			<x-m>0.521317</x-m>
+			<y-m>0.036839</y-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/trim.xml</path>
+		<name>trim_ctl</name>
+		<offsets>
+			<x-m>0.521317</x-m>
+			<y-m>0.184682</y-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/misc2.xml</path>
+		<name>misc2</name>
+		<offsets>
+			<x-m>0.539664</x-m>
+			<y-m>0.332526</y-m>
+		</offsets>
+	</model>
+
+	<!-- Placeholders -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/placeholders.xml</path>
+		<name>placeholders</name>
+		<offsets>
+			<x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+		</offsets>
+	</model>
+
+	<!-- Disable shadows -->
+	<animation>
+	<type>noshadow</type>
+		<object-name>MDU</object-name>
+		
+		<object-name>eng_master</object-name>
+		<object-name>ecam_ctl</object-name>
+		
+		<object-name>speedbrake_ctl</object-name>
+		<object-name>flap_ctl</object-name>
+		<object-name>misc1</object-name>
+		<object-name>trim_ctl</object-name>
+		<object-name>misc2</object-name>
+	</animation>
+</PropertyList> 
+ 

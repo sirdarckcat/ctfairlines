@@ -1,0 +1,798 @@
+<?xml version="1.0"?>
+
+<!--
+    This file describes the A380 electrical configureation to the built-in electrical system
+    
+    
+    Author: S. Hamilton - Jan 2011
+
+-->
+
+<PropertyList>
+
+  <!-- Supplier list -->
+
+  <supplier>
+    <name>APU Battery</name>
+    <prop>/systems/electrical/suppliers/apu-battery/volts</prop>
+    <kind>battery</kind>
+    <volts>28</volts>
+    <amps>20</amps>
+  </supplier>
+
+  <supplier>
+    <name>Battery1</name>
+    <prop>/systems/electrical/suppliers/battery[0]/volts</prop>
+    <kind>battery</kind>
+    <volts>28</volts>
+    <amps>20</amps>
+  </supplier>
+  
+  <supplier>
+    <name>Battery2</name>
+    <prop>/systems/electrical/suppliers/battery[1]/volts</prop>
+    <kind>battery</kind>
+    <volts>28</volts>
+    <amps>20</amps>
+  </supplier>
+
+  <supplier>
+    <name>APU 1</name>
+    <prop>/systems/electrical/suppliers/apu[0]/volts</prop>
+    <kind>alternator</kind>
+    <rpm-source>/engines/engine[4]/n2</rpm-source>
+    <rpm-threshold>30</rpm-threshold>
+    <volts>115</volts>
+    <amps>250</amps>
+  </supplier>
+
+  <supplier>
+    <name>APU 2</name>
+    <prop>/systems/electrical/suppliers/apu[1]/volts</prop>
+    <kind>alternator</kind>
+    <rpm-source>/engines/engine[4]/n2</rpm-source>
+    <rpm-threshold>30</rpm-threshold>
+    <volts>115</volts>
+    <amps>250</amps>
+  </supplier>
+
+  <supplier>
+    <name>Eng 1 IDG</name>
+    <prop>/systems/electrical/suppliers/idg[0]/volts</prop>
+    <kind>alternator</kind>
+    <rpm-source>/engines/engine[0]/n2</rpm-source>
+    <rpm-threshold>30</rpm-threshold>
+    <volts>115</volts>
+    <amps>250</amps>
+  </supplier>
+
+  <supplier>
+    <name>Eng 2 IDG</name>
+    <prop>/systems/electrical/suppliers/idg[1]/volts</prop>
+    <kind>alternator</kind>
+    <rpm-source>/engines/engine[1]/n2</rpm-source>
+    <rpm-threshold>30</rpm-threshold>
+    <volts>115</volts>
+    <amps>250</amps>
+  </supplier>
+
+  <supplier>
+    <name>Eng 3 IDG</name>
+    <prop>/systems/electrical/suppliers/idg[2]/volts</prop>
+    <kind>alternator</kind>
+    <rpm-source>/engines/engine[2]/n2</rpm-source>
+    <rpm-threshold>30</rpm-threshold>
+    <volts>115</volts>
+    <amps>250</amps>
+  </supplier>
+
+  <supplier>
+    <name>Eng 4 IDG</name>
+    <prop>/systems/electrical/suppliers/idg[3]/volts</prop>
+    <kind>alternator</kind>
+    <rpm-source>/engines/engine[3]/n2</rpm-source>
+    <rpm-threshold>30</rpm-threshold>
+    <volts>115</volts>
+    <amps>250</amps>
+  </supplier>
+  
+  <!-- external ground power source -->
+
+  <supplier>
+    <name>External 1</name>
+    <prop>/systems/electrical/suppliers/external[0]/volts</prop>
+    <kind>external</kind>
+    <volts>115</volts> 
+    <amps>90</amps>
+  </supplier>
+  
+  <supplier>
+    <name>External 2</name>
+    <prop>/systems/electrical/suppliers/external[1]/volts</prop>
+    <kind>external</kind>
+    <volts>115</volts> 
+    <amps>90</amps>
+  </supplier>
+  
+  <supplier>
+    <name>External 3</name>
+    <prop>/systems/electrical/suppliers/external[2]/volts</prop>
+    <kind>external</kind>
+    <volts>115</volts> 
+    <amps>90</amps>
+  </supplier>
+  
+  <supplier>
+    <name>External 4</name>
+    <prop>/systems/electrical/suppliers/external[3]/volts</prop>
+    <kind>external</kind>
+    <volts>115</volts> 
+    <amps>90</amps>
+  </supplier>
+  
+  <supplier>
+    <name>tr1a</name>
+    <prop>/systems/electrical/suppliers/tr[0]/volts</prop>
+    <kind>alternator</kind>   <!-- really a transformer rectifier from AC to DC -->
+    <rpm-source>/systems/electrical/bus/ac-bus[1]/volts</rpm-source>
+    <rpm-threshold>100</rpm-threshold>
+    <volts>29</volts>
+    <amps>250</amps>
+  </supplier>
+  
+  <supplier>
+    <name>tr2a</name>
+    <prop>/systems/electrical/suppliers/tr[1]/volts</prop>
+    <kind>alternator</kind>  <!-- really a transformer rectifier from AC to DC -->
+    <rpm-source>/systems/electrical/bus/ac-bus[2]/volts</rpm-source>
+    <rpm-threshold>100</rpm-threshold>
+    <volts>29</volts>
+    <amps>250</amps>
+  </supplier>
+  
+
+
+  <!-- specific outputs -->
+
+  <output>
+    <name>Starter 1 Power</name>
+    <prop>/systems/electrical/outputs/starter[0]</prop>
+    <rated-draw>15</rated-draw>
+  </output>
+
+  <output>
+    <name>Starter 2 Power</name>
+    <prop>/systems/electrical/outputs/starter[1]</prop>
+    <rated-draw>15</rated-draw>
+  </output>
+  
+  <output>
+    <name>Starter 3 Power</name>
+    <prop>/systems/electrical/outputs/starter[2]</prop>
+    <rated-draw>15</rated-draw>
+  </output>
+
+  <output>
+    <name>Starter 4 Power</name>
+    <prop>/systems/electrical/outputs/starter[3]</prop>
+    <rated-draw>15</rated-draw>
+  </output>
+
+  <!-- Bus Bar Outputs -->
+
+  <output>
+    <name>Cabin Lights Power</name>
+    <prop>/systems/electrical/outputs/cabin-lights-first</prop>
+    <prop>/systems/electrical/outputs/cabin-lights-business</prop>
+    <prop>/systems/electrical/outputs/cabin-lights-economy</prop>
+    <prop>/systems/electrical/outputs/toilet-lights</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+  
+  <output>
+    <name>Galley Power</name>
+    <prop>/systems/electrical/outputs/galley-upper</prop>
+    <prop>/systems/electrical/outputs/galley-lower</prop>
+    <rated-draw>15</rated-draw>
+  </output>
+  
+  <output>
+    <name>Pax Ent Sys Power</name>
+    <prop>/systems/electrical/outputs/ife1</prop>
+    <prop>/systems/electrical/outputs/ife2</prop>
+    <prop>/systems/electrical/outputs/ife3</prop>
+    <prop>/systems/electrical/outputs/ife4</prop>
+    <prop>/systems/electrical/outputs/ife5</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+
+  <output>
+    <name>Instrument Power</name>
+    <prop>/systems/electrical/outputs/adf</prop>
+    <prop>/systems/electrical/outputs/dme</prop>
+    <prop>/systems/electrical/outputs/efis</prop>
+    <prop>/systems/electrical/outputs/mk-viii</prop>
+    <rated-draw>4</rated-draw>
+  </output>
+
+  <output>
+    <name>Fuel Pump 1 Power</name>
+    <prop>/systems/electrical/outputs/fuel-pump[0]</prop>
+    <prop>/systems/electrical/outputs/fuel-pump[1]</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+
+  <output>
+    <name>Fuel Pump 2 Power</name>
+    <prop>/systems/electrical/outputs/fuel-pump[2]</prop>
+    <prop>/systems/electrical/outputs/fuel-pump[3]</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+
+  <output>
+    <name>Landing Light Power</name>
+    <prop>/systems/electrical/outputs/landing-lights</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+  
+  <output>
+    <name>Logo Light Power</name>
+    <prop>/systems/electrical/outputs/logo-lights</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+  
+  <output>
+    <name>Wing Light Power</name>
+    <prop>/systems/electrical/outputs/wing-lights</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+
+  <output>
+    <name>Flaps Power</name>
+    <prop>/systems/electrical/outputs/flaps</prop>
+    <rated-draw>8</rated-draw>
+  </output>
+
+  <output>
+    <name>Turn Coordinator Power</name>
+    <prop>/systems/electrical/outputs/turn-coordinator</prop>
+    <rated-draw>5</rated-draw>
+  </output>
+
+  <output>
+    <name>Cockpit Lights Power</name>
+    <prop>/systems/electrical/outputs/map-lights</prop>
+    <prop>/systems/electrical/outputs/instrument-lights</prop>
+    <rated-draw>5</rated-draw>
+  </output>
+
+  <output>
+    <name>Strobe Lights Power</name>
+    <prop>/systems/electrical/outputs/strobe-lights</prop>
+    <rated-draw>5</rated-draw>
+  </output>
+  
+  <output>
+    <name>Beacon Power</name>
+    <prop>/systems/electrical/outputs/beacon</prop>
+    <rated-draw>5</rated-draw>
+  </output>
+
+  <output>
+    <name>Taxi Lights Power</name>
+    <prop>/systems/electrical/outputs/taxi-lights</prop>
+    <prop>/systems/electrical/outputs/nose-wheel-light</prop>
+    <rated-draw>10</rated-draw>
+  </output>
+
+  <output>
+    <name>Pitot Heat Power</name>
+    <prop>/systems/electrical/outputs/pitot-heat</prop>
+    <rated-draw>5</rated-draw>
+  </output>
+
+  <output>
+    <name>GPS Power</name>
+    <prop>/systems/electrical/outputs/gps</prop>
+    <rated-draw>2</rated-draw>
+  </output>
+
+  <output>
+    <name>Radio Power</name>
+    <prop>/systems/electrical/outputs/nav</prop>
+    <prop>/systems/electrical/outputs/transponder</prop>
+    <rated-draw>5</rated-draw>
+  </output>
+  
+  
+  <!--  all the various DC and AC buses -->
+
+  <bus>
+    <name>ac_bus_1-1</name>
+    <prop>/systems/electrical/bus/ac-bus[0]/volts</prop>
+  </bus>
+  <bus>
+    <name>ac_bus_1-2</name>
+    <prop>/systems/electrical/bus/ac-bus[1]/volts</prop>
+  </bus>
+  <bus>
+    <name>ac_bus_2-3</name>
+    <prop>/systems/electrical/bus/ac-bus[2]/volts</prop>
+  </bus>
+  <bus>
+    <name>ac_bus_2-4</name>
+    <prop>/systems/electrical/bus/ac-bus[3]/volts</prop>
+  </bus>
+  
+  <bus>
+    <name>ac_tie_bus</name>
+    <prop>/systems/electrical/bus/ac_tie/volts</prop>
+  </bus>
+  <bus>
+    <name>ac_ess_bus</name>
+    <prop>/systems/electrical/bus/ac-ess-bus/volts</prop>
+  </bus>
+
+  <bus>
+    <name>dc_bus_left</name>
+    <prop>/systems/electrical/bus/dc-bus[0]/volts</prop>
+  </bus>
+  <bus>
+    <name>dc_bus_right</name>
+    <prop>/systems/electrical/bus/dc-bus[1]/volts</prop>
+  </bus>
+  
+  <bus>
+    <name>dc_bat_bus</name>
+    <prop>/systems/electrical/bus/dc-bat-bus/volts</prop>
+  </bus>
+  <bus>
+    <name>dc-ess-bus</name>
+    <prop>/systems/electrical/bus/dc-ess-bus/volts</prop>
+  </bus>
+  
+
+
+  <!-- connect in power sources -->
+
+  <connector>
+    <input>Eng 1 IDG</input>
+    <output>ac_bus_1-1</output>
+    <switch>
+      <prop>/controls/electric/contact/engine_1</prop>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>Eng 2 IDG</input>
+    <output>ac_bus_1-2</output>
+    <switch>
+      <prop>controls/electric/contact/engine_2</prop>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>Eng 3 IDG</input>
+    <output>ac_bus_2-3</output>
+    <switch>
+      <prop>controls/electric/contact/engine_3</prop>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>Eng 4 IDG</input>
+    <output>ac_bus_2-4</output>
+    <switch>
+      <prop>controls/electric/contact/engine_4</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_bus_1-1</input>
+    <input>ac_bus_1-2</input>
+    <input>ac_bus_2-3</input>
+    <input>ac_bus_2-4</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/bus_tie</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_tie_bus</input>
+    <output>ac_bus_1-1</output>
+    <output>ac_bus_1-2</output>
+    <output>ac_bus_2-3</output>
+    <output>ac_bus_2-4</output>
+    <switch>
+      <prop>/controls/electric/contact/bus_tie</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>External 1</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/external_1</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/electric/ground/external_1</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>External 2</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/external_2</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/electric/ground/external_2</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>External 3</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/external_3</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/electric/ground/external_3</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>External 4</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/external_4</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/electric/ground/external_4</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>APU 1</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/apu_gen-a</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>APU 2</input>
+    <output>ac_tie_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/apu_gen-b</prop>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>Battery1</input>
+    <output>dc_bat_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/batt_1</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>Battery2</input>
+    <output>dc_bat_bus</output>
+    <switch>
+      <prop>/controls/electric/contact/batt_2</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>dc_bat_bus</input>
+    <output>dc_bus_left</output>
+    <switch>
+      <prop>controls/electric/contact/dc_left_tie</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>dc_bus_left</input>
+    <output>dc_bat_bus</output>
+    <switch>
+      <prop>controls/electric/contact/dc_left_tie</prop>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>dc_bat_bus</input>
+    <output>dc_bus_right</output>
+    <switch>
+      <prop>controls/electric/contact/dc_right_tie</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>dc_bus_right</input>
+    <output>dc_bat_bus</output>
+    <switch>
+      <prop>controls/electric/contact/dc_right_tie</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>tr1a</input>
+    <output>dc_bus_left</output>
+    <switch>
+      <prop>controls/electric/contact/tr_left_tie</prop>
+      <initial-state>on</initial-state>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>tr2a</input>
+    <output>dc_bus_right</output>
+    <switch>
+      <prop>controls/electric/contact/tr_right_tie</prop>
+      <initial-state>on</initial-state>
+    </switch>
+  </connector>
+  
+  
+  <!-- connect buses to outputs -->
+  
+ <!-- connect starter output -->
+
+  <connector>
+    <input>ac_bus_1-1</input>
+    <output>Starter 1 Power</output>
+    <switch>
+      <prop>/controls/engines/engine[0]/starter</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Starter 2 Power</output>
+    <switch>
+      <prop>/controls/engines/engine[1]/starter</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_bus_2-3</input>
+    <output>Starter 3 Power</output>
+    <switch>
+      <prop>/controls/engines/engine[2]/starter</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_2-4</input>
+    <output>Starter 4 Power</output>
+    <switch>
+      <prop>/controls/engines/engine[3]/starter</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+  
+  
+  
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Cabin Lights Power</output>
+    <switch>
+      <prop>/controls/electric/contact/pax-sys</prop>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/cabin-lights-pwr</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>dc_bus_left</input>
+    <output>Instrument Power</output>
+    <switch>
+      <prop>/controls/circuit-breakers/instrument-pwr</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-1</input>
+    <output>Fuel Pump 1 Power</output>
+    <switch>
+      <prop>/controls/engines/engine[0]/fuel-pump</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/fuel-pump1-pwr</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_2-4</input>
+    <output>Fuel Pump 2 Power</output>
+    <switch>
+      <prop>/controls/engines/engine[1]/fuel-pump</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/fuel-pump2-pwr</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Landing Light Power</output>
+    <switch>
+      <prop>/controls/switches/landing-lights</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/landing-lights</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Logo Light Power</output>
+    <switch>
+      <prop>/controls/switches/logo-lights</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/logo-lights</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Wing Light Power</output>
+    <switch>
+      <prop>/controls/switches/wing-lights</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/wing-lights</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Beacon Power</output>
+    <switch>
+      <prop>/controls/switches/beacon</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/beacon-pwr</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-1</input>
+    <output>Flaps Power</output>
+    <switch>
+      <prop>/controls/circuit-breakers/flaps</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Turn Coordinator Power</output>
+    <switch>
+      <prop>/controls/circuit-breakers/turn-coordinator</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>dc_bus_left</input>
+    <output>Cockpit Lights Power</output>
+    <switch>
+      <prop>/controls/switches/map-lights</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/map-lights</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_1-2</input>
+    <output>Strobe Lights Power</output>
+    <switch>
+      <prop>/controls/switches/strobe</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/strobe-lights</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_2-3</input>
+    <output>Taxi Lights Power</output>
+    <switch>
+      <prop>/controls/switches/taxi-lights</prop>
+      <initial-state>off</initial-state>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/taxi-lights</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>ac_bus_2-3</input>
+    <output>Pitot Heat Power</output>
+    <switch>
+      <prop>/controls/switches/pitot-heat</prop>
+      <initial-state>off</initial-state>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>dc_bus_right</input>
+    <output>GPS Power</output>
+    <switch>
+      <prop>/controls/circuit-breakers/gps</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+  <connector>
+    <input>dc_bus_right</input>
+    <output>Radio Power</output>
+    <switch>
+      <prop>/controls/circuit-breakers/nav</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_bus_2-4</input>
+    <output>Galley Power</output>
+    <switch>
+      <prop>/controls/electric/contact/galley</prop>
+      <prop>/controls/electric/contact/commercial</prop>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/galley</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+  
+  <connector>
+    <input>ac_bus_2-4</input>
+    <output>Pax Ent Sys Power</output>
+    <switch>
+      <prop>/controls/electric/contact/pax_sys</prop>
+      <prop>/controls/electric/contact/commercial</prop>
+    </switch>
+    <switch>
+      <prop>/controls/circuit-breakers/pax-sys</prop>
+      <rating-amps>10</rating-amps>
+    </switch>
+  </connector>
+
+
+
+</PropertyList>

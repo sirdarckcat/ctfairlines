@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+
+<!--
+    MCDU querty keyboard for MCDU unit 1.
+    
+    Author: S. Hamilton - Sep 2009
+
+-->
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/mcdu_qwerty.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>A</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("A")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>B</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("B")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>C</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("C")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>D</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("D")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>E</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("E")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>F</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("F")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>G</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("G")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>H</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("H")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>I</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("I")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>J</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("J")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>K</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("K")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>L</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("L")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>M</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("M")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>N</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("N")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>O</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("O")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>P</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("P")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>Q</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("Q")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>R</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("R")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>S</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("S")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>T</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("T")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>U</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("U")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>V</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("V")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>W</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("W")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>X</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("X")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>Y</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("Y")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>Z</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("Z")</script>
+	    </binding>
+	  </action>
+        </animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>DEL</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("DEL")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>SLASH</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("/")</script>
+	    </binding>
+	  </action>
+	</animation>
+</PropertyList>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/FrontPanel/display1.3ds</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+
+        <panel>
+	  <path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdutext-panel.xml</path>
+	  <bottom-left>
+            <x-m>0.001</x-m>  <!-- front back angle -->
+            <y-m>0.005</y-m>  <!-- left right width -->
+            <z-m>0.005</z-m>  <!-- up down height -->
+          </bottom-left>
+          <bottom-right>
+            <x-m>0.001</x-m>
+            <y-m>0.153</y-m> 
+            <z-m>0.005</z-m>
+          </bottom-right>
+          <top-left>
+            <x-m>-0.20</x-m>  
+            <y-m>0.005</y-m>
+            <z-m>0.010</z-m> 
+          </top-left>
+	</panel>
+	
+</PropertyList> 
+ 

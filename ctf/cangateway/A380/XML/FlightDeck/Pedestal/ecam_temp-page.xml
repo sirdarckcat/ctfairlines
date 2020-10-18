@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>temp page</name>
+    <w-base>300</w-base>
+    <h-base>80</h-base>
+
+    <layers>
+    <!-- TAT label and value -->
+    <layer>
+      <name>label.TAT</name>
+      <type>text</type>
+      <font>arial_black</font>
+      <point-size>10</point-size>
+      <color>
+            <red>0.7</red>
+            <green>0.7</green>
+            <blue>0.7</blue>
+      </color>
+      <chunks>
+         <chunk>
+	    <type>literal</type>
+            <text>TAT</text>
+	 </chunk>
+      </chunks>
+      <transformations>
+        <transformation>
+	      <type>x-shift</type>
+              <offset>10</offset>
+          </transformation>
+          <transformation>
+                <type>y-shift</type>
+                <offset>10</offset>
+	 </transformation>
+      </transformations>
+    </layer>      
+    </layers>
+
+</PropertyList>

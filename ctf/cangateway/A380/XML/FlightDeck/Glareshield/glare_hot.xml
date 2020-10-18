@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+<name>panel hotspots</name>
+<background>Aircraft/A380/Textures/Common/transparent.png</background>
+ <w>512</w>
+ <h>512</h>
+
+ <layers>
+   <layer>
+   </layer>
+ </layers>
+ 
+ 
+<instruments>
+ <instrument include="Ap_Fd.xml">
+  <name>AP-FD controls</name>
+  <x>210</x>   <!-- pos left/right -->
+  <y>300</y>   <!-- pos up/down -->
+  <w>512</w>          <!-- resize 1024 -->
+  <h>512</h>           <!-- resize 256 -->
+  <w-base>1024</w-base> <!-- inverse shift l/R 1024 -->
+  <h-base>256</h-base> <!-- inverse shift U/D  256 -->
+  
+  <actions> 
+
+
+
+
+
+  </actions>
+
+ </instrument>
+</instruments>
+</PropertyList>

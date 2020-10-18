@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+Airbus A380 Electrical System
+********* ********* ********* ********* **********
+Revision Dates:
+Jan 3, 2005
+
+Brief Describition:
+The electrical system comprises of 2 channels.
+Each channels are powered by three electrical 
+generators, two of which are Variable-Frequency(VF)
+machines.
+-->
+ 
+<PropertyList>
+	<!--Channel2-->
+		<!--Generators -->
+		<supplier>
+			<name>VFG3</name>
+			<prop>/systems/electrical/suppliers/alternator[2]</prop>
+			<kind>alternator</kind>
+			<rpm-source>/engines/engine[2]/n1</rpm-source>
+			<volts>115</volts> <!-- guess -->
+			<amps>13</amps>   <!-- guess -->
+		</supplier>
+		
+		
+		<supplier>
+			<name>VFG4</name>
+			<prop>/systems/electrical/suppliers/alternator[3]</prop>
+			<kind>alternator</kind>
+			<rpm-source>/engines/engine[3]/n1</rpm-source>
+			<volts>115</volts> <!-- guess -->
+			<amps>13</amps>   <!-- guess -->
+		</supplier>
+	
+		<!-- Third one: from APU?? -->
+		
+		
+		<!--Buses -->
+		<bus>
+			<name>Secondary Master Bus</name>
+			<prop>/systems/electrical/outputs/bus[1]</prop>
+		</bus>
+		
+		<!--Outputs-->	
+		<output>
+			<name>spoiler02 EBHA</name>
+			<prop>/systems/electrical/outputs/EBHA[1]</prop>
+		</output>
+		<output>
+			<name>spoiler15 EBHA</name>
+			<prop>/systems/electrical/outputs/EBHA[2]</prop>
+		</output>
+		<output>
+			<name>rudder2 EBHA</name>
+			<prop>/systems/electrical/outputs/EBHA[4]</prop>
+		</output>
+		<output>
+			<name>rudder3 EBHA</name>
+			<prop>/systems/electrical/outputs/EBHA[6]</prop>
+		</output>
+		
+		<output>
+			<name>aileron2 EHA</name>
+			<prop>/systems/electrical/outputs/EHA[1]</prop>
+		</output>
+		<output>
+			<name>aileron5 EHA</name>
+			<prop>/systems/electrical/outputs/EHA[2]</prop>
+		</output>
+		<output>
+			<name>elevator2 EHA</name>
+			<prop>/systems/electrical/outputs/EHA[5]</prop>
+		</output>
+		<output>
+			<name>elevator3 EHA</name>
+			<prop>/systems/electrical/outputs/EHA[6]</prop>
+		</output>
+		
+		<!--Connector-->
+		<connector>
+			<input>VFG3</input>
+			<input>VFG4</input>
+			<output>Secondary Master Bus</output>
+		</connector>
+		
+		<connector>
+			<input>Secondary Master Bus</input>
+			<output>spoiler02 EBHA</output>
+			<output>spoiler15 EBHA</output>
+			<output>rudder2 EBHA</output>
+			<output>rudder3 EBHA</output>
+			
+			<output>aileron2 EHA</output>
+			<output>aileron5 EHA</output>
+			<output>elevator2 EHA</output>
+			<output>elevator3 EHA</output>
+		</connector>
+	<!--/Channel2-->	
+</PropertyList>

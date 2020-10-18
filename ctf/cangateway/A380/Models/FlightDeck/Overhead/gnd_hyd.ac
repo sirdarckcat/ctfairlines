@@ -1,0 +1,503 @@
+AC3Db
+MATERIAL "11 - Default" rgb 0.25098 0.25098 0.25098  amb 0.5 0.5 0.5  emis 0 0 0  spec 0.376471 0.376471 0.376471  shi 32  trans 0
+MATERIAL "1 - Default" rgb 0.384 0.467 0.557  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 0  trans 0
+OBJECT world
+kids 22
+OBJECT poly
+name "00"
+data 2
+00
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.09625
+-0.11375 0.002 -0.09625
+-0.11375 0.002 -0.07625
+-0.09375 0.002 -0.07625
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "01"
+data 2
+01
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.144167
+-0.11375 0.002 -0.144167
+-0.11375 0.002 -0.124167
+-0.09375 0.002 -0.124167
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "02"
+data 2
+02
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.192083
+-0.11375 0.002 -0.192083
+-0.11375 0.002 -0.172083
+-0.09375 0.002 -0.172083
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "03"
+data 2
+03
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.24
+-0.11375 0.002 -0.24
+-0.11375 0.002 -0.22
+-0.09375 0.002 -0.22
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "06"
+data 2
+06
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.11725
+-0.11375 0.002 -0.11725
+-0.11375 0.002 -0.09725
+-0.09375 0.002 -0.09725
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "47"
+data 2
+47
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.165167
+-0.11375 0.002 -0.165167
+-0.11375 0.002 -0.145167
+-0.09375 0.002 -0.145167
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "48"
+data 2
+48
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.213083
+-0.11375 0.002 -0.213083
+-0.11375 0.002 -0.193083
+-0.09375 0.002 -0.193083
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "49"
+data 2
+49
+crease 30.000000
+numvert 4
+-0.09375 0.002 -0.261
+-0.11375 0.002 -0.261
+-0.11375 0.002 -0.241
+-0.09375 0.002 -0.241
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "Circle01"
+data 8
+Circle01
+crease 30.000000
+numvert 8
+-0.075236 0.002 -0.248246
+-0.07824 0.002 -0.241
+-0.075236 0.002 -0.233754
+-0.06799 0.002 -0.23075
+-0.060744 0.002 -0.233754
+-0.05774 0.002 -0.241
+-0.060744 0.002 -0.248246
+-0.06799 0.002 -0.25125
+numsurf 6
+SURF 0x20
+mat 1
+refs 3
+7 0 0
+0 0 0
+6 0 0
+SURF 0x20
+mat 1
+refs 3
+6 0 0
+0 0 0
+1 0 0
+SURF 0x20
+mat 1
+refs 3
+5 0 0
+6 0 0
+1 0 0
+SURF 0x20
+mat 1
+refs 3
+5 0 0
+1 0 0
+2 0 0
+SURF 0x20
+mat 1
+refs 3
+4 0 0
+5 0 0
+2 0 0
+SURF 0x20
+mat 1
+refs 3
+4 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "FADEC_GP1"
+data 9
+FADEC_GP1
+crease 30.000000
+numvert 4
+-0.00775 0.002 -0.03925
+-0.02775 0.002 -0.03925
+-0.02775 0.002 -0.01925
+-0.00775 0.002 -0.01925
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "FADEC_GP2"
+data 9
+FADEC_GP2
+crease 30.000000
+numvert 4
+-0.00775 0.002 -0.06225
+-0.02775 0.002 -0.06225
+-0.02775 0.002 -0.04225
+-0.00775 0.002 -0.04225
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "FADEC_GP3"
+data 9
+FADEC_GP3
+crease 30.000000
+numvert 4
+-0.00775 0.002 -0.08525
+-0.02775 0.002 -0.08525
+-0.02775 0.002 -0.06525
+-0.00775 0.002 -0.06525
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "FADEC_GP4"
+data 9
+FADEC_GP4
+crease 30.000000
+numvert 4
+-0.00775 0.002 -0.10825
+-0.02775 0.002 -0.10825
+-0.02775 0.002 -0.08825
+-0.00775 0.002 -0.08825
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "FUEL??1"
+data 7
+FUEL??1
+crease 30.000000
+numvert 4
+-0.0505 0.002 -0.03425
+-0.0705 0.002 -0.03425
+-0.0705 0.002 -0.01425
+-0.0505 0.002 -0.01425
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "FUEL??2"
+data 7
+FUEL??2
+crease 30.000000
+numvert 4
+-0.0505 0.002 -0.06225
+-0.0705 0.002 -0.06225
+-0.0705 0.002 -0.04225
+-0.0505 0.002 -0.04225
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "LEAKMEASG"
+data 9
+LEAKMEASG
+crease 30.000000
+numvert 4
+-0.05024 0.002 -0.097
+-0.07024 0.002 -0.097
+-0.07024 0.002 -0.077
+-0.05024 0.002 -0.077
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "LEAKMEASY"
+data 9
+LEAKMEASY
+crease 30.000000
+numvert 4
+-0.05024 0.002 -0.12499
+-0.07024 0.002 -0.12499
+-0.07024 0.002 -0.10499
+-0.05024 0.002 -0.10499
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "Line01"
+data 6
+Line01
+crease 30.000000
+numvert 8
+-0.07799 0.002 -0.29025
+-0.07299 0.002 -0.287
+-0.05799 0.002 -0.29025
+-0.07299 0.002 -0.261
+-0.07799 0.002 -0.25775
+-0.05799 0.002 -0.25775
+-0.06299 0.002 -0.261
+-0.06299 0.002 -0.287
+numsurf 8
+SURF 0x20
+mat 1
+refs 3
+0 0 0
+1 0 0
+2 0 0
+SURF 0x20
+mat 1
+refs 3
+0 0 0
+3 0 0
+1 0 0
+SURF 0x20
+mat 1
+refs 3
+3 0 0
+0 0 0
+4 0 0
+SURF 0x20
+mat 1
+refs 3
+5 0 0
+6 0 0
+4 0 0
+SURF 0x20
+mat 1
+refs 3
+2 0 0
+7 0 0
+5 0 0
+SURF 0x20
+mat 1
+refs 3
+1 0 0
+7 0 0
+2 0 0
+SURF 0x20
+mat 1
+refs 3
+7 0 0
+6 0 0
+5 0 0
+SURF 0x20
+mat 1
+refs 3
+6 0 0
+3 0 0
+4 0 0
+kids 0
+OBJECT poly
+name "OXTMRRESET"
+data 10
+OXTMRRESET
+crease 30.000000
+numvert 4
+-0.09325 0.002 -0.03425
+-0.11325 0.002 -0.03425
+-0.11325 0.002 -0.01425
+-0.09325 0.002 -0.01425
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0
+OBJECT poly
+name "backlight"
+data 10
+Rectangle0
+texture "overhead1.png"
+crease 30.000000
+numvert 4
+-0.13375 0.001 -0.001
+-0.13375 0.001 -0.312
+0.001 0.001 -0.312
+0.001 0.001 -0.001
+numsurf 1
+SURF 0x0
+mat 1
+refs 4
+3 0.000171751 -6.44225e-05
+2 1.00006 -6.44225e-05
+1 1.00006 0.457879
+0 0.000171751 0.457879
+kids 0
+OBJECT poly
+name "Rectangle0"
+data 10
+Rectangle0
+texture "overhead1.png"
+crease 30.000000
+numvert 4
+0.001 0.001 -0.001
+0.001 0.001 -0.312
+-0.13375 0.001 -0.312
+-0.13375 0.001 -0.001
+numsurf 1
+SURF 0x0
+mat 1
+refs 4
+0 0.000171751 -6.44225e-05
+1 1.00006 -6.44225e-05
+2 1.00006 0.457879
+3 0.000171751 0.457879
+kids 0
+OBJECT poly
+name "SVCE_I_O"
+data 8
+SVCE_I_O
+crease 30.000000
+numvert 4
+-0.09325 0.002 -0.06225
+-0.11325 0.002 -0.06225
+-0.11325 0.002 -0.04225
+-0.09325 0.002 -0.04225
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+kids 0

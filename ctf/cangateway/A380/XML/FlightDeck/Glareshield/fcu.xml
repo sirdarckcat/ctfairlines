@@ -1,0 +1,1079 @@
+<?xml version="1.0"?>
+
+<!--
+    The Glareshield FCU
+    
+    
+    Author: S. Hamilton - Aug 2009
+
+-->
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Glareshield/fcu_03.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Instruments</texture-path>
+	<offsets>
+		<z-m>0.25</z-m>
+	</offsets>
+	
+	
+
+<animation>
+       <type>material</type>
+       <object-name>backlight</object-name>
+       <emission>
+         <red>0.878</red>
+         <green>0.694</green>
+         <blue>0.594</blue>
+         <factor-prop>/controls/lighting/panel-norm</factor-prop>
+       </emission>
+    </animation>
+<!-- ALT -->
+<!-- Altitude readout and knob -->
+ 
+  <text>
+    <name>FCU.alt.ft</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>0.06</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/instrumentation/afs/target-altitude-ft</property>
+    <format type="string">%5.0f</format>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+    <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+    </font-resolution>
+  </text> 
+  <text>
+    <name>FCU.alt.metre</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>0.06</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/instrumentation/afs/target-altitude-metre</property>
+    <format type="string">%5.0f</format>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+    <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+    </font-resolution>
+  </text> 
+
+<animation>
+  <type>select</type>
+  <object-name>FCU.alt.ft</object-name>
+  <condition>
+    <and>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    <equals>
+      <property>instrumentation/efis[0]/metric</property>
+      <value>0</value>
+    </equals>
+    </and>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>FCU.alt.metre</object-name>
+  <condition>
+    <and>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    <equals>
+      <property>instrumentation/efis[0]/metric</property>
+      <value>1</value>
+    </equals>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>lvl_managed</object-name>
+  <condition>
+    <and>
+      <equals>
+        <property>instrumentation/afs/vertical-lvl-managed-mode</property>
+        <value>-1</value>
+      </equals>
+      <greater-than>
+        <property>/systems/electrical/outputs/efis</property>
+        <value>15</value>
+      </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>ALT knob</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>FCU.toggle_alt_select(-1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>FCU.toggle_alt_select(1)</script>
+   </binding>
+  </action>
+  <!--  scrollwheel -->
+  <action>
+    <button>3</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>FCU.increment_alt()</script>
+    </binding>
+  </action>
+  <!-- scrollwheel -->
+    <action>
+    <button>4</button>
+    <repeatable>true</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>FCU.decrement_alt()</script>
+    </binding>
+  </action>
+</animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>alt.inc.toggle</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>FCU.toggle_alt_inc();</script>
+    </binding>
+  </action>
+</animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>Mach-Spd.knob</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>FCU.toggle_mach_spd();</script>
+   </binding>
+  </action>
+</animation>
+
+ <animation>
+   <type>pick</type>
+   <object-name>metric.toggle</object-name>
+   <action>
+     <button>0</button>
+     <repeatable>false</repeatable>
+     <binding>
+       <command>property-toggle</command>
+       <property>instrumentation/efis[0]/metric</property>
+     </binding>
+   </action>
+ </animation>
+
+
+<!-- SPD -->
+<!--  Autothrottle SPD readout and knob -->
+
+  <text>
+    <name>FCU.spd.kts</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>-0.08</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/instrumentation/afs/target-speed-kt</property>
+    <format type="string">%3.0f</format>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+  <text>
+    <name>FCU.spd.mach</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>-0.08</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/instrumentation/afs/target-speed-mach</property>
+    <format type="string">%1.2f</format>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+  <text>
+    <name>FCU.spd.dashes</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>-0.08</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>literal</type>
+    <text type="string">---</text>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+
+<animation>
+  <type>select</type>
+  <object-name>FCU.spd.kts</object-name>
+  <condition>
+    <and>
+    <equals>   
+      <property>/instrumentation/afs/spd-display</property>
+      <value>0</value>
+    </equals>
+    <equals>
+      <property>instrumentation/afs/spd-mach-display-mode</property>
+      <value>0</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>FCU.spd.mach</object-name>
+  <condition>
+    <and>
+    <equals>   
+      <property>/instrumentation/afs/spd-display</property>
+      <value>0</value>
+    </equals>
+    <equals>
+      <property>instrumentation/afs/spd-mach-display-mode</property>
+      <value>1</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>FCU.spd.dashes</object-name>
+  <condition>
+  <and>
+    <equals>   
+      <property>/instrumentation/afs/spd-display</property>
+      <value>-1</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>spd_managed</object-name>
+  <condition>
+    <and>
+      <equals>
+        <property>instrumentation/afs/speed-managed-mode</property>
+        <value>-1</value>
+      </equals>
+      <greater-than>
+        <property>/systems/electrical/outputs/efis</property>
+        <value>15</value>
+      </greater-than>
+    </and>
+  </condition>
+</animation>
+ 
+ <animation>
+  <type>pick</type>
+  <object-name>SPD knob</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>FCU.toggle_spd_select(-1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>FCU.toggle_spd_select(1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>3</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>FCU.increment_spd()</script>
+   </binding>
+  </action>
+  <action>
+   <button>4</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>FCU.decrement_spd()</script>
+   </binding>
+  </action>
+</animation>
+ 
+<animation>
+  <type>translate</type>
+  <object-name>SPD knob</object-name>
+  <property>instrumentation/afs/speed-mode</property>
+  <factor>0.005</factor>
+  <axis>
+     <x>0</x>
+     <y>0</y>
+     <z>0.5</z>
+  </axis> 
+</animation>
+ 
+ 
+<!-- VS -->
+<!-- Vertical Speed readout and knob -->
+
+  <text>
+    <name>FCU.vs.fpm</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>0.1045</y-m>  <!-- 0.0935 -->
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/instrumentation/afs/vertical-speed-fpm</property>
+    <format type="string">%4.0f</format>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+  <text>
+    <name>FCU.vs.dashes</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>0.1045</y-m>   <!-- 0.0935 -->
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>literal</type>
+    <text type="string">----</text>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+
+<animation>
+  <type>select</type>
+  <object-name>FCU.vs.fpm</object-name>
+  <condition>
+    <and>
+    <equals>   
+      <property>/instrumentation/afs/vertical-vs-display</property>
+      <value>0</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>FCU.vs.dashes</object-name>
+  <condition>
+  <and>
+    <equals>   
+      <property>/instrumentation/afs/vertical-vs-display</property>
+      <value>-1</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>VS knob</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>FCU.toggle_vs_select(-1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>FCU.toggle_vs_select(1)</script>
+   </binding>
+  </action>
+  <action>
+   <button>3</button>
+   <repeatable>true</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>FCU.increment_vs()</script>
+   </binding>
+  </action>
+  <action>
+   <button>4</button>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>FCU.decrement_vs()</script>
+   </binding>
+  </action>
+</animation>
+
+<animation>
+  <type>translate</type>
+  <object-name>VS knob</object-name>
+  <property>/instrumentation/afs/vertical-vs-mode</property>
+  <factor>0.005</factor>
+  <axis>
+     <x>0</x>
+     <y>0</y>
+     <z>0.5</z>
+  </axis>  
+</animation>
+
+
+
+<!-- HDG -->
+<!-- heading readout and dial -->
+
+  <text>
+    <name>FCU.hdg.degs</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>-0.035</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/instrumentation/afs/heading-bug-deg</property>
+    <format type="string">%03.0f</format>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+  <text>
+    <name>FCU.hdg.dashes</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90.0</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>-0.035</y-m>
+      <z-m>-0.0009</z-m>
+    </offsets>
+    <type>literal</type>
+    <text type="string">---</text>
+    <font>led.txf</font>
+    <character-size type="double">0.009</character-size>
+  </text>
+
+<animation>
+  <type>select</type>
+  <object-name>FCU.hdg.degs</object-name>
+  <condition>
+  <and>
+    <equals>   
+      <property>/instrumentation/afs/lateral-display</property>
+      <value>0</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>hdg_managed</object-name>
+  <condition>
+    <and>
+      <equals>
+        <property>instrumentation/afs/lateral-managed-mode</property>
+        <value>-1</value>
+      </equals>
+      <greater-than>
+        <property>/systems/electrical/outputs/efis</property>
+        <value>15</value>
+      </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>FCU.hdg.dashes</object-name>
+  <condition>
+  <and>
+    <equals>   
+      <property>/instrumentation/afs/lateral-display</property>
+      <value>-1</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>HDG knob</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>FCU.toggle_hdg_select(-1);</script>
+   </binding>
+  </action>
+  <action>
+   <button>1</button>
+   <repeatable>false</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>FCU.toggle_hdg_select(1);</script>
+   </binding>
+  </action>
+  <action>
+   <button>3</button>
+   <repeatable>true</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>FCU.increment_hdg()</script>
+   </binding>
+  </action>
+  <action>
+   <button>4</button>
+   <repeatable>true</repeatable>
+   <binding>
+    <command>nasal</command>
+    <script>FCU.decrement_hdg()</script>
+   </binding>
+  </action>
+</animation>
+
+<animation>
+  <type>translate</type>
+  <object-name>HDG knob</object-name>
+  <property>instrumentation/afs/lateral-mode</property>
+  <factor>0.005</factor>
+  <axis>
+     <x>0</x>
+     <y>0</y>
+     <z>0.5</z>
+  </axis>  
+</animation>
+
+<!--  FCU text display material -->
+
+  <animation>
+    <type>material</type>
+    <object-name>FCU.spd.kts</object-name>
+    <object-name>FCU.spd.mach</object-name>
+    <object-name>FCU.spd.dashes</object-name>
+    <object-name>FCU.hdg.degs</object-name>
+    <object-name>FCU.hdg.dashes</object-name>
+    <object-name>FCU.alt.ft</object-name>
+    <object-name>FCU.alt.metre</object-name>
+    <object-name>FCU.alt.dashes</object-name>
+    <object-name>FCU.vs.fpm</object-name>
+    <object-name>FCU.vs.dashes</object-name>
+    <diffuse>
+      <red>0.898</red>
+      <green>0.898</green>
+      <blue>1.0</blue>
+    </diffuse>
+    <ambient>
+      <red>0.898</red>
+      <green>0.898</green>
+      <blue>1.0</blue>
+    </ambient>
+    <emission>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.663</blue>
+    </emission>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>128.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+  </animation>
+  <!-- 0.898, 0.898. 1.0 / 0.0, 0.0, 0.663  -->
+  
+  <animation>
+    <type>noshadow</type>
+    <object-name>FCU.spd.kts</object-name>
+    <object-name>FCU.spd.mach</object-name>
+    <object-name>FCU.spd.dashes</object-name>
+    <object-name>FCU.hdg.degs</object-name>
+    <object-name>FCU.hdg.dashes</object-name>
+    <object-name>FCU.alt.ft</object-name>
+    <object-name>FCU.alt.metre</object-name>
+    <object-name>FCU.alt.dashes</object-name>
+    <object-name>FCU.vs.fpm</object-name>
+    <object-name>FCU.vs.dashes</object-name>
+ </animation>
+ 
+<!--  toggle buttons and illuminations -->
+
+
+<!-- Flight Director -->
+
+<animation>
+  <type>pick</type>
+  <object-name>FD</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>FCU.toggle_fd();</script>
+   </binding>
+ </action>
+</animation>
+
+
+<animation>
+  <type>textranslate</type>
+  <object-name>FD.toggle</object-name>
+  <property>/autopilot/locks/passive-mode</property>
+  <factor>50</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>material</type>
+  <object-name>FD.toggle</object-name>
+  <emission>
+    <red>0.0</red>
+    <green>0.2</green>
+    <blue>0.0</blue>
+    <factor-prop>/autopilot/locks/passive-mode</factor-prop>
+  </emission>
+</animation>
+
+
+<!-- Autopilot 1 -->
+
+<animation>
+  <type>pick</type>
+  <object-name>AP1</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>
+      FCU.toggle_ap(0);
+     </script>
+   </binding>
+ </action>
+</animation>
+
+<animation>
+  <type>textranslate</type>
+  <object-name>AP1.toggle</object-name>
+  <property>/controls/autoflight/autopilot[0]/engage</property>
+  <factor>60</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>material</type>
+  <object-name>AP1.toggle</object-name>
+  <emission>
+    <red>0.0</red>
+    <green>0.2</green>
+    <blue>0.0</blue>
+    <factor-prop>/controls/autoflight/autopilot[0]/engage</factor-prop>
+  </emission>
+</animation>
+
+
+<animation>
+  <type>pick</type>
+  <object-name>AP2</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>
+      FCU.toggle_ap(1);
+     </script>
+   </binding>
+ </action>
+</animation>
+
+<animation>
+  <type>textranslate</type>
+  <object-name>AP2.toggle</object-name>
+  <property>/controls/autoflight/autopilot[1]/engage</property>
+  <factor>60</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>material</type>
+  <object-name>AP2.toggle</object-name>
+  <emission>
+    <red>0.0</red>
+    <green>0.2</green>
+    <blue>0.0</blue>
+    <factor-prop>/controls/autoflight/autopilot[1]/engage</factor-prop>
+  </emission>
+</animation>
+
+
+
+<!-- first LOC toggle -->
+
+<animation>
+<type>pick</type>
+  <object-name>LOC</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+    <script>
+      FCU.toggle_loc();
+    </script>
+   </binding>
+ </action>
+</animation>
+
+<animation>
+  <type>textranslate</type>
+  <object-name>LOC.toggle</object-name>
+  <property>/controls/autoflight/lateral-mode</property>
+  <condition>
+    <or>
+    <equals>
+       <property>/controls/autoflight/lateral-mode</property>
+       <value>2</value>
+    </equals>
+    <equals>
+       <property>/controls/autoflight/lateral-mode</property>
+       <value>0</value>
+    </equals>
+    </or>
+  </condition>
+  <factor>25</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>material</type>
+  <object-name>LOC.toggle</object-name>
+    <condition>
+    <or>
+      <equals>
+       <property>/controls/autoflight/lateral-mode</property>
+       <value>2</value>
+      </equals>
+      <equals>
+       <property>/controls/autoflight/lateral-mode</property>
+       <value>0</value>
+      </equals>
+    </or>
+  </condition>
+  <emission>
+    <red>0.0</red>
+    <green>0.2</green>
+    <blue>0.0</blue>
+    <factor-prop>/controls/autoflight/lateral-mode</factor-prop>
+  </emission>
+</animation>
+
+
+<!-- second ALT toggle -->
+
+<animation>
+<type>pick</type>
+  <object-name>ALT</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>   
+   <binding>
+     <command>nasal</command>
+     <script>
+       FCU.toggle_alt();
+     </script>
+   </binding>
+ </action>
+</animation>
+
+<animation>
+  <type>textranslate</type>
+  <object-name>ALT.toggle</object-name>
+  <property>/controls/autoflight/vertical-mode</property>
+  <condition>
+      <equals>
+       <property>/instrumentation/flightdirector/vnav</property>
+       <value>11</value>
+      </equals>
+  </condition>
+  <factor>50</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+
+<animation>
+  <type>material</type>
+  <object-name>ALT.toggle</object-name>
+    <condition>
+    <or>
+      <equals>
+       <property>/controls/autoflight/vertical-mode</property>
+       <value>1</value>
+      </equals>
+      <equals>
+       <property>/controls/autoflight/vertical-mode</property>
+       <value>0</value>
+      </equals>
+    </or>
+  </condition>
+  <emission>
+    <red>0.0</red>
+    <green>0.2</green>
+    <blue>0.0</blue>
+    <factor-prop>/controls/autoflight/vertical-mode</factor-prop>
+  </emission>
+</animation>
+
+<animation>
+  <type>translate</type>
+  <object-name>ALT knob</object-name>
+  <property>instrumentation/afs/vertical-alt-mode</property>
+  <factor>0.005</factor>
+  <axis>
+     <x>0</x>
+     <y>0</y>
+     <z>0.5</z>
+  </axis> 
+</animation>
+
+
+<!-- third APPR toggle -->
+
+<animation>
+<type>pick</type>
+  <object-name>APPR</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>
+       FCU.toggle_appr();
+     </script>
+   </binding>
+ </action>
+</animation>
+
+<!-- animation>
+  <type>select</type>
+  <object-name>APPR.toggle</object-name>
+  <condition>
+    <equals>   
+      <property>instrumentation/flightdirector/lnav</property>
+      <value>3</value>
+    </equals>
+  </condition>
+</animation -->
+
+<animation>
+  <type>textranslate</type>
+  <object-name>APPR.toggle</object-name>
+  <property>/instrumentation/flightdirector/lnav</property>
+  <condition>
+   <or>
+    <equals>
+       <property>/instrumentation/flightdirector/lnav</property>
+       <value>3</value>
+    </equals>
+    <equals>
+       <property>/instrumentation/flightdirector/lnav</property>
+       <value>0</value>
+    </equals>
+    </or>
+  </condition>
+  <factor>20</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+
+
+
+<animation>
+<type>pick</type>
+  <object-name>A/THR</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+     <command>nasal</command>
+     <script>
+       FCU.toggle_spd();
+     </script>
+   </binding>   
+ </action>
+</animation>
+
+<!-- animation>
+  <type>select</type>
+  <object-name>A/THR.toggle</object-name>
+  <condition>
+    <equals>   
+      <property>/autopilot/locks/speed</property>
+      <value type="string">speed-with-throttle</value>
+    </equals>
+  </condition>
+</animation -->
+
+<animation>
+  <type>textranslate</type>
+  <object-name>A/THR.toggle</object-name>
+  <property>/instrumentation/flightdirector/at-on</property>
+  <factor>60</factor>
+  <axis>
+    <x>0</x>
+    <y>-1</y>
+    <z>-1</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>material</type>
+  <object-name>A/THR.toggle</object-name>
+  <emission>
+    <red>0.0</red>
+    <green>0.2</green>
+    <blue>0.0</blue>
+    <factor-prop>/instrumentation/flightdirector/at-on</factor-prop>
+  </emission>
+</animation>
+
+
+ <!--  managed/selected HDG,TRK and V/S,FPA -->
+ <animation>
+	 <type>pick</type>
+	 <object-name>HDG VS select</object-name>
+	 <action>
+		 <button>0</button>
+		 <repeatable>0</repeatable>
+		 <binding>
+			 <command>nasal</command>
+			 <script>
+				 FCU.toggle_hdg_select(1);
+			 </script>
+		 </binding>
+	 </action>
+	 <action>
+		 <button>1</button>
+		 <repeatable>0</repeatable>
+		 <binding>
+			 <command>nasal</command>
+			 <script>
+				 FCU.toggle_hdg_select(-1);
+			 </script>
+		 </binding>
+	 </action>
+ </animation>
+
+</PropertyList> 
+ 

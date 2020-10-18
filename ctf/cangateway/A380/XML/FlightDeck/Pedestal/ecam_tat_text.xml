@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <name>Hello World</name>
+  <axis-alignment>xy-plane</axis-alignment>
+  <alignment>center-center</alignment>
+  <font>Helvetica.txf</font>
+  <type type="string">literal</type>
+  <text type="string">Hello, world!</text>
+
+
+</PropertyList>

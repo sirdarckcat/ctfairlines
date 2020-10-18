@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Overhead/placeholders.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Instruments</texture-path>
+
+</PropertyList> 
+ 

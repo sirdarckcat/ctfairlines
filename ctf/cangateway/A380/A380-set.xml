@@ -1,0 +1,1545 @@
+<?xml version="1.0"?>
+
+<!--
+     This is the Airbus A380 double-deck wide body subsonic general passenger transport aircraft.
+     
+     Modification History:
+     When	Who		What
+     2008	KAmpere		Initial version
+     2008	Innis Cunningham	Fuselage model
+     2008	KAmpere		updated model, electrical, hydaulic
+     2008	FDalvi		update livery and model
+     2009	SHamilton	Added fuel tanks and cockpit interactions
+     2009	FDalvi		lot's of new stuff
+     2009	SHamilton	AFS, FMS, Flight Guidance, Doors, weight and other stuff
+     2009	SHamilton	MFD, STAR/SID, updated PFD, Pre-flight Tutorial
+     2010	SHamilton	Electrical system
+     2011	SHamilton	added AFS, autobrake
+     
+
+-->
+
+ <PropertyList>
+  <sim>
+    <description>Airbus A380</description>
+    <aircraft-version>1.2</aircraft-version>
+    <author>Ampere.K, I.Cunningham, F.Dalvi, S.Hamilton, et al</author>
+    <status>production</status>
+    <rating>
+      <FDM type="int">4</FDM>
+      <systems type="int">4</systems>
+      <cockpit type="int">4</cockpit>
+      <model type="int">4</model>
+    </rating>
+    <flight-model>jsb</flight-model>
+    <livery>Aircraft/A380/Textures/Livery/House</livery>
+    <aero>A380_RJ</aero>
+    
+    <tags>
+        <tag>transport</tag>
+        <tag>airbus</tag>
+        <tag>2000s</tag>
+        <tag>2010s</tag>
+        <tag>ifr</tag>
+        <tag>tricycle</tag>
+        <tag>jet</tag>
+        <tag>retractable-gear</tag>
+        <tag>glass-cockpit</tag>
+        <tag>ifr</tag>
+    </tags>
+    <startup>
+       <splash-texture>Aircraft/A380/a380-splash.png</splash-texture>
+    </startup>
+
+    <systems>
+     <!-- autopilot>
+       <name>A380 custom</name>
+       <path>Aircraft/A380/A380-autopilot.xml</path>
+      </autopilot -->
+      <autopilot>
+       <name>A380 custom V2</name>
+       <path>Aircraft/A380/A380-autopilot_v1.xml</path>
+      </autopilot>
+      <autopilot>
+        <name>ecs</name>
+	<path>Aircraft/A380/Systems/CabinPressureSystem.xml</path>
+      </autopilot>
+      <autopilot>
+        <name>autobrake</name>
+        <path>Aircraft/A380/Systems/autobrake.xml</path>
+      </autopilot>
+      <autopilot>
+        <name>helper</name>
+        <path>Aircraft/Generic/generic-autopilot-helper.xml</path>
+      </autopilot>
+      <!--Modified by Ampere-->
+      <!-- electrical>
+        <path>Aircraft/A380/Systems/Electrical/electrical.xml</path>
+      </electrical -->
+      <hydraulical>
+        <path>Aircraft/A380/Systems/Hydraulical/hydraulics.xml</path>
+      </hydraulical>
+      <!--End modifications -->
+      <electrical>
+        <path>Aircraft/A380/Systems/Electrical/A380-electrical.xml</path>
+      </electrical>
+      
+    </systems>
+
+   <sound>
+    <path>Aircraft/A380/Sounds/A380-sound.xml</path>
+    <audible>true</audible>
+   </sound>
+
+   <model>
+    <path>Aircraft/A380/XML/A380.xml</path>
+    <fallback-model-index type="int">357</fallback-model-index>
+    <livery> 
+	<file type="string">House</file> 
+    </livery> 
+    <pushback>
+  	<kp type="double">900</kp>
+	<ki type="double">100</ki>  <!-- was 25 -->
+	<kd type="double">0</kd>
+	<target-speed-fps>0</target-speed-fps>
+	<position-norm type="double">0</position-norm>
+     </pushback>
+     <door>
+       <position-x-m type="float">13.136</position-x-m>
+       <position-y-m type="float">5.0626</position-y-m>
+       <position-z-m type="float">2.9947</position-z-m>
+       <jetway-hood-deg type="float">9</jetway-hood-deg>
+     </door>
+     <door>
+       <position-x-m type="float">23.359</position-x-m>
+       <position-y-m type="float">4.928</position-y-m>
+       <position-z-m type="float">3.706</position-z-m>
+       <jetway-hood-deg type="float">9</jetway-hood-deg>
+     </door>
+     <door>
+       <position-x-m type="float">27.978</position-x-m>
+       <position-y-m type="float">7.353</position-y-m>
+       <position-z-m type="float">3.454</position-z-m>
+       <jetway-hood-deg type="float">5</jetway-hood-deg>
+     </door>
+   </model>
+
+         
+   <view n="0">
+      <name>Captain Cockpit</name>
+      <type>lookfrom</type>
+      <internal type="bool">true</internal>
+      <config>
+        <x-offset-m type="double">-0.558</x-offset-m>
+        <y-offset-m type="double">-1.58</y-offset-m>  <!-- -1.55 -->
+        <z-offset-m type="double">-19.20</z-offset-m>
+        <pitch-offset-deg>-5.73</pitch-offset-deg>
+        <default-field-of-view-deg type="double">90.0</default-field-of-view-deg>
+      </config>
+    </view>
+    <view n="1">
+      <config>
+        <z-offset-m archive="y" type="double">-100.0</z-offset-m>
+        <default-field-of-view-deg type="double">60</default-field-of-view-deg>
+      </config>
+    </view>
+    <view n="2">
+      <config>
+        <z-offset-m archive="y" type="double">-100.0</z-offset-m>
+        <default-field-of-view-deg type="double">62</default-field-of-view-deg>
+        <pitch-offset-deg>5.5</pitch-offset-deg>
+      </config>
+    </view>
+    <view n="5">
+      <config>
+        <z-offset-m archive="y" type="double">-100.0</z-offset-m>
+      </config>
+     </view>
+
+  <view n="100">
+    <name>Passenger Upper View</name>
+    <type>lookfrom</type>
+    <internal archive="y">true</internal>
+    <config>
+      <from-model type="bool">true</from-model>
+      <from-model-idx type="int">0</from-model-idx>
+      <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+      <default-field-of-view-deg type="double">97</default-field-of-view-deg>
+      <pitch-offset-deg>-20.55</pitch-offset-deg>
+      <heading-offset-deg type="double">307.68</heading-offset-deg> <!-- parallel to the panel -->
+      <x-offset-m archive="y"> 2.6223 </x-offset-m> <!-- Left/Right -->
+      <y-offset-m archive="y"> -0.10 </y-offset-m> <!-- Up/Down -->
+      <z-offset-m archive="y"> 0.8602 </z-offset-m> <!-- Fdw/Back -->
+    </config>
+  </view>
+  
+  <view n="101">
+    <name>Passenger Lower View</name>
+    <type>lookfrom</type>
+    <internal archive="y">true</internal>
+    <config>
+      <from-model type="bool">true</from-model>
+      <from-model-idx type="int">0</from-model-idx>
+      <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+      <default-field-of-view-deg type="double">107</default-field-of-view-deg>
+      <pitch-offset-deg>-17.184</pitch-offset-deg>
+      <heading-offset-deg type="double">96.97</heading-offset-deg> <!-- parallel to the panel -->
+      <x-offset-m archive="y"> -3.205 </x-offset-m> <!-- Left/Right -->
+      <y-offset-m archive="y"> -2.60 </y-offset-m> <!-- Up/Down -->
+      <z-offset-m archive="y"> 13.701 </z-offset-m> <!-- Fdw/Back -->
+    </config>
+  </view>
+     
+  <view n="102">
+     <name>First Officer</name>
+     <type>lookfrom</type>
+     <internal type="bool">true</internal>
+     <config>
+       <from-model type="bool">true</from-model>
+       <from-model-idx type="int">0</from-model-idx>
+       <!-- ground-level-nearplane-m type="double">6f</ground-level-nearplane-m -->
+       <x-offset-m type="double">0.55</x-offset-m>  <!-- 0.55 -->
+       <y-offset-m type="double">-1.57</y-offset-m>  <!-- 3.75 / -1.55 -->
+       <z-offset-m type="double">-19.50</z-offset-m> <!-- -23.15 -->
+       <pitch-offset-deg>-10</pitch-offset-deg>   <!-- -15 -->
+       <default-field-of-view-deg type="double">90.0</default-field-of-view-deg>  <!-- 70.0 -->
+       <heading-offset-deg type="double">358.0</heading-offset-deg>
+     </config>
+     <dynamic>
+        <enabled type="bool">false</enabled>
+     </dynamic>
+  </view>
+  
+  <view n="103">
+    <name>jump seat</name>
+    <enabled type="bool">false</enabled>
+    <type>lookfrom</type>
+     <config>
+       <from-model type="bool">true</from-model>
+       <from-model-idx type="int">0</from-model-idx>
+       <x-offset-m type="double"> -0.0  </x-offset-m>
+       <y-offset-m type="double"> -1.5  </y-offset-m>
+       <z-offset-m type="double"> -18.5 </z-offset-m>
+       <pitch-offset-deg>-10.2</pitch-offset-deg>   
+       <default-field-of-view-deg type="double">75.0</default-field-of-view-deg>
+       <heading-offset-deg type="double">0.0</heading-offset-deg>
+     </config>
+     <dynamic>
+        <enabled type="bool">false</enabled>
+     </dynamic>
+  </view>
+  <chase-distance-m>-100</chase-distance-m> <!-- -75 -->
+  
+  <flaps>
+	  <setting>0.000</setting>  <!-- flaps up -->
+	  <setting>0.2424</setting> 
+	  <setting>0.5151</setting> 
+	  <setting>0.7878</setting>
+	  <setting>1.000</setting>  
+  </flaps>
+  
+  <spoilers>
+    <setting>0.00</setting>
+    <setting>0.16</setting>
+    <setting>0.30</setting>
+    <setting>0.60</setting>
+    <setting>1.00</setting>
+  </spoilers>
+  
+  <limits>
+    <max-flap-extension-speed>
+      <flaps>0.0001</flaps>
+      <speed>263</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps>0.2424</flaps>
+      <speed>220</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps>0.5151</flaps>
+      <speed>210</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps>0.7878</flaps>
+      <speed>196</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps>1.000</flaps>
+      <speed>182</speed>
+    </max-flap-extension-speed>
+    <vne>590</vne>
+    <max-gear-extension-speed>270</max-gear-extension-speed>
+    <max-positive-g>5.4</max-positive-g>
+    <max-negative-g>-2.76</max-negative-g>
+  </limits>
+  
+    
+    
+    <!-- sound>
+     <path>Aircraft/A380/Sounds/A380-sound.xml</path>
+	 <switch type = "bool"></switch>
+    </sound -->
+    <hud>
+      <enable3d>false</enable3d>
+    </hud>
+    <virtual-cockpit archive="y">true</virtual-cockpit>
+    <allow-toggle-cockpit>true</allow-toggle-cockpit>
+  
+
+    <help>
+      <title>A380</title>
+      <key>
+        <name>Delete</name>
+        <desc>toggle thrust reversers</desc>
+      </key>
+      <key>
+        <name>Ctrl-b</name>
+        <desc>toggle speed brakes</desc>
+      </key>
+      <key>
+        <name>Ctrl-e</name>
+        <desc>Toggle external ground power connection</desc>
+      </key>
+      <key>
+        <name>k</name>
+	<desc>increase spoiler</desc>
+      </key>
+      <key>
+        <name>j</name>
+	<desc>decrease spoilers</desc>
+      </key>
+      <key>
+        <name>Shift-PG UP</name>
+	<desc>Increments the A/THR detent on the thrust levers</desc>
+      </key>
+      <key>
+        <name>Shift-PG DWN</name>
+	<desc>Decrements the A/THR detent on the thrust levers</desc>
+      </key>
+      <key>
+       <name>TAB</name>
+       <desc>Cycles the auto-brake settings. At startup it is at 5 (full)</desc>
+      </key>
+      <key>
+	<name>d</name>
+	<desc>Forward cargo door</desc>
+      </key>
+      <key>
+	<name>D</name>
+	<desc>Aft cargo door</desc>
+      </key>
+      <key>
+	<name>! (shift+1)</name>
+	<desc>Pax Lower Left door 1</desc>
+      </key>
+      <key>
+	<name>@ (shift+2)</name>
+	<desc>Pax Upper Left door 1</desc>
+      </key>
+      <key>
+	<name># (shift+3)</name>
+	<desc>Pax Lower Right door 1</desc>
+      </key>
+      <key>
+	<name>$ (shift+4)</name>
+	<desc>Pax Upper Right door 1</desc>
+      </key>
+      <key>
+	<name>% (shift+5)</name>
+	<desc>Pax Lower Left door 2</desc>
+      </key>
+      <key>
+	<name>^ (shift+6)</name>
+	<desc>Pax Lower Right door 2</desc>
+      </key>
+      <!-- Walk -->
+      <key n="114">
+          <name>w</name>
+          <desc>Walk forward toward view</desc>
+          <repeatable type="bool">true</repeatable> 
+          <binding>
+              <command>nasal</command>
+              <script>
+              walk.walk_about(0.1);
+              </script>
+          </binding>
+      </key>
+      <key n="82">
+          <name>R</name>
+          <desc>Run forward toward view</desc>
+          <repeatable type="bool">true</repeatable>
+          <binding>
+              <command>nasal</command>
+              <script>
+              walk.walk_about(0.25);
+              </script>
+          </binding>
+      </key>
+      <key n="102">
+          <name>W</name>
+          <desc>Walk backward from view</desc>
+          <repeatable type="bool">true</repeatable>
+          <binding>
+              <command>nasal</command>
+              <script>
+              walk.walk_about(-0.1);
+              </script>
+            </binding>
+      </key>
+
+      <text>
+Use the mouse scrollwheel to increment and decrement dial values. Use the tutorial to understand all the major areas of the cockpit.
+      
+On the AFS CP, the SPD, ALT, V/S and HDG dials operate in two modes, either "managed" or "selected". To pull the knob for "selected" mode use the middle mouse button. To push the knob for "managed" mode, use the normal (left) mouse button.
+      
+To start the engines, the APU must be started and running on the overhead panel, check the ECAM page.
+Turn the engine switch to IGN/START and then switch the ENGINE MASTER switches on the pedestal one at a time, after N2 reaches atleast 18% for each.
+      
+There are 4 thrust detents by pressing SHIFT+Page-Up and SHIFT+Page-Down that will enable A/THR. The detents are;
+  * Idle
+  * CL
+  * Flex
+  * TOGA
+Use Flex for normal take-off conditions with reduced thrust (up to around 500 000kg gross depending on runway length), use TOGA for heavy, short or wet conditions. SRS will automatically be enabled if using Flex or TOGA after the gear is retracted according to current flap configuration. If using thrust detents, managed modes should be enabled for SPD, ALT and V/S, all remaining phases will be managed.  Reduce thrust to CL detent after REDUCE ALT (generally 1500 ft or as entered in MFD under T.O. Perf page) or on EGT OVERLIMIT. Ensure flaps are retracted before ACCEL ALT (5500ft or as entered in MFD under T.O. Perf page).
+
+If you use the "managed" ALT mode, you must ensure the CRZ FL is set on the MFD and preferably enter the SID and STAR routes in the MFD Flight Plan before take-off and double-check the AP route manager for correct route and altitude settings. You can download SID/STAR files in 'Level-D 767' format, see the README file under the FMS/ directory.
+
+
+The A380 Aircraft is released under GPL as part of the FlightGear.org project.
+      </text>
+    </help>
+    
+  <rendering>
+    <line-smooth type="bool">true</line-smooth>
+    <point-sprite type="bool">true</point-sprite>
+  </rendering>
+
+  <tutorials include="A380-tutorial.xml"/>
+
+  <menubar>
+        <default>
+            <menu n="10">
+                <label>A380</label>
+                <enabled type="bool">true</enabled>
+                <!-- item>
+                    <label>Autostart</label>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>sim/model/start-idling</property>
+                    </binding>
+                </item -->
+
+                <item>
+                    <label>Contrails</label>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>ai/submodels/contrails</property>
+                    </binding>
+                </item>
+                <item>
+                    <label>Map Lights</label>
+                    <binding>
+                        <command>property-toggle</command>
+			<property>controls/switches/storm</property>
+                    </binding>
+                </item>
+		<item>
+                    <label>Panel Lights</label>
+                    <binding>
+                        <command>property-toggle</command>
+			<property>controls/switches/panel-lights</property>
+                    </binding>
+                </item>
+                <item>
+                    <label>Cabin Lights</label>
+                    <binding>
+                        <command>property-toggle</command>
+                        <property>controls/lighting/cabin-lights</property>
+                    </binding>
+                </item>
+                <item>
+                    <label>Select Livery</label>
+                    <binding>
+                        <command>nasal</command>
+                        <script>aircraft.livery.dialog.toggle()</script>
+                    </binding>
+                </item>
+            </menu>
+		<menu n="5">
+		   <item n="10">
+		    <label>Pushback</label>
+		    <name>pushback</name>
+		    <binding>
+		     <command>dialog-show</command>
+		     <dialog-name>pushback</dialog-name>
+                    </binding>
+                </item>
+            </menu>
+        </default>
+    </menubar>
+    <instrumentation>
+            <path>Aircraft/A380/Systems/instrumentation.xml</path>
+        </instrumentation>
+  </sim>
+
+<payload>
+        <weight n="0">
+            <name>Crew</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[0]">350</weight-lb>
+            <max-lb>500</max-lb>
+            <min-lb>350</min-lb>
+        </weight>
+
+        <weight n="1">
+        <!--  538 pax max @ 180 lbs-->
+            <name>Pax Main</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[1]">48420</weight-lb>
+            <max-lb>96840</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+
+        <weight n="2">
+        <!--  315 pax max @ 180 lbs-->
+            <name>Pax Upper</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[2]">28350</weight-lb>
+            <max-lb>56700</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+
+        <weight n="3">
+            <name>Cargo Forward</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]">31500</weight-lb>
+            <max-lb>63000</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+	<weight n="4">
+            <name>Cargo Aft</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[4]">22387</weight-lb>
+            <max-lb>44775</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+	<weight n="5">
+            <name>Cargo Bulk</name>
+            <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[5]">1200</weight-lb>
+            <max-lb>5540</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+</payload>
+
+  <engines>
+    <engine n="0">
+      <running>false</running>
+      <rpm>1000</rpm>
+    </engine>
+    <engine n="1">
+      <running>false</running>
+      <rpm>1000</rpm>
+      <reverser-position type="double">0.000000</reverser-position>
+    </engine>
+    <engine n="2">
+      <running>false</running>
+      <rpm>1000</rpm>
+      <reverser-position type="double">0.000000</reverser-position>          
+     </engine>
+     <engine n="3">
+       <running>false</running>
+       <rpm>1000</rpm>
+     </engine>
+
+    <!--  APU engine -->
+    <engine n="4">
+      <running type="bool">false</running>
+      <throttle>0</throttle>
+      <off-start-run type="int">0</off-start-run>
+      <rpm>1000</rpm>
+    </engine>    
+  </engines>
+  
+
+<aircraft>
+ <jetway-pos>
+  <x-tra>-2</x-tra>
+  <y-rot>2</y-rot>
+  <z-rot>18</z-rot>
+  <hood-rot>0</hood-rot>
+ </jetway-pos>
+ <jetway2-pos>
+  <x-tra>2.5</x-tra>
+  <y-rot>2.5</y-rot>
+  <z-rot>45</z-rot>
+  <hood-rot>0</hood-rot>
+ </jetway2-pos>
+ <jetway3-pos>
+  <x-tra>4</x-tra>
+  <y-rot>5</y-rot>
+  <z-rot>47</z-rot>
+  <hood-rot>3</hood-rot>
+ </jetway3-pos>
+</aircraft>
+
+
+<autopilot>
+  <autobrake>
+    <step type="int">-1</step> <!-- OFF on selection -->
+    <config>
+      <idle-throttle type="double">0.10</idle-throttle>
+      <pilot-input type="double">0.25</pilot-input>   <!-- 25% input cancel AB operation -->
+    </config>
+  </autobrake>
+  <locks>
+    <pitch-engaged type="bool">1</pitch-engaged>
+    <roll-engaged type="bool">1</roll-engaged>
+  </locks>
+  <internal>
+    <stage1-ki type="double">0.000</stage1-ki>  <!-- 0.001 -->
+    <stage1-kp type="double">0.001</stage1-kp>  <!-- 0.01 -->
+    <stage1-td type="double">0.1</stage1-td>
+    <stage1-ti type="double">10</stage1-ti>
+    
+    <stage2-ki type="double">0.0000</stage2-ki>   <!-- 0.000 -->
+    <stage2-kp type="double">0.001</stage2-kp>  <!-- -0.0025 -->
+    <stage2-td type="double">0.1</stage2-td>  <!-- 0.00002 -->
+    <stage2-ti type="double">40</stage2-ti>    <!-- 20.0 -->
+    
+    <test-speed-trend-kt type="double">0.0</test-speed-trend-kt>
+    <test-speed-trend-norm type="double">0.0</test-speed-trend-norm>
+  </internal>
+</autopilot>
+<autopilot>
+        <path>Aircraft/Instruments/afdr-a320.xml</path>
+</autopilot>
+
+
+
+<input>
+  <keyboard>
+    <key n="5">
+      <name>CTRL-E</name>
+      <desc>Toggle connection of ground external power</desc>
+      <binding>
+        <command>nasal</command>
+        <script>A380.toggleExternalServices()</script>
+      </binding>
+    </key>
+    <key n="127">
+      <name>Delete</name>
+      <desc>Toggle Reversers</desc>
+      <binding>
+        <command>nasal</command>
+        <script>reversethrust.togglereverser()</script>
+      </binding>
+    </key>
+    
+    <key n="40">
+      <name>[</name>
+      <desc>Decrease flaps</desc>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(-1)</script>
+      </binding>
+      <mod-up>
+        <binding>
+          <command>nasal</command>
+          <script>controls.flapsDown(0)</script>
+        </binding>
+      </mod-up>
+    </key>
+
+    <key n="41">
+      <name>]</name>
+      <desc>Increase flaps</desc>
+      <binding>
+        <command>nasal</command>
+        <script>controls.flapsDown(1)</script>
+      </binding>
+      <mod-up>
+        <binding>
+          <command>nasal</command>
+          <script>controls.flapsDown(0)</script>
+        </binding>
+      </mod-up>
+    </key>
+ 
+    <key n="106">
+      <name>j</name>
+      <desc>Decrease spoilers</desc>
+      <binding>
+        <command>nasal</command>
+        <script>A380.stepSpeedbrake(-1)</script>
+      </binding>
+    </key>
+
+    <key n="107">
+      <name>k</name>
+      <desc>Increase spoilers</desc>
+      <binding>
+        <command>nasal</command>
+        <script>A380.stepSpeedbrake(1)</script>
+      </binding>
+    </key>
+
+    <!-- key n="101">
+      <name>e</name>
+      <desc>Cycle cockpit location - Stand up, walk around, sit down</desc>
+      <binding>
+        <command>nasal</command>
+        <script>walk.cycle_cockpit(1)</script>
+      </binding>
+    </key>
+    
+    <key n="69">
+      <name>E</name>
+      <desc>Cycle cockpit location - Return to cockpit</desc>
+      <binding>
+        <command>nasal</command>
+        <script>walk.cycle_cockpit(10)</script>
+      </binding>
+    </key -->
+    
+    <key n="119">
+      <name>w</name>
+      <desc>Walk forward toward view</desc>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>walk.walk_about(0.1)</script>
+      </binding>
+    </key>
+    
+    <key n="87">
+      <name>W</name>
+      <desc>Walk backward from view</desc>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>walk.walk_about(-0.1)</script>
+      </binding>
+    </key>
+
+    <key n="68">
+      <name>D</name>
+      <desc>Aft Cargo door</desc>
+      <binding>
+        <command>nasal</command>
+        <script>DOORS.doorsystem.aftCargo()</script>
+      </binding>
+    </key>
+    
+    <key n="100">
+      <name>d</name>
+       <desc>Forward Cargo door</desc>
+       <binding>
+         <command>nasal</command>
+         <script>DOORS.doorsystem.forwardCargo()</script>
+       </binding>
+     </key>
+     
+     <key n="33">
+       <name>!</name>
+       <desc>Pax Left Lower door 1</desc>
+       <binding>
+         <command>nasal</command>
+         <script>DOORS.doorsystem.paxLeftLow1()</script>
+       </binding>
+     </key>
+     
+    <key n="64">
+      <name>@</name>
+      <desc>Pax Left Upper door 1</desc>
+      <binding>
+        <command>nasal</command>
+        <script>DOORS.doorsystem.paxLeftUp1()</script>
+      </binding>
+    </key>
+    
+    <key n="35">
+      <name>#</name>
+      <desc>Pax Right Lower door 1</desc>
+      <binding>
+        <command>nasal</command>
+        <script>DOORS.doorsystem.paxRightLow1()</script>
+      </binding>
+    </key>
+    
+    <key n="36">
+      <name>$</name>
+      <desc>Pax Right Upper door 1</desc>
+      <binding>
+        <command>nasal</command>
+        <script>DOORS.doorsystem.paxRightUp1()</script>
+      </binding>
+    </key>
+    
+    <key n="37">
+      <name>%</name>
+      <desc>Pax Left Lower door 2</desc>
+      <binding>
+        <command>nasal</command>
+        <script>DOORS.doorsystem.paxLeftLow2()</script>
+      </binding>
+    </key>
+    
+    <key n="94">
+      <name>^</name>
+      <desc>Pax Right Lower door 2</desc>
+      <binding>
+        <command>nasal</command>
+        <script>DOORS.doorsystem.paxRightLow2()</script>
+      </binding>
+    </key>
+
+    <key n="61">
+      <name>=</name>
+      <desc>switch autobrake</desc>
+      <binding>
+        <command>property-cycle</command>
+        <property>/controls/gear/autobrakes</property>
+        <value>0</value> 
+        <value>1</value> 
+        <value>2</value> 
+        <value>3</value> 
+        <value>4</value> 
+        <value>5</value> 
+      </binding>
+    </key>
+   
+   <key n="360">  
+     <name>PAGEUP</name>
+     <desc>Increments Thrust</desc>
+     <binding>
+       <command>nasal</command>
+       <script>FCU.adjust_thrust(1)</script>
+     </binding>
+     <mod-shift>
+       <desc>Increments Thrust detent</desc>
+       <binding>
+         <command>nasal</command>
+         <script>FCU.toggle_thrust_detent(1)</script>
+       </binding>
+     </mod-shift>
+   </key>
+   
+   <key n="361"> 
+     <name>PAGEDN</name>
+     <desc>Decrements Thrust</desc>
+     <binding>
+       <command>nasal</command>
+       <script>FCU.adjust_thrust(-1)</script>
+     </binding>
+     <mod-shift>
+       <desc>Decrements Thrust Detent</desc>
+       <binding>
+         <command>nasal</command>
+         <script>FCU.toggle_thrust_detent(-1)</script>
+       </binding>
+     </mod-shift>
+   </key>
+
+   <key n="261">
+     <name>F5</name>
+     <repeatable type="bool">true</repeatable>
+     <mod-shift>
+       <desc>Reload autopilot configuration</desc>
+       <binding>
+         <command>nasal</command>
+         <script>
+         fgcommand('reinit', props.Node.new({ subsystem: "xml-autopilot" }));
+         print("xml-autopilot reinitialized!");
+         </script>
+       </binding>
+     </mod-shift>
+   </key>
+  </keyboard>
+</input>
+  
+<surface-positions>
+  <speedbrake-pos-norm type="float">0.0</speedbrake-pos-norm>
+</surface-positions>
+
+<controls>
+  <gear>
+    <autobrakes type="int">0</autobrakes>
+    <!-- 0=off, 1=1, 2=2, 3=3, 4=MAX, 5=RTO -->
+  </gear>
+  <flight>
+      <CG-trim-fwd type="double">60000</CG-trim-fwd>
+      <CG-trim-aft type="double">0</CG-trim-aft>					
+      <autospeedbrakes-armed type="bool">true</autospeedbrakes-armed>
+      <slats type="double" alias="/fdm/jsbsim/fcs/slat-cmd-norm">0.0</slats>
+  </flight>
+
+  <switches>
+    <panel-lights type="bool">0</panel-lights>
+    <storm type="bool">0</storm>
+    <landing-lights type="bool">0</landing-lights> 
+    <taxi-lights type="bool">0</taxi-lights>
+    <wing-lights type="bool">0</wing-lights>
+    <nose-light type="double">0.0</nose-light>
+    <beacon type="bool">0</beacon>
+    <strobe type="double">0.0</strobe>
+    <seat-belt type="double">0.0</seat-belt>
+    <smoking type="double">0.0</smoking>
+    <nav-lights type="bool">0</nav-lights>
+    <logo-light type="double">0.0</logo-light>
+    <logo-lights type="bool">0</logo-lights>
+    <cabin-lights type="double">0.8</cabin-lights>
+    <map-lights type="double">0.0</map-lights>
+    <master-panel type="bool">1</master-panel>
+  </switches>
+  <engines>
+    <engine n="0">
+      <thrust-lever>0</thrust-lever>
+    </engine>
+    <engine n="1">
+      <thrust-lever>0</thrust-lever>
+      <starter-sound type="double">0.0</starter-sound>
+    </engine>
+    <engine n="2">
+      <thrust-lever>0</thrust-lever>
+    </engine>
+    <engine n="3">
+      <thrust-lever>0</thrust-lever>
+    </engine>
+  </engines>
+  <electric>
+    <contact>
+      <engine_1 type="bool">1</engine_1>
+      <engine_2 type="bool">1</engine_2>
+      <engine_3 type="bool">1</engine_3>
+      <engine_4 type="bool">1</engine_4>
+      <apu_gen-a type="bool">1</apu_gen-a>
+      <apu_gen-b type="bool">1</apu_gen-b>
+      <batt_1 type="bool">1</batt_1>
+      <batt_2 type="bool">1</batt_2>
+      <ess_bat type="bool">1</ess_bat>
+      <apu_bat type="bool">1</apu_bat>
+      <external_1 type="bool">0</external_1>
+      <external_2 type="bool">0</external_2>
+      <external_3 type="bool">0</external_3>
+      <external_4 type="bool">0</external_4>
+      <pax_sys type="bool">1</pax_sys>
+      <galley type="bool">1</galley>
+      <commercial type="bool">1</commercial>
+      <bus_tie type="bool">1</bus_tie>
+      <dc_left_tie type="bool">1</dc_left_tie>
+      <dc_right_tie type="bool">0</dc_right_tie>
+      <tr_left_tie type="bool">0</tr_left_tie>
+      <tr_right_tie type="bool">0</tr_right_tie>
+    </contact>
+    <ground>
+      <external_1 type="bool">0</external_1>
+      <external_2 type="bool">0</external_2>
+      <external_3 type="bool">0</external_3>
+      <external_4 type="bool">0</external_4>
+    </ground>
+  </electric>
+  <pressurization>
+    <pack>
+      <hotair-on type="bool">0</hotair-on>
+      <pack-valve type="float">1.0</pack-valve>
+      <hotair-valve type="float">1.0</hotair-valve>
+      <pack-on type="bool">false</pack-on>
+    </pack>
+    <pack>
+      <hotair-on type="bool">0</hotair-on>
+      <pack-valve type="float">1.0</pack-valve>
+      <hotair-valve type="float">1.0</hotair-valve>
+      <pack-on type="bool">false</pack-on>
+    </pack>
+    <engine>
+      <bleed-on type="bool">0</bleed-on>
+      <hp-valve type="float">0</hp-valve>
+      <lp-valve type="float">0</lp-valve>
+      <bleed-psi type="int">0</bleed-psi>
+      <bleed-degc type="int">0</bleed-degc>
+    </engine>
+    <engine>
+      <bleed-on type="bool">0</bleed-on>
+      <hp-valve type="float">0</hp-valve>
+      <lp-valve type="float">0</lp-valve>
+      <bleed-psi type="int">0</bleed-psi>
+      <bleed-degc type="int">0</bleed-degc>
+    </engine>
+    <engine>
+      <bleed-on type="bool">0</bleed-on>
+      <hp-valve type="float">0</hp-valve>
+      <lp-valve type="float">0</lp-valve>
+      <bleed-psi type="int">0</bleed-psi>
+      <bleed-degc type="int">0</bleed-degc>
+    </engine>
+    <engine>
+      <bleed-on type="bool">0</bleed-on>
+      <hp-valve type="float">0</hp-valve>
+      <lp-valve type="float">0</lp-valve>
+      <bleed-psi type="int">0</bleed-psi>
+      <bleed-degc type="int">0</bleed-degc>
+    </engine>
+    <apu>
+      <bleed-on type="bool">0</bleed-on>
+    </apu>
+  </pressurization>
+  <lighting>
+    <panel-norm n="0" type="double">0.0</panel-norm>
+    <panel-norm n="1" type="double">0.0</panel-norm>
+  </lighting>
+</controls>
+
+<instrumentation>
+        <annunciator>
+          <master-caution type="bool">0</master-caution>
+	  <atc-inbox type="bool">0</atc-inbox>
+        </annunciator>
+	
+        <afs>
+          <rwy-cat type="string"></rwy-cat>
+          <approach-radio-lh type="string">VOR</approach-radio-lh>
+          <approach-radio-rh type="string">VOR</approach-radio-rh>
+          <appr_conf3 type="bool">1</appr_conf3>
+          <appr_full type="bool">0</appr_full>
+          <appr_wind_deg type="int">360</appr_wind_deg>
+          <appr_wind_kts type="int">00</appr_wind_kts>
+          <appr_oat type="int">15</appr_oat>
+          <appr_alt_baro_ft type="int">0</appr_alt_baro_ft>
+          <appr_alt_radio_ft type="int">0</appr_alt_radio_ft>
+          <appr_unknown_temp type="int">15</appr_unknown_temp>
+          <limit-bank-angle-max type="double">30</limit-bank-angle-max>
+          <limit-bank-angle-min type="double">-30</limit-bank-angle-min>
+	  <flight-control-law type="string">normal</flight-control-law>
+	  <flight-control-mode type="string">ground</flight-control-mode>
+	  <ATC_logon_acft-type type="string">A388</ATC_logon_acft-type>
+	  <ATC_depart_departure type="string"></ATC_depart_departure>
+	  <ATC_depart_arrival type="string"></ATC_depart_arrival>
+	  <ATC_depart_atis type="string"></ATC_depart_atis>
+	  <ATC_depart_gate type="string"></ATC_depart_gate>
+        </afs>
+	
+	
+	<atn>
+	  <atc-url-base type="string">http://goat.hopto.org/fgatc/atn</atc-url-base>
+	</atn>
+	
+	<flightdirector>
+	  <mode-reversion type="bool">0</mode-reversion>
+	</flightdirector>
+	
+	<efis n="0">
+	  <metric type="bool">0</metric>
+	  <display-mode type="int">3</display-mode>
+	  <nd-mode>ARC</nd-mode>
+	  <mfd>
+	    <display-mode>ARC</display-mode>
+	  </mfd>
+	  <inputs>
+	    <lh-vor-adf type="bool">1</lh-vor-adf>
+	    <rh-vor-adf type="bool">1</rh-vor-adf>
+	    <CSTR type="bool">0</CSTR>
+	    <WPT type="bool">0</WPT>
+	    <VORD type="bool">0</VORD>
+	    <NDB type="bool">0</NDB>
+	    <ARPT type="bool">0</ARPT>
+	    <WX type="bool">0</WX>
+	    <TERR type="bool">0</TERR>
+	    <TRAF type="bool">0</TRAF>
+	    <taxi type="bool">0</taxi>
+	    <ls   type="bool">0</ls>
+	  </inputs>
+	</efis>
+	
+	<efis n="1">
+	  <display-mode type="int">3</display-mode>
+	  <nd-mode>ARC</nd-mode>
+	  <mfd>
+	    <display-mode>ARC</display-mode>
+	  </mfd>
+	  <inputs>
+	    <lh-vor-adf type="bool">1</lh-vor-adf>
+	    <rh-vor-adf type="bool">1</rh-vor-adf>
+	    <CSTR type="bool">0</CSTR>
+	    <WPT type="bool">0</WPT>
+	    <VORD type="bool">0</VORD>
+	    <NDB type="bool">0</NDB>
+	    <ARPT type="bool">0</ARPT>
+	    <WX type="bool">0</WX>
+	    <TERR type="bool">0</TERR>
+	    <TRAF type="bool">0</TRAF>
+	    <taxi type="bool">0</taxi>
+	    <ls   type="bool">0</ls>
+	  </inputs>
+	</efis>
+
+        <!-- radar>
+            <switch type="string" archive="y">on</switch>
+            <mode-control type="int" archive="y">1</mode-control>
+            <display-mode>plan</display-mode>
+            <display-controls>
+                <WX type="bool" archive="y">false</WX>
+                <pos type="bool" archive="y">true</pos>
+                <data type="bool" archive="y">true</data>
+                <symbol type="bool" archive="y">true</symbol>
+                <rotate type="bool" archive="y">true</rotate>
+            </display-controls>
+            <serviceable type="bool">true</serviceable>
+            <range type="int" archive="y">10</range>
+            <mode type="string" archive="y">WX</mode>
+	    <tcas>
+                    <color n="0"> 
+                        <red type="float">0</red>
+                        <green type="float">1</green>
+                        <blue type="float">1</blue>
+                    </color>
+                    <color n="1"> 
+                        <red type="float">0</red>
+                        <green type="float">1</green>
+                        <blue type="float">1</blue>
+                    </color>
+                    <color n="2"> 
+                        <red type="float">1</red>
+                        <green type="float">0.5</green>
+                        <blue type="float">0</blue>
+                    </color>
+                    <color n="3"> 
+                        <red type="float">1</red>
+                        <green type="float">0</green>
+                        <blue type="float">0</blue>
+                    </color>
+                </tcas>
+            <font>
+                <color>
+                    <red type="float">0.7</red>
+                    <green type="float">0.7</green>
+                    <blue type="float">0.7</blue>
+                    <alpha type="float">1</alpha>
+                </color>
+                <name type="string" archive="y">helvetica_bold.txf</name>
+                <size type="float">8</size>
+                <line-spacing type="float">0.2</line-spacing>
+            </font>
+            <lightning type="bool" archive="y">true</lightning>
+            <display-mode type="string" archive="y">arc</display-mode>
+            <minimized type="bool" archive="y">false</minimized>
+            <heading-marker type="bool" archive="y">true</heading-marker>
+            <limit-deg type="int">360</limit-deg>
+            <toc>
+              <valid type="bool">0</valid>
+            </toc>
+            <tod>
+              <valid type="bool">0</valid>
+            </tod>
+            <decel>
+              <valid type="bool">0</valid>
+            </decel>
+        </radar -->
+        <nd n="0">
+	  <number>0</number>
+           <radar-texture-path type="string">Aircraft/A380/Models/Instruments/MFD/od_ndradar_1.png</radar-texture-path>
+           <symbol-texture-path type="string">Aircraft/A380/Models/Instruments/MFD/airbus_symbols.png</symbol-texture-path>
+            <font>
+                <color>
+                   <red type="float">0.7</red>
+                   <green type="float">0.7</green>
+                   <blue type="float">0.7</blue>
+                   <alpha type="float">1</alpha>
+               </color>
+               <name type="string">helvetica_bold.txf</name>
+               <size type="float">14</size>
+               <line-spacing type="float">0.01</line-spacing>
+           </font>
+           <serviceable type="bool">true</serviceable>
+           <range type="int">10</range>
+           <aircraft-heading-up type="bool">true</aircraft-heading-up>
+           <heading-up-deg type="float">0.01</heading-up-deg>
+           <x-center type="float">0.499</x-center>
+           <y-center type="float">0.182</y-center>
+       </nd>
+       
+       <nd n="1">
+	 <number>1</number>
+           <radar-texture-path type="string">Aircraft/A380/Models/Instruments/MFD/od_ndradar_2.png</radar-texture-path>
+           <symbol-texture-path type="string">Aircraft/A380/Models/Instruments/MFD/airbus_symbols.png</symbol-texture-path>
+            <font>
+                <color>
+                   <red type="float">0.7</red>
+                   <green type="float">0.7</green>
+                   <blue type="float">0.7</blue>
+                   <alpha type="float">1</alpha>
+               </color>
+               <name type="string">helvetica_bold.txf</name>
+               <size type="float">14</size>
+               <line-spacing type="float">0.01</line-spacing>
+           </font>
+           <serviceable type="bool">true</serviceable>
+           <range type="int">10</range>
+           <aircraft-heading-up type="bool">true</aircraft-heading-up>
+           <heading-up-deg type="float">0.01</heading-up-deg>
+           <x-center type="float">0.499</x-center>
+           <y-center type="float">0.182</y-center>
+       </nd>
+        
+        <groundradar>
+            <range type="double">0.8</range>
+        </groundradar>
+	
+	<terrain-radar>
+	  <radar-texture-path type="string">Aircraft/A380/Models/Instruments/MFD/od_agradar.rgb</radar-texture-path>
+	  <serviceable type="bool">true</serviceable>
+	</terrain-radar>
+        
+        <mk-viii>
+            <serviceable>true</serviceable>
+            <configuration-module>
+              <category-1>  255 </category-1>  <!-- AIRCRAFT_MODE_TYPE_SELECT -->
+              <category-3>   2 </category-3>  <!-- POSITION_INPUT_SELECT -->
+              <category-4>   9 </category-4>  <!-- ALTITUDE_CALLOUTS -->
+              <category-5>   0 </category-5>  <!-- AUDIO_MENU_SELECT -->
+              <category-6>   1 </category-6>  <!-- TERRAIN_DISPLAY_SELECT -->
+              <category-7>  64 </category-7>  <!-- OPTIONS_SELECT_GROUP_1 -->
+              <category-8>   2 </category-8>  <!-- RADIO_ALTITUDE_INPUT_SELECT -->
+              <category-9>   3 </category-9>  <!-- NAVIGATION_INPUT_SELECT -->
+              <category-10>  6 </category-10> <!-- ATTITUDE_INPUT_SELECT -->
+              <category-13>  7 </category-13> <!-- INPUT_OUTPUT_DISCRETE_TYPE_SELECT -->
+              <category-14>  0 </category-14> <!-- AUDIO_OUTPUT_LEVEL -->
+            </configuration-module>
+	    <inputs>
+              <arinc429>
+                <decision-height-ncd> false </decision-height-ncd> 
+                <decision-height> 280 </decision-height>
+              </arinc429>
+	    </inputs>
+            <speaker>
+                <max-dist>2</max-dist>
+                <reference-dist>1</reference-dist>
+                <volume>0.6</volume>
+            </speaker>
+        </mk-viii>
+	
+        <adf n="1">
+            <serviceable type="bool">1</serviceable>
+            <mode>adf</mode>
+            <frequencies>
+                <selected-khz>341</selected-khz>
+                <standby-khz>379</standby-khz>
+            </frequencies>
+        </adf>
+	<!-- attitude-indicator>
+	  <name>attitude-indicator</name>
+	  <number>0</number> 
+	  <spin type="string">engines/engine[0]/n1</spin>
+	  <suction>/systems/vacuum[1]/suction-inhg</suction>
+	</attitude-indicator -->
+
+  <wxradar>
+      <name>wxradar</name>
+      <radar-texture-path>Aircraft/A380/Models/Instruments/MFD/od_wxradar.rgb</radar-texture-path>
+      <serviceable>true</serviceable>
+      <range type="int" archive="y">20</range>
+      <minimized type="bool" archive="y">false</minimized>
+      <switch archive="y">off</switch>
+      <mode archive="y">wx</mode>
+      <lightning type="bool" archive="y">false</lightning>
+      <display-mode archive="y">arc</display-mode>
+  </wxradar>
+  
+  <nav n="0">
+    <auto-tuned type="bool">false</auto-tuned>
+  </nav>
+  
+  <nav n="1">
+    <auto-tuned type="bool">true</auto-tuned>
+  </nav>
+  
+  <nav n="2">
+    <serviceable type="bool">true</serviceable>
+    <operable type="bool">true</operable>
+    <power-btn type="bool">true</power-btn>
+    <auto-tuned type="bool">false</auto-tuned>
+    <frequencies>
+      <selected-mhz>110.1</selected-mhz>
+      <standby-mhz>109.3</standby-mhz>
+    </frequencies>
+  </nav>
+  
+  <pressurisation>
+    <cabin-pressure-psi type="float">14.69594</cabin-pressure-psi>
+    <cabin-pressure-hpa type="float">1013.25</cabin-pressure-hpa>
+    <cabin-altitude-ft  type="float">0.0</cabin-altitude-ft>
+    <cabin-delta-psi type="float">0.0</cabin-delta-psi>
+  </pressurisation>
+  <tcas>                                <!-- http://wiki.flightgear.org/index.php/TCAS -->
+     <serviceable type="bool">true</serviceable>
+                                         <!-- TCAS ENABLE -->
+     <inputs>
+         <mode type="int">3</mode>       <!-- 0=off, 1=standby, 2=TA-only, 3=auto(TA/RA) -->
+     </inputs>
+     <!-- voice>
+         <file-prefix type="string">Sounds/tcas/</file-prefix>
+     </voice -->
+     <speaker>                           <!-- Speaker Configuration -->
+       <max-dist> 2 </max-dist>          <!-- Max. distance where speaker is heard -->
+       <reference-dist> 0.5 </reference-dist> <!-- Distance to pilot -->
+       <volume> 0.9 </volume>            <!-- Volume at reference distance -->
+     </speaker>
+   </tcas>
+   
+   <!-- menu data -->
+   <mcdu-menus>
+     <!-- dropdown 0 -->
+     <dropdown>
+       <menu>
+	 <title type="string">ACTIVE</title>
+         <item type="string">INIT</item>
+         <page>active.init</page>
+         <item type="string">FLT PLN</item>
+         <page>active.flt_pln</page>
+	 <item></item>
+       </menu>
+       <menu>
+	 <title type="string">CONNECT</title>
+	 <item type="string">LOG ON</item>
+	 <page>atc.connect.logon</page>
+	 <item type="string">LOG OFF</item>
+	 <page>atc.connect.logoff</page>
+	 <item></item>
+       </menu>
+     </dropdown>
+     <!-- dropdown 1 -->
+     <dropdown>
+       <menu>
+	 <title type="string">POSITION</title>
+	 <item></item>
+	 <item></item>
+	 <item></item>
+       </menu>
+       <menu>
+	 <title type="string">REQUEST</title>
+	 <item type="string">CLEARANCE</item>
+	 <page type="string">atc.request.clearance</page>
+	 <item type="string">ATIS</item>
+	 <page type="string">atc.request.atis</page>
+	 <item type="string">DEPARTURE</item>
+	 <page type="string">atc.request.departure</page>
+       </menu>
+     </dropdown>
+     <!-- dropdown 2 -->
+     <dropdown>
+       <menu>
+	 <title type="string">SEC</title>
+         <item>INIT</item>
+         <page>sec.init</page>
+         <item type="string">FLT PLN</item>
+         <page>sec.flt_pln</page>
+         <item>COPY</item>
+         <page>sec.copy</page>
+       </menu>
+       <menu>
+	 <title type="string"></title>
+	 <item></item>
+	 <item></item>
+	 <item></item>
+       </menu>
+     </dropdown>
+     <!-- dropdown 3 -->
+     <dropdown>
+       <menu>
+	 <title type="string">DATA</title>
+       </menu>
+       <menu>
+	 <title type="string"></title>
+       </menu>
+     </dropdown>
+     <!-- system menu only has one menu set -->
+     <dropdown>
+       <menu>
+	 <item type="string">FMS1</item>
+	 <page>active.init</page>
+	 <item type="string">ATC</item>
+	 <page>atc.connect</page>
+       </menu>
+     </dropdown>
+   </mcdu-menus>
+   
+   <!-- these are for the active menu states -->
+   <mcdu>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">ACTIVE</title>
+     </dropdown>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">POSITION</title>
+     </dropdown>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">SEC</title>
+     </dropdown>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">DATA</title>
+     </dropdown>
+     <!-- system menu -->
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">FMS1</title>
+     </dropdown>
+   </mcdu>
+   <mcdu>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">ACTIVE</title>
+     </dropdown>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">POSITION</title>
+     </dropdown>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">SEC</title>
+     </dropdown>
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">DATA</title>
+     </dropdown>
+     <!-- system menu -->
+     <dropdown>
+       <active type="bool">false</active>
+       <title type="string">FMS1</title>
+     </dropdown>
+   </mcdu>
+   <fms>
+     <plan>
+       <display-nodes>
+       <wp>
+         <node-type type="int">6</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       <wp>
+         <node-type type="int">3</node-type>
+         <node-type type="int">4</node-type>
+       </wp>
+       </display-nodes>
+     </plan>
+   </fms>
+   <cabin-rate-climb n="1">
+     <serviceable type="bool">true</serviceable>
+     <indicated-speed-fpm type="double">0.0</indicated-speed-fpm>
+   </cabin-rate-climb>
+   <ivsi-adc n="0">
+     <serviceable type="bool">true</serviceable>
+     <indicated-speed-fpm type="double">0.0</indicated-speed-fpm>
+   </ivsi-adc>
+   <vertical-speed-indicator n="0">
+     <serviceable type="bool">true</serviceable>
+     <indicated-speed-fpm type="double">0.0</indicated-speed-fpm>
+   </vertical-speed-indicator>
+   <radar-altimeter>
+     <serviceable type="bool">true</serviceable>
+     <limit-bug type="double">250</limit-bug>
+   </radar-altimeter>
+
+   <lighting>
+     <landing>
+       <attenuation>
+	 <c>0.5</c>
+         <l>0.002</l>
+         <q>0.00</q>
+       </attenuation>
+     </landing>
+   </lighting>
+</instrumentation>
+
+<nasal>
+    <A380>
+      <file>Aircraft/A380/Nasal/Atmos.nas</file>
+      <file>Aircraft/A380/Nasal/TextRegion.nas</file>
+      <file>Aircraft/A380/Nasal/AirbusFMS.nas</file>
+      <file>Aircraft/A380/Nasal/atn.nas</file>
+      <file>Aircraft/A380/Nasal/atnMaintRecord.nas</file>
+      <file>Aircraft/A380/Nasal/atnPositionRecord.nas</file>
+      <file>Aircraft/A380/Nasal/system.nas</file>
+      <file>Aircraft/A380/Nasal/Airbus_fg.nas</file>
+      <file>Aircraft/Generic/limits.nas</file>
+      <!--file>Nasal/controls.nas</file --> 
+    </A380>
+    
+    <reversethrust>
+      <file>Aircraft/A380/Nasal/reverse-thrust.nas</file>
+    </reversethrust>
+
+    <DOORS>
+      <file>Aircraft/A380/Nasal/doors.nas</file>
+    </DOORS>
+
+    <walk>
+      <file>Aircraft/A380/Nasal/walk.nas</file>
+    </walk>
+
+    <FCU>
+      <file>Aircraft/A380/Nasal/afs_cp.nas</file>
+      <file>Aircraft/A380/Nasal/AirbusFMS.nas</file>
+      <file>Aircraft/A380/Nasal/TextRegion.nas</file>
+      <file>Aircraft/A380/Nasal/atn.nas</file>
+      <file>Aircraft/A380/Nasal/atnMaintRecord.nas</file>
+      <file>Aircraft/A380/Nasal/atnPositionRecord.nas</file>
+    </FCU>
+    
+    <MCDU1>
+      <file>Aircraft/A380/Nasal/Atmos.nas</file>
+      <file>Aircraft/A380/Nasal/TextRegion.nas</file>
+      <file>Aircraft/A380/Nasal/atn.nas</file>
+      <file>Aircraft/A380/Nasal/mcdu.nas</file>
+      <file>Aircraft/A380/Nasal/fmsDB.nas</file>
+      <file>Aircraft/A380/Nasal/fmsWP.nas</file>
+      <file>Aircraft/A380/Nasal/fmsTP.nas</file>
+      <file>Aircraft/A380/Nasal/fmsTransition.nas</file>
+      <file>Aircraft/A380/Nasal/atnMaintRecord.nas</file>
+      <file>Aircraft/A380/Nasal/atnPositionRecord.nas</file>
+    </MCDU1>
+    
+    <MCDU2>
+      <file>Aircraft/A380/Nasal/Atmos.nas</file>
+      <file>Aircraft/A380/Nasal/TextRegion.nas</file>
+      <file>Aircraft/A380/Nasal/atn.nas</file>
+      <file>Aircraft/A380/Nasal/mcdu.nas</file>
+      <file>Aircraft/A380/Nasal/fmsDB.nas</file>
+      <file>Aircraft/A380/Nasal/fmsWP.nas</file>
+      <file>Aircraft/A380/Nasal/fmsTP.nas</file>
+      <file>Aircraft/A380/Nasal/fmsTransition.nas</file>
+      <file>Aircraft/A380/Nasal/atnMaintRecord.nas</file>
+      <file>Aircraft/A380/Nasal/atnPositionRecord.nas</file>
+    </MCDU2>
+</nasal>
+
+<consumables>
+    <fuel>
+      <numtanks>11</numtanks>
+    </fuel>
+</consumables>
+
+</PropertyList>

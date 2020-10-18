@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../Models/Wings/pylon2.3ds</path> 
+	<offsets>
+		<x-m>4.10615</x-m>
+		<y-m>-14.799</y-m>
+		<z-m>0.83472</z-m>
+		<pitch-deg>0.0</pitch-deg>
+	</offsets>
+	
+	<model>
+		<path>Aircraft/A380/Engines/XML/engine2.xml</path>
+		<offsets>
+			<!--
+			<x-m>-4.25728</x-m>
+			<z-m>-2.64884</z-m>
+			-->
+			<x-m>-4.39008</x-m>
+			<z-m>-2.4224</z-m>
+			<pitch-deg>3</pitch-deg>
+		</offsets>
+	</model>
+		
+	<model>
+		<path>Aircraft/A380/XML/Wings/cowlingl.xml</path>
+		<offsets>
+			<!--
+			<x-m>-4.25728</x-m>
+			<z-m>-2.64884</z-m>
+			-->
+			<x-m>-4.39008</x-m>
+			<z-m>-2.4224</z-m>
+			<pitch-deg>3</pitch-deg>
+		</offsets>
+	</model>
+	
+</PropertyList>

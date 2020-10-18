@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+
+<!--
+    MCDU numpad keyboard for MCDU unit 1.
+    
+    Author: S. Hamilton - Sep 2009
+
+-->
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/mcdu_numpad.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>0</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("0")</script>
+	    </binding>
+	  </action>
+	</animation>
+
+	<animation>
+	  <type>pick</type>
+	  <object-name>1</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("1")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>2</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("2")</script>
+	    </binding>
+	  </action>
+	</animation>
+
+	<animation>
+	  <type>pick</type>
+	  <object-name>3</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("3")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>4</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("4")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>5</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("5")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>6</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("6")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>7</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("7")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>8</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("8")</script>
+	    </binding>
+	  </action>
+	</animation>
+	
+	<animation>
+	  <type>pick</type>
+	  <object-name>9</object-name>
+	  <action>
+	    <button>0</button>
+	    <repeatable>false</repeatable>
+	    <binding>
+	      <command>nasal</command>
+	      <script>MCDU2.keyPress("9")</script>
+	    </binding>
+	  </action>
+	</animation>
+</PropertyList>

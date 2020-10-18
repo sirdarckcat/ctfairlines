@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../Models/FlightDeck/cockpit-light.ac</path>
+
+
+<animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>light</name>
+   <object-name>crew-light</object-name>
+   <nopreview/>
+   <position>
+     <x>0.00</x>
+     <y>0.00</y>
+     <z>0.00</z>
+   </position>
+   <direction>
+     <x>0</x>
+     <y>0</y>
+     <z>-1</z>
+   </direction>
+   <ambient>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </ambient>
+    <diffuse>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </diffuse>
+    <specular>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </specular>
+   <attenuation>
+      <c>  1.0 </c>
+      <l>  0.001 </l>
+      <q>  0.00001 </q>
+    </attenuation>
+    <exponent>  20.0 </exponent>
+    <cutoff>   40.0   </cutoff>
+    <near-m>    0.0   </near-m>
+    <far-m>     4.0 </far-m>
+ </animation>
+ 
+ <animation>
+    <type>select</type>
+    <object-name>light</object-name>
+    <condition>
+      <property>controls/switches/storm</property>
+    </condition>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>crew-light</object-name>
+    <condition>
+        <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </animation>
+	
+</PropertyList>

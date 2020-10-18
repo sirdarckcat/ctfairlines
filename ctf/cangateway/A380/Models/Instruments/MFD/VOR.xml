@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+    <name>VOR</name>
+    <w-base>256</w-base>
+    <h-base>256</h-base>
+    <params>
+      <inputs>
+        <lh-vor-adf>instrumentation/efis[0]/inputs/lh-vor-adf</lh-vor-adf>
+        <rh-vor-adf>instrumentation/efis[0]/inputs/rh-vor-adf</rh-vor-adf>
+      </inputs>
+    </params>
+
+    <layers>
+
+<!-- full mode -->
+
+        <!-- layer>
+            <condition>
+                <property>instrumentation/efis/inputs/nd-centered</property>
+            </condition>
+            <name>hdg1</name>
+            <w>220</w>
+            <h>220</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/hsi.png</path>
+                <x1>0</x1>
+                <y1>0</y1>
+                <x2>1</x2>
+                <y2>1</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer -->
+
+        <layer>
+            <name>deviation scale</name>
+            <w>78</w>
+            <h>6</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.215</x1>
+                <y1>0.488</y1>
+                <x2>0.566</x2>
+                <y2>0.515</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>deflection bar</name>
+            <w>5</w>
+            <h>50</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.731</x1>
+                <y1>0.019</y1>
+                <x2>0.788</x2>
+                <y2>0.274</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+                <transformation>
+                    <type>x-shift</type>
+                    <property>instrumentation/nav/heading-needle-deflection</property>
+                    <scale>3.553</scale>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>crs head</name>
+            <w>14</w>
+            <h>58</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.787</x1>
+                <y1>0.406</y1>
+                <x2>0.879</x2>
+                <y2>0.806</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>54</offset>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+        <layer>
+            <name>crs tail</name>
+            <w>5</w>
+            <h>56</h>
+            <texture>
+                <path>Aircraft/A380/Models/Instruments/MFD/symbols.png</path>
+                <x1>0.816</x1>
+                <y1>0.017</y1>
+                <x2>0.849</x2>
+                <y2>0.394</y2>
+            </texture>
+            <transformations>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-12</offset>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>orientation/heading-magnetic-deg</property>
+                    <scale>-1</scale>
+                </transformation>
+                <transformation>
+                    <type>rotation</type>
+                    <property>instrumentation/nav/radials/selected-deg</property>
+                </transformation>
+                <transformation>
+                    <type>y-shift</type>
+                    <offset>-53</offset>
+                </transformation>
+            </transformations>
+            <emissive>true</emissive>
+        </layer>
+
+
+        
+
+
+
+</layers>
+
+</PropertyList>

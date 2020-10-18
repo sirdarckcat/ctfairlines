@@ -1,0 +1,216 @@
+<PropertyList>
+ <name>AP-FD controls</name>
+ <w-base>1024</w-base>  <!-- 1024 -->
+ <h-base>512</h-base>   <!-- 512 -->
+
+ <layers>
+   <!--layer>
+     <name>FD ind</name>
+     <type>switch</type>
+     <property>/instrumentation/flightdirector/fd-on</property>
+     <layer1>
+       <name>FD on</name>
+       <texture>
+         <path>Aircraft/A380/Textures/Common/flightdeck.rgb</path>
+	 <x1>1.5390625</x1>  // lower 
+	 <y1>0.0390625</y1>  // left
+	 <x2>1.64453125</x2>  // upper
+	 <y2>0.0390625</y2>  // right
+       </texture>
+       <w>27</w>
+       <h>11</h>
+     </layer1>
+     <layer2>
+       <name>FD off</name>
+       <texture>
+         <path>Aircraft/A380/Textures/Common/flightdeck.rgb</path>
+	 <x1>1.25</x1>
+	 <y1>0.1015625</y1>
+	 <x2>1.359375</x2>
+	 <y2>0.046875</y2>
+       </texture>
+       <w>27</w>
+       <h>11</h>
+     </layer2>
+   </layer -->
+ </layers>
+
+ <actions>
+ 
+ <!--  SPD AP 
+    <action>
+    <name>IAS decrease</name>
+    <button>0</button>
+    <x>125</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/target-speed-kt</property>
+      <step>-1.0</step>
+      <min>0</min>
+      <max>3580</max>
+      <wrap>false</wrap>
+    </binding>
+  </action>
+  <action>
+    <name>IAS increase</name>
+    <button>0</button>
+    <x>135</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/target-speed-kt</property>
+      <step>1.0</step>
+      <min>0</min>
+      <max>580</max>
+      <wrap>false</wrap>
+    </binding>
+  </action>
+  -->
+  
+
+<!-- hdg1: x=160/y=20 hdg2: x=170/y=20 -->
+  <!-- action>
+    <name>HDG increase</name>
+    <button>0</button>
+    <x>160</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/heading-bug-deg</property>
+      <step>-1.0</step>
+      <min>0</min>
+      <max>360</max>
+      <wrap>true</wrap>
+    </binding>
+  </action>
+   <action>
+    <name>HDG decrease</name>
+    <button>0</button>
+    <x>170</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/heading-bug-deg</property>
+      <step>1.0</step>
+      <min>0</min>
+      <max>360</max>
+      <wrap>true</wrap>
+    </binding>
+  </action -->
+
+ <!-- toggle flight director -->
+  <!-- action>
+     <name>FD toggle</name>
+     <button>0</button>
+     <x>195</x>
+     <y>45</y>
+     <w>15</w>
+     <h>15</h>
+     <binding>
+       <command>property-adjust</command>
+       <property>/instrumentation/flightdirector/fd-on</property>
+       <step>1</step>
+       <min>0</min>
+       <max>1</max>
+       <wrap>true</wrap>
+     </binding>
+  </action -->
+
+
+ <!-- ALT -->
+  <!-- action>
+    <name>ALT decrease</name>
+    <button>0</button>
+    <x>243</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/target-altitude-ft</property>
+      <step>-1</step>
+      <min>0</min>
+      <max>99000</max>
+      <wrap>false</wrap>
+    </binding>
+</action>
+
+  <action>
+    <name>ALT increase</name>
+    <button>0</button>
+    <x>253</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/target-altitude-ft</property>
+      <step>1</step>
+      <min>0</min>
+      <max>99000</max>
+      <wrap>false</wrap>
+    </binding>
+</action>
+
+  <action>
+    <name>ALT decrease coarse</name>
+    <button>1</button>
+    <x>243</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/target-altitude-ft</property>
+      <step>-100</step>
+      <min>0</min>
+      <max>99000</max>
+      <wrap>false</wrap>
+    </binding>
+</action>
+
+  <action>
+    <name>ALT increase coarse</name>
+    <button>1</button>
+    <x>253</x>
+    <y>20</y>
+    <w>10</w>
+    <h>20</h>
+    <repeatable>true</repeatable>
+    <interval-sec>0.2</interval-sec>
+    <binding>
+      <command>property-adjust</command>
+      <property>/autopilot/settings/target-altitude-ft</property>
+      <step>100</step>
+      <min>0</min>
+      <max>99000</max>
+      <wrap>false</wrap>
+    </binding>
+</action -->
+
+
+</actions>
+</PropertyList>

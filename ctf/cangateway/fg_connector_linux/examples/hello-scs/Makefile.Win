@@ -1,0 +1,20 @@
+APPLICATION := hello-scs
+INCLUDEPATH := -I../../include -IC:\Boost\include
+LIBSALL :=  -lcanaero -lboost_system -lboost_thread -lWs2_32
+DEFINES := -DUSE_BOOST_MUTEX -D_WIN32_WINNT=0x0501
+CFLAGS := -O2 $(DEFINES) $(INCLUDEPATH)
+OBJECTS := main.o
+
+LIBS = -LC:\Boost\lib -L../../lib/win32-gcc-4.4.0/static $(LIBSALL)
+
+.PHONY: $(APPLICATION)
+
+$(APPLICATION): $(OBJECTS)
+	g++ -Wl,-O1 -o $(APPLICATION) $(OBJECTS) $(LIBS)
+
+clean:
+	del *.o
+	del $(APPLICATION).exe
+
+%.o: %.cpp Makefile.Win
+	g++ $(CFLAGS) -c $<

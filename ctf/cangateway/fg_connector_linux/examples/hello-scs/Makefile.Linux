@@ -1,0 +1,24 @@
+APPLICATION := hello-scs
+INCLUDEPATH := -I../../include -I/usr/local/include
+LIBSALL :=  -lcanaero -lboost_system -lboost_thread -lpthread
+DEFINES := -DUSE_BOOST_MUTEX
+CFLAGS := -pipe -O2 -Wall $(DEFINES) $(INCLUDEPATH)
+OBJECTS := main.o
+
+ifeq ($(shell arch), x86_64)
+	LIBS = -L/usr/local/lib -L../../lib/linux-x86_64/static $(LIBSALL)
+else
+	LIBS = -L/usr/local/lib -L../../lib/linux-x86/static $(LIBSALL)
+endif
+
+.PHONY: $(APPLICATION)
+
+$(APPLICATION): $(OBJECTS)
+	g++ -Wl,-O1 -o $(APPLICATION) $(OBJECTS) $(LIBS) 
+
+clean:
+	rm -f *.o
+	rm -f $(APPLICATION)
+
+%.o: %.cpp Makefile.Linux
+	g++ $(CFLAGS) -c $< 

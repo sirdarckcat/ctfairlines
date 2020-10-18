@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../Models/cabin02.ac</path>
+	<texture-path>../Textures/Common</texture-path>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-left1</name>
+          <offsets>
+            <x-m>11.4144</x-m>
+            <y-m>0.1</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-left2</name>
+          <offsets>
+            <x-m>19.2642</x-m>
+            <y-m>0.1</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-left3</name>
+          <offsets>
+            <x-m>25.8720</x-m>
+            <y-m>0.1</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-left4</name>
+          <offsets>
+            <x-m>32.8720</x-m>
+            <y-m>0.1</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-left5</name>
+          <offsets>
+            <x-m>40.7344</x-m>
+            <y-m>0.1</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+
+
+ <!-- right side -->
+ 
+ 
+ <model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-right1</name>
+          <offsets>
+            <x-m>8.4144</x-m>
+            <y-m>-1.9</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-right2</name>
+          <offsets>
+            <x-m>16.2642</x-m>
+            <y-m>-1.9</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-right3</name>
+          <offsets>
+            <x-m>22.8720</x-m>
+            <y-m>-1.9</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-right4</name>
+          <offsets>
+            <x-m>29.8720</x-m>
+            <y-m>-1.9</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+	<model>
+	  <path>Aircraft/A380/XML/Lights/cabin-light.xml</path>
+          <name>pax-light-upper-right5</name>
+          <offsets>
+            <x-m>36.7344</x-m>
+            <y-m>-1.9</y-m>
+            <z-m>2.6</z-m>
+	   </offsets>
+	</model>
+	
+ 
+ <!-- animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>pax-light-upper-left1</name>
+   <object-name>pax.light.upper.right</object-name>
+   <position>
+     <x>11.4144</x>
+     <z>4.5826</z>
+     <y>-1.1764</y>
+   </position>
+   <direction>
+     <x>0</x>
+     <y>0</y>
+     <z>-1</z>
+   </direction>
+   <ambient>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </ambient>
+    <diffuse>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </diffuse>
+    <specular>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </specular>
+     <attenuation>
+     <c>1.0</c>
+     <l>0.002</l>
+     <q>0.00005</q>
+   </attenuation>
+   <exponent>30.0</exponent>
+   <cutoff>80</cutoff>
+   <near-m>0</near-m>
+   <far-m>3</far-m>
+ </animation>
+ 
+ <animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>pax-light-upper-left2</name>
+   <object-name>pax.light.upper.right</object-name>
+   <position>
+     <x>19.2642</x>
+     <z>4.5826</z>
+     <y>-1.1764</y>
+   </position>
+   <direction>
+     <x>0</x>
+     <y>0</y>
+     <z>-1</z>
+   </direction>
+   <ambient>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </ambient>
+    <diffuse>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </diffuse>
+    <specular>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </specular>
+     <attenuation>
+     <c>1.0</c>
+     <l>0.002</l>
+     <q>0.00005</q>
+   </attenuation>
+   <exponent>30.0</exponent>
+   <cutoff>80</cutoff>
+   <near-m>0</near-m>
+   <far-m>3</far-m>
+ </animation>
+ 
+ <animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>pax-light-upper-left3</name>
+   <object-name>pax.light.upper.right</object-name>
+   <position>
+     <x>25.8720</x>
+     <z>4.5826</z>
+     <y>-1.1764</y>
+   </position>
+   <direction>
+     <x>0</x>
+     <y>0</y>
+     <z>-1</z>
+   </direction>
+   <ambient>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </ambient>
+    <diffuse>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </diffuse>
+    <specular>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </specular>
+     <attenuation>
+     <c>1.0</c>
+     <l>0.002</l>
+     <q>0.00005</q>
+   </attenuation>
+   <exponent>30.0</exponent>
+   <cutoff>80</cutoff>
+   <near-m>0</near-m>
+   <far-m>3</far-m>
+ </animation>
+ 
+ <animation>
+   <type>light</type>
+   <light-type>spot</light-type>
+   <name>pax-light-upper-left4</name>
+   <object-name>pax.light.upper.right</object-name>
+   <position>
+     <x>40.7344</x>
+     <z>4.5826</z>
+     <y>-1.1764</y>
+   </position>
+   <direction>
+     <x>0</x>
+     <y>0</y>
+     <z>-1</z>
+   </direction>
+   <ambient>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </ambient>
+    <diffuse>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </diffuse>
+    <specular>
+      <r>  0.9 </r>
+      <g>  0.804 </g>
+      <b>  0.5 </b>
+      <a>  1.0 </a>
+    </specular>
+     <attenuation>
+     <c>1.0</c>
+     <l>0.002</l>
+     <q>0.00005</q>
+   </attenuation>
+   <exponent>30.0</exponent>
+   <cutoff>80</cutoff>
+   <near-m>0</near-m>
+   <far-m>3</far-m>
+ </animation -->
+
+ 
+ 
+</PropertyList>

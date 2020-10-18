@@ -1,0 +1,3068 @@
+<?xml version="1.0"?>
+
+<!--
+    The System Display contains the ECAM and permanent data area.
+    
+    
+    Author: S. Hamilton - Aug 2009
+
+-->
+
+<PropertyList>
+
+	<!-- path>../../../Models/FlightDeck/FrontPanel/display1.3ds</path -->
+	
+	<!-- path>../../../Models/FlightDeck/Pedestal/ecam/sdisplay.ac</path -->
+	<path>../../../Textures/Panels/ecam/sdisplay.ac</path>
+	<texture-path>Aircraft/A380/Textures/Panels/ecam</texture-path>
+
+
+
+<!-- System display ECAM pages -->
+<!--
+      There are 13 different System Display pages
+      * DOOR
+      * APU
+      * ENGINE
+      * COND
+      * WHEEL
+      * PRESSURE
+      * BLEED
+      * ELEC AC
+      * ELEC DC
+      * FUEL
+      * HYDRAULIC
+      * Flight/Control
+      * VIDEO
+-->
+
+<animation>
+  <type>select</type>
+  <object-name>sd door grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>door</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd apu grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>apu</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd engine grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd cruise grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>cruise</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd bleed grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>bleed</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd elec ac grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>elec ac</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd elec dc grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>elec dc</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd fuel grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>fuel</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>sd cab press grp</object-name>
+  <condition>
+    <and>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>pressure</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+  </condition>
+</animation>
+
+
+<!--
+
+      DOOR page stuff
+      
+      -->
+
+<animation>
+  <type>select</type>
+  <object-name>door.cargo.forward.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/forward-cargo/position-norm</property>
+       <value>0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.cargo.forward.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/forward-cargo/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+  <!-- aft cargo door -->
+<animation>
+  <type>select</type>
+  <object-name>door.cargo.aft.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/aft-cargo/position-norm</property>
+       <value>0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.cargo.aft.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/aft-cargo/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+  <!-- passenger doors -->
+<animation>
+  <type>select</type>
+  <object-name>door.paxL.low1.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/lower-left-pax1/position-norm</property>
+       <value>0.0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.paxL.low1.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/lower-left-pax1/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+
+<animation>
+  <type>select</type>
+  <object-name>door.paxR.low1.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/lower-right-pax1/position-norm</property>
+       <value>0.0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.paxR.low1.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/lower-right-pax1/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+
+<animation>
+  <type>select</type>
+  <object-name>door.paxL.low2.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/lower-left-pax2/position-norm</property>
+       <value>0.0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.paxL.low2.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/lower-left-pax2/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+
+<animation>
+  <type>select</type>
+  <object-name>door.paxR.low2.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/lower-right-pax2/position-norm</property>
+       <value>0.0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.paxR.low2.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/lower-right-pax2/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+
+<animation>
+  <type>select</type>
+  <object-name>door.paxR.up1.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/upper-right-pax1/position-norm</property>
+       <value>0.0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.paxR.up1.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/upper-right-pax1/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+
+<animation>
+  <type>select</type>
+  <object-name>door.paxL.up1.open</object-name>
+  <condition>
+     <greater-than>
+       <property>/instrumentation/doors/upper-left-pax1/position-norm</property>
+       <value>0.0</value>
+     </greater-than>
+  </condition>
+</animation>
+<animation>
+  <type>select</type>
+  <object-name>door.paxL.up1.close</object-name>
+  <condition>
+     <less-than>
+       <property>/instrumentation/doors/upper-left-pax1/position-norm</property>
+       <value>0.001</value>
+     </less-than>
+  </condition>
+</animation>
+
+
+<!-- 
+
+     APU page stuff 
+     
+     -->
+
+<animation>
+  <type>rotate</type>
+  <object-name>apu n1 needle</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>apu</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[4]/n1</property>
+  <interpolation>
+     <entry>
+       <ind>0.0</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+       <ind>90</ind>
+       <dep>20.0</dep>
+     </entry>
+   </interpolation>
+   <center>
+     <x-m>-0.1204</x-m>
+     <y-m>0.0021</y-m>
+     <z-m>-0.0281</z-m>
+   </center>  
+   <axis>
+     <x>0</x>
+     <y>-0.4</y>
+     <z>-1</z>
+   </axis>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>apu avail ind</object-name>
+  <condition>
+    <equals>   
+      <property>/engines/engine[4]/off-start-run</property>
+      <value>2</value>
+    </equals>
+  </condition>
+</animation>
+
+ <!-- apu n1 digits -->
+ 
+   <text>
+   <name>apu_n1</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.123</x-m>
+     <y-m>0.058</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/engines/engine[4]/n1</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ 
+ <!-- apu n2 digits -->
+ 
+  <text>
+   <name>apu_n2</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.115</x-m>
+     <y-m>0.058</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/engines/engine[4]/n2</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+
+<animation>
+  <type>rotate</type>
+  <object-name>apu egt needle</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>apu</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[4]/egt_degc</property>
+  <interpolation>
+     <entry>
+       <ind>0.0</ind>
+       <dep>0.0</dep>
+     </entry>
+     <entry>
+       <ind>160</ind>
+       <dep>390.0</dep>
+     </entry>
+     <entry>
+       <ind>240</ind>
+       <dep>900</dep>
+     </entry>
+   </interpolation>
+   <center>
+     <x-m>-0.0929</x-m>
+     <y-m>0.0021</y-m>
+     <z-m>-0.0299</z-m>
+   </center>  
+   <axis>
+     <x>0</x>
+     <y>-0.4</y>
+     <z>-1</z>
+   </axis>
+</animation>
+
+<!-- apu egt digits -->
+
+ <text>
+   <name>apu_egt</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.083</x-m>
+     <y-m>0.058</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/engines/engine[4]/egt_degc</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.007</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+
+<!-- apu volts digits -->
+ <text>
+   <name>apu_volts_a</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.175</x-m>
+     <y-m>0.037</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/apu[0]/volts</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+  <text>
+   <name>apu_hz_a</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.170</x-m>
+     <y-m>0.037</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/engines/engine[4]/gena-hz</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+  <text>
+   <name>apu_volts_b</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.175</x-m>
+     <y-m>0.075</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/apu[1]/volts</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+   <text>
+   <name>apu_hz_b</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.170</x-m>
+     <y-m>0.075</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/engines/engine[4]/genb-hz</property>
+    <format>%2.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <animation>
+  <type>select</type>
+  <object-name>apu_volts_a</object-name>
+  <object-name>apu_hz_a</object-name>
+  <object-name>apu_volts_b</object-name>
+  <object-name>apu_hz_b</object-name>
+  <object-name>apu_egt</object-name>
+  <object-name>apu_n2</object-name>
+  <object-name>apu_n1</object-name>
+  <condition>
+    <and>
+     <equals>
+       <property>/instrumentation/ecam/page</property>
+       <value>apu</value>
+     </equals>
+     <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+   </condition>
+ </animation> 
+ 
+ <animation>
+   <type>material</type>
+   <object-name>apu_volts_a</object-name>
+   <object-name>apu_hz_a</object-name>
+   <object-name>apu_volts_b</object-name>
+   <object-name>apu_hz_b</object-name>
+   <object-name>apu_egt</object-name>
+   <object-name>apu_n2</object-name>
+   <object-name>apu_n1</object-name>
+   <ambient>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </ambient>
+    <emission>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </emission>
+    <diffuse>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+ </animation>
+
+
+ <!-- 
+ 
+       ENGINE page stuff 
+       
+       -->
+ 
+    <!-- eng n2 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 n2 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/n2</property>
+  <factor>1.0</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 n2 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/n2</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine1 n2 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/n2</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+    <!-- eng n2 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 n2 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/n2</property>
+  <factor>1.0</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 n2 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/n2</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine2 n2 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/n2</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+    <!-- eng n2 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 n2 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/n2</property>
+  <factor>1.0</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 n2 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/n2</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine3 n2 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/n2</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+    <!-- eng n2 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 n2 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/n2</property>
+  <factor>1</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 n2 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/n2</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine4 n2 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/n2</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ 
+     <!-- eng n1 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 n1 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/n1</property>
+  <factor>1.0</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 n1 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/n1</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine1 n1 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/n1</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+    <!-- eng n1 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 n1 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/n1</property>
+  <factor>1.0</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 n1 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/n1</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine2 n1 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/n1</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+    <!-- eng n1 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 n1 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/n1</property>
+  <factor>1.0</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 n1 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/n1</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine3 n1 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/n1</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+    <!-- eng n1 -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 n1 digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/n1</property>
+  <factor>1</factor>
+  <step>0.1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 n1 digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/n1</property>
+  <factor>0.1</factor>
+  <step>1</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine4 n1 digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/n1</property>
+  <factor>0.01</factor>
+  <step>10</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ 
+ <!-- eng oil psi -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 oil psi digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/oil-pressure-psi</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 oil psi digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/oil-pressure-psi</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine1 oil psi digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[0]/oil-pressure-psi</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+      <!-- eng oil psi -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 oil psi digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/oil-pressure-psi</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 oil psi digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/oil-pressure-psi</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine2 oil psi digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[1]/oil-pressure-psi</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ 
+     <!-- eng oil psi -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 oil psi digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/oil-pressure-psi</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 oil psi digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/oil-pressure-psi</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine3 oil psi digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[2]/oil-pressure-psi</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+      <!-- eng oil psi -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 oil psi digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/oil-pressure-psi</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 oil psi digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/oil-pressure-psi</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine4 oil psi digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <property>/engines/engine[3]/oil-pressure-psi</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+
+     <!-- eng kg/h fuel flow -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 ff digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[0]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[0]/fuel-flow-rate-kgph</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine1 ff digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[0]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[0]/fuel-flow-rate-kgph</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine1 ff digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[0]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[0]/fuel-flow-rate-kgph</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+      <!-- eng kg/h fuel flow -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 ff digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[1]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[1]/fuel-flow-rate-kgph</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine2 ff digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[1]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[1]/fuel-flow-rate-kgph</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine2 ff digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[1]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[1]/fuel-flow-rate-kgph</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+      <!-- eng kg/h fuel flow -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 ff digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[2]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[2]/fuel-flow-rate-kgph</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine3 ff digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[2]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[2]/fuel-flow-rate-kgph</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine3 ff digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[2]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[2]/fuel-flow-rate-kgph</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+     <!-- eng kg/h fuel flow -->
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 ff digit1</object-name>
+    <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[3]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[3]/fuel-flow-rate-kgph</property>
+  <factor>0.1</factor>
+  <step>1</step>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ <animation>
+  <type>textranslate</type>
+  <object-name>engine4 ff digit2</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[3]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[3]/fuel-flow-rate-kgph</property>
+  <factor>0.01</factor>
+  <step>10</step> 
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+  <animation>
+  <type>textranslate</type>
+  <object-name>engine4 ff digit3</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>engine</value>
+    </equals>
+  </condition>
+  <!-- property>/engines/engine[3]/fuel-flow_kgph</property -->
+  <property>/fdm/jsbsim/propulsion/engine[3]/fuel-flow-rate-kgph</property>
+  <factor>0.001</factor>
+  <step>100</step>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ 
+ 
+ <!--
+
+      COND page stuff
+      
+      -->
+
+ 
+ 
+ <!-- 
+ 
+      WHEEL page stuff 
+      
+      -->
+    
+    
+    
+<!--
+
+      PRESSURE page stuff
+      
+      -->
+    
+
+
+
+<!--
+
+      BLEED page stuff
+      
+      -->
+
+
+
+<!--
+
+      ELEC AC page stuff
+      
+      -->
+      
+ <text>
+   <name>engine1_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.103</x-m>
+     <y-m>0.035</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/idg[0]/volts</property>
+    <format>%3.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <text>
+   <name>engine2_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.103</x-m>
+     <y-m>0.063</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/idg[1]/volts</property>
+    <format>%3.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+
+ <text>
+   <name>engine3_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.103</x-m>
+     <y-m>0.109</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/idg[2]/volts</property>
+    <format>%3.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <text>
+   <name>engine4_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.103</x-m>
+     <y-m>0.139</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/idg[3]/volts</property>
+    <format>%3.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+
+ <animation>
+  <type>select</type>
+  <object-name>engine1_volts</object-name>
+  <object-name>engine2_volts</object-name>
+  <object-name>engine3_volts</object-name>
+  <object-name>engine4_volts</object-name>
+  <condition>
+    <and>
+     <equals>
+       <property>/instrumentation/ecam/page</property>
+       <value>elec ac</value>
+     </equals>
+     <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+   </condition>
+ </animation> 
+ 
+ <animation>
+   <type>material</type>
+   <object-name>engine1_volts</object-name>
+   <object-name>engine2_volts</object-name>
+   <object-name>engine3_volts</object-name>
+   <object-name>engine4_volts</object-name>
+   <ambient>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </ambient>
+    <emission>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </emission>
+    <diffuse>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+ </animation>
+
+
+<!--
+
+      ELEC DC page stuff
+      
+      -->
+
+ <text>
+   <name>bat1_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.169</x-m>
+     <y-m>0.034</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/battery[0]/volts</property>
+    <format>%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <text>
+   <name>bat2_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.169</x-m>
+     <y-m>0.105</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/battery[1]/volts</property>
+    <format>%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <text>
+   <name>apu_bat_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.169</x-m>
+     <y-m>0.143</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/apu-battery/volts</property>
+    <format>%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <text>
+   <name>tr1a_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.119</x-m>
+     <y-m>0.029</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/tr[0]/volts</property>
+    <format>%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+ 
+ <text>
+   <name>tr2a_volts</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <offsets>
+     <pitch-deg>-90</pitch-deg>
+     <x-m>-0.119</x-m>
+     <y-m>0.100</y-m>
+     <z-m>0.0015</z-m>
+   </offsets>
+   <type type="string">number-value</type>
+    <property type="string">/systems/electrical/suppliers/tr[1]/volts</property>
+    <format>%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+ </text>
+
+ <animation>
+  <type>select</type>
+  <object-name>bat1_volts</object-name>
+  <object-name>bat2_volts</object-name>
+  <object-name>apu_bat_volts</object-name>
+  <object-name>tr1a_volts</object-name>
+  <object-name>tr2a_volts</object-name>
+  <condition>
+    <and>
+     <equals>
+       <property>/instrumentation/ecam/page</property>
+       <value>elec dc</value>
+     </equals>
+     <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+   </condition>
+ </animation> 
+ 
+ <animation>
+   <type>select</type>
+   <object-name>tr1a.tie</object-name>
+   <condition>
+     <and>
+       <property>/controls/electric/contact/tr_left_tie</property>
+       <greater-than>
+         <property>/systems/electrical/suppliers/tr[0]/volts</property>
+         <value>12</value>
+       </greater-than>
+     </and>
+   </condition>
+ </animation>
+ 
+ <animation>
+   <type>select</type>
+   <object-name>tr2a.tie</object-name>
+   <condition>
+     <and>
+       <property>/controls/electric/contact/tr_right_tie</property>
+       <greater-than>
+         <property>/systems/electrical/suppliers/tr[1]/volts</property>
+         <value>12</value>
+       </greater-than>
+     </and>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>batt1.tie</object-name>
+   <condition>
+     <property>/controls/electric/contact/batt_1</property>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>batt2.tie</object-name>
+   <condition>
+     <property>/controls/electric/contact/batt_2</property>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>apu-batt.tie</object-name>
+   <condition>
+       <property>/controls/electric/contact/apu_bat</property>
+   </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>ess-batt.tie</object-name>
+   <condition>
+     <property>/controls/electric/contact/ess_bat</property>
+   </condition>
+ </animation>
+ 
+ <animation>
+   <type>material</type>
+   <object-name>tr1a.tie</object-name>
+   <object-name>tr2a.tie</object-name>
+   <object-name>batt1.tie</object-name>
+   <object-name>batt2.tie</object-name>
+   <object-name>apu-batt.tie</object-name>
+   <object-name>ess-batt.tie</object-name>
+   <emission>
+     <red>0.0</red>
+     <green>1.0</green>
+     <blue>0.0</blue>
+   </emission>
+ </animation>
+ 
+ <animation>
+   <type>material</type>
+   <object-name>bat1_volts</object-name>
+   <object-name>bat2_volts</object-name>
+   <object-name>apu_bat_volts</object-name>
+   <object-name>tr1a_volts</object-name>
+   <object-name>tr2a_volts</object-name>
+   <ambient>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </ambient>
+    <emission>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </emission>
+    <diffuse>
+      <red>0.1</red>
+      <green>0.8</green>
+      <blue>0.1</blue>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+ </animation>
+
+
+<!--
+
+      FUEL page stuff
+      
+      -->
+
+<text>
+    <name>value.FEED0</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.133</x-m>
+      <y-m>0.042</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[0]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.FEED1</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.139</x-m>
+      <y-m>0.070</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[1]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.FEED2</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.139</x-m>
+      <y-m>0.111</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[2]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.FEED3</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.133</x-m>
+      <y-m>0.140</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[3]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.innerL</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.120</x-m>
+      <y-m>0.069</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[4]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.innerR</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.120</x-m>
+      <y-m>0.1095</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[5]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.midL</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.120</x-m>
+      <y-m>0.050</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[6]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.midR</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.120</x-m>
+      <y-m>0.130</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[7]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.outerL</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.120</x-m>
+      <y-m>0.031</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[8]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+<text>
+    <name>value.outerR</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.120</x-m>
+      <y-m>0.149</y-m>
+      <z-m>0.0007</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/tank[9]/level-kg</property>
+    <format type="string">%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+
+<animation>
+   <type>select</type>
+   <object-name>value.FEED0</object-name>
+   <object-name>value.FEED1</object-name>
+   <object-name>value.FEED2</object-name>
+   <object-name>value.FEED3</object-name>
+   <object-name>value.innerL</object-name>
+   <object-name>value.innerR</object-name>
+   <object-name>value.midL</object-name>
+   <object-name>value.midR</object-name>
+   <object-name>value.outerL</object-name>
+   <object-name>value.outerR</object-name>
+   <condition>
+    <and>
+     <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>fuel</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+   </condition>
+</animation>
+
+
+<!--
+
+      HYDRAULICS page stuff
+      
+      -->
+
+
+
+    
+<!-- 
+
+    CRUISE page stuff
+    
+    -->
+    
+     <!-- eng kg/h fuel flow -->
+ 
+ <text>
+   <name>cruise.engine1.ff</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1775</x-m>
+      <y-m>0.0348</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <!-- property type="string">/engines/engine[0]/fuel-flow_kgph</property -->
+   <property>/fdm/jsbsim/propulsion/engine[0]/fuel-flow-rate-kgph</property>
+   <format type="string">%04.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.engine2.ff</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1775</x-m>
+      <y-m>0.0565</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <!-- property type="string">/engines/engine[1]/fuel-flow_kgph</property -->
+   <property>/fdm/jsbsim/propulsion/engine[1]/fuel-flow-rate-kgph</property>
+   <format type="string">%04.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.engine3.ff</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1775</x-m>
+      <y-m>0.1071</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <!-- property type="string">/engines/engine[2]/fuel-flow_kgph</property -->
+   <property>/fdm/jsbsim/propulsion/engine[2]/fuel-flow-rate-kgph</property>
+   <format type="string">%04.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.engine4.ff</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1775</x-m>
+      <y-m>0.1371</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <!-- property type="string">/engines/engine[3]/fuel-flow_kgph</property -->
+   <property>/fdm/jsbsim/propulsion/engine[3]/fuel-flow-rate-kgph</property>
+   <format type="string">%04.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ 
+ <!-- eng fuel consumed kg -->
+ 
+
+ <text>
+   <name>cruise.engine1.fu</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.162</x-m>
+      <y-m>0.035</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">fdm/jsbsim/propulsion/engine[0]/fuel-used-kg</property>
+   <format type="string">%4.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.engine2.fu</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.162</x-m>
+      <y-m>0.0575</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">fdm/jsbsim/propulsion/engine[1]/fuel-used-kg</property>
+   <format type="string">%1.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.engine3.fu</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.162</x-m>
+      <y-m>0.1078</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">fdm/jsbsim/propulsion/engine[2]/fuel-used-kg</property>
+   <format type="string">%1.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.engine4.fu</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.162</x-m>
+      <y-m>0.1381</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">fdm/jsbsim/propulsion/engine[3]/fuel-used-kg</property>
+   <format type="string">%1.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cruise.total.fu</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>center-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1555</x-m>
+      <y-m>0.076</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">/consumables/fuel/total-used-kg</property>
+   <format type="string">%1.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <!-- cabin pressure -->
+ 
+ <text>
+   <name>cruise.ldg-elev</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.134</x-m>
+      <y-m>0.100</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">/controls/pressurisation/landing-elev-ft</property>
+   <format type="string">%3.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ 
+ <text>
+   <name>delta-psi</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1149</x-m>
+      <y-m>0.07</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">/instrumentation/pressurisation/cabin-delta-psi</property>
+   <format type="string">%2.1f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <text>
+   <name>cabin-alt</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.08</x-m>
+      <y-m>0.133</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">/instrumentation/pressurisation/cabin-altitude-ft</property>
+   <format type="string">%4.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text> 
+ 
+ <text>
+   <name>cabin-vs</name>
+   <axis-alignment>yz-plane</axis-alignment>
+   <alignment>right-bottom</alignment>
+   <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.1112</x-m>
+      <y-m>0.135</y-m>
+      <z-m>0.0011</z-m>
+   </offsets>
+   <type>number-value</type>
+   <property type="string">instrumentation/cabin-rate-climb[1]/indicated-speed-fpm</property>
+   <!-- factor type="double">60.0</factor -->
+   <format type="string">%3.0f</format>
+   <font>helvetica_medium.txf</font>
+   <character-size type="double">0.006</character-size>
+ </text>
+ 
+ <animation>
+   <type>select</type>
+   <object-name>delta-psi</object-name>
+   <object-name>cabin-alt</object-name>
+   <object-name>cabin-vs</object-name>
+   <object-name>cruise.engine1.ff</object-name>
+   <object-name>cruise.engine2.ff</object-name>
+   <object-name>cruise.engine3.ff</object-name>
+   <object-name>cruise.engine4.ff</object-name>
+   <object-name>cruise.engine1.fu</object-name>
+   <object-name>cruise.engine2.fu</object-name>
+   <object-name>cruise.engine3.fu</object-name>
+   <object-name>cruise.engine4.fu</object-name>
+   <object-name>cruise.total.fu</object-name>
+   <object-name>cruise.ldg-elev</object-name>
+   <condition>
+    <and>
+     <equals>
+      <property>/instrumentation/ecam/page</property>
+      <value>cruise</value>
+    </equals>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+    </and>
+   </condition>
+</animation>
+ 
+ 
+      
+      
+    <!-- panel>
+        <path>temp_panel.xml</path>
+        <bottom-left>
+            <x-m>0.004</x-m>
+            <y-m>-0.160</y-m>
+            <z-m>0.010</z-m>
+        </bottom-left>
+        <bottom-right>
+            <x-m>0.004</x-m>
+            <y-m>0.160</y-m>
+            <z-m>0.010</z-m>
+        </bottom-right>
+        <top-left>
+            <x-m>0.004</x-m>
+            <y-m>-0.160</y-m>
+            <z-m>0.030</z-m>
+        </top-left>
+    </panel -->
+    
+        <!-- panel>
+	  <path>Aircraft/A380/XML/FlightDeck/Pedestal/ecam_temp-panel.xml</path>
+	  <bottom-left>
+            <x-m>0.05</x-m> 
+            <y-m>0.0</y-m> 
+            <z-m>0.10</z-m>
+          </bottom-left>
+          <bottom-right>
+            <x-m>0.05</x-m>
+            <y-m>0.2</y-m> 
+            <z-m>0.10</z-m>
+          </bottom-right>
+          <top-left>
+            <x-m>-0.01</x-m>  
+            <y-m>0.0</y-m>
+            <z-m>0.103</z-m> 
+          </top-left>
+	</panel -->
+
+
+
+<!--
+
+       Permanent Data area stuff
+      
+      -->
+
+
+<text>
+    <name>label.TAT</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0715</x-m>
+      <y-m>0.01</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>TAT:</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>label.SAT</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0650</x-m>
+      <y-m>0.01</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>SAT:</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+  </text>
+
+<text>
+    <name>label.ISA</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0585</x-m>
+      <y-m>0.01</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>ISA:</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+  </text>
+  
+<text>
+    <name>label.GW</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0715</x-m>
+      <y-m>0.104</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>GW:</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>label.GWCG</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0650</x-m>
+      <y-m>0.104</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>GWCG:</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>label.FOB</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0585</x-m>
+      <y-m>0.104</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>FOB:</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+
+<text>
+    <name>value.TAT</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0715</x-m>
+      <y-m>0.040</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/fdm/jsbsim/propulsion/tat-c</property>
+    <format type="string">%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+  
+<text>
+    <name>units.TAT</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0715</x-m>
+      <y-m>0.046</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>C</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>value.SAT</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0650</x-m>
+      <y-m>0.040</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/environment/temperature-degc</property>
+    <format type="string">%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+  </text>
+  
+<text>
+    <name>units.SAT</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0650</x-m>
+      <y-m>0.046</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>C</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>value.UTC</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>center-center</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.068</x-m>
+      <y-m>0.075</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>text-value</type>
+    <property type="string">/sim/time/gmt-string</property>
+    <format>%s INT</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>value.GW</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0715</x-m>
+      <y-m>0.143</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/fdm/jsbsim/inertia/weight-kg</property>
+    <truncate type="bool">true</truncate>
+    <format>%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>units.GW</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0715</x-m>
+      <y-m>0.145</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>KG</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>value.GWCG</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0650</x-m>
+      <y-m>0.143</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/fdm/jsbsim/inertia/gwcg</property>
+    <truncate type="bool">true</truncate>
+    <format>%2.1f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>units.GWCG</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0650</x-m>
+      <y-m>0.145</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>%</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>value.FOB</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>right-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0585</x-m>
+      <y-m>0.143</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>number-value</type>
+    <property type="string">/consumables/fuel/total-fuel-kg</property>
+    <truncate type="bool">true</truncate>
+    <format>%6.0f</format>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<text>
+    <name>units.FOB</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>left-bottom</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.0585</x-m>
+      <y-m>0.145</y-m>
+      <z-m>0.0001</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>KG</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+
+
+
+<!-- text>
+    <name>label.LAB1</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>center-center</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.15</x-m>
+      <y-m>0.09</y-m>
+      <z-m>0.003</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>LAB1</text>
+    <font>schoolbook_bold.txf</font>
+    <character-size type="double">0.003</character-size>
+  </text -->
+
+<!-- text>
+    <name>label.LAB2</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>center-center</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.03</x-m>
+      <y-m>0.09</y-m>
+      <z-m>-0.002</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>LAB2</text>
+    <font>schoolbook_bold.txf</font>
+    <character-size type="double">0.003</character-size>
+  </text -->
+
+<!-- text>
+    <name>label.LAB3</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <alignment>center-center</alignment>
+    <offsets>
+      <pitch-deg>-87</pitch-deg>
+      <x-m>-0.2</x-m>
+      <y-m>0.10</y-m>
+      <z-m>-0.002</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>LAB3</text>
+    <font>schoolbook_bold.txf</font>
+    <character-size type="double">0.003</character-size>
+  </text -->
+  
+  
+  <!--   The ATC Mailbox area -->
+  <text>
+    <name>mailbox00</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.048</x-m>
+      <y-m>0.065</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">text-value</type>
+    <property type="string">/instrumentation/atn/mailbox/line[0]</property>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>left-bottom</alignment>
+</text>
+
+<text>
+    <name>mailbox01</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.042</x-m>
+      <y-m>0.065</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">text-value</type>
+    <property type="string">/instrumentation/atn/mailbox/line[1]</property>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>left-bottom</alignment>
+</text>
+<text>
+    <name>mailbox02</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.036</x-m>
+      <y-m>0.065</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">text-value</type>
+    <property type="string">/instrumentation/atn/mailbox/line[2]</property>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>left-bottom</alignment>
+</text>
+
+
+
+  <animation>
+    <type>material</type>
+    <object-name>mailbox00</object-name>
+    <ambient>
+      <red-prop>/instrumentation/atn/mailbox/red[0]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[0]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[0]</blue-prop>
+    </ambient>
+    <emission>
+      <red-prop>/instrumentation/atn/mailbox/red[0]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[0]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[0]</blue-prop>
+    </emission>
+    <diffuse>
+      <red-prop>/instrumentation/atn/mailbox/red[0]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[0]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[0]</blue-prop>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>mailbox01</object-name>
+    <ambient>
+      <red-prop>/instrumentation/atn/mailbox/red[1]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[1]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[1]</blue-prop>
+    </ambient>
+    <emission>
+      <red-prop>/instrumentation/atn/mailbox/red[1]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[1]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[1]</blue-prop>
+    </emission>
+    <diffuse>
+      <red-prop>/instrumentation/atn/mailbox/red[1]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[1]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[1]</blue-prop>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>mailbox02</object-name>
+    <ambient>
+      <red-prop>/instrumentation/atn/mailbox/red[2]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[2]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[2]</blue-prop>
+    </ambient>
+    <emission>
+      <red-prop>/instrumentation/atn/mailbox/red[2]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[2]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[2]</blue-prop>
+    </emission>
+    <diffuse>
+      <red-prop>/instrumentation/atn/mailbox/red[2]</red-prop>
+      <green-prop>/instrumentation/atn/mailbox/green[2]</green-prop>
+      <blue-prop>/instrumentation/atn/mailbox/blue[2]</blue-prop>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+  </animation>
+
+
+
+
+<animation>
+   <type>material</type>
+   <object-name>label.TAT</object-name>
+   <object-name>label.SAT</object-name>
+   <object-name>label.ISA</object-name>
+   <object-name>label.GW</object-name>
+   <object-name>label.GWCG</object-name>
+   <object-name>label.FOB</object-name>
+   <!-- object-name>label.LAB1</object-name>
+   <object-name>label.LAB2</object-name>
+   <object-name>label.LAB3</object-name -->
+   <emission>
+     <red>0.8</red>
+     <green>0.8</green>
+     <blue>0.8</blue>
+   </emission>
+</animation>
+
+<animation>
+   <type>material</type>
+   <object-name>value.TAT</object-name>
+   <object-name>value.SAT</object-name>
+   <object-name>value.UTC</object-name>
+   <object-name>value.GW</object-name>
+   <object-name>value.GWCG</object-name>
+   <object-name>value.FOB</object-name>
+   <object-name>value.FEED0</object-name>
+   <object-name>value.FEED1</object-name>
+   <object-name>value.FEED2</object-name>
+   <object-name>value.FEED3</object-name>
+   <object-name>value.innerL</object-name>
+   <object-name>value.innerR</object-name>
+   <object-name>value.midL</object-name>
+   <object-name>value.midR</object-name>
+   <object-name>value.outerL</object-name>
+   <object-name>value.outerR</object-name>
+   <object-name>delta-psi</object-name>
+   <object-name>cabin-alt</object-name>
+   <object-name>cabin-vs</object-name>
+   <object-name>cruise.engine1.ff</object-name>
+   <object-name>cruise.engine2.ff</object-name>
+   <object-name>cruise.engine3.ff</object-name>
+   <object-name>cruise.engine4.ff</object-name>
+   <object-name>cruise.engine1.fu</object-name>
+   <object-name>cruise.engine2.fu</object-name>
+   <object-name>cruise.engine3.fu</object-name>
+   <object-name>cruise.engine4.fu</object-name>
+   <object-name>cruise.total.fu</object-name>
+   <object-name>cruise.ldg-elev</object-name>
+   <emission>
+     <red>0.1</red>
+     <green>1.0</green>
+     <blue>0.1</blue>
+   </emission>
+   <ambient>
+      <red>0.0</red>
+      <green>1.0</green>
+      <blue>0.0</blue>
+   </ambient>
+   <diffuse>
+      <red>0.0</red>
+      <green>1.0</green>
+      <blue>0.0</blue>
+   </diffuse>
+</animation>
+
+<animation>
+   <type>material</type>
+   <object-name>units.TAT</object-name>
+   <object-name>units.SAT</object-name>
+   <object-name>units.GW</object-name>
+   <object-name>units.GWCG</object-name>
+   <object-name>units.FOB</object-name>
+   <emission>
+     <red>0.2</red>
+     <green>0.4</green>
+     <blue>0.6</blue>
+   </emission>
+   <ambient>
+      <red>0.2</red>
+      <green>0.4</green>
+      <blue>0.6</blue>
+   </ambient>
+   <diffuse>
+      <red>0.2</red>
+      <green>0.4</green>
+      <blue>0.6</blue>
+   </diffuse>
+</animation>
+
+<animation>
+  <type>select</type>
+  <object-name>label.TAT</object-name>
+  <object-name>label.SAT</object-name>
+  <object-name>label.ISA</object-name>
+  <object-name>label.GW</object-name>
+  <object-name>label.GWCG</object-name>
+  <object-name>label.FOB</object-name>
+  <object-name>value.TAT</object-name>
+  <object-name>value.SAT</object-name>
+  <object-name>value.UTC</object-name>
+  <object-name>value.GW</object-name>
+  <object-name>value.GWCG</object-name>
+  <object-name>value.FOB</object-name>
+  <object-name>units.TAT</object-name>
+  <object-name>units.SAT</object-name>
+  <object-name>units.GW</object-name>
+  <object-name>units.GWCG</object-name>
+  <object-name>units.FOB</object-name>
+  <object-name>sd perm grp</object-name>
+  <condition>
+    <greater-than>
+      <property>/systems/electrical/outputs/efis</property>
+      <value>15</value>
+    </greater-than>
+   </condition>
+</animation>
+  
+    
+</PropertyList> 
+ 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?> 
+
+<PropertyList> 
+	<sim> 
+		<model> 
+			<livery> 
+				<name type="string">House</name> 
+				<texture>../House/A380.png</texture> 
+			</livery> 
+			<cowling>
+				<texture>../House/cowling.png</texture>
+			</cowling>
+		</model> 
+	</sim> 
+</PropertyList> 

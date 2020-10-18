@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+
+<!--
+**********************************************************************
+This file selects the instrumentation modules that should be available.
+**********************************************************************
+
+-->
+
+<PropertyList>
+    <adf>
+        <name>adf</name>
+        <number>0</number>
+    </adf>
+
+    <adf>
+        <name>adf</name>
+        <number>1</number>
+    </adf>
+
+    <airspeed-indicator>
+        <name>airspeed-indicator</name>
+        <number>0</number>
+        <total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    </airspeed-indicator>
+
+    <altimeter>
+        <name>altimeter</name>
+        <number>0</number>
+        <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    </altimeter>
+
+    <attitude-indicator>
+        <name>attitude-indicator</name>
+        <number>0</number>
+        <suction>/systems/vacuum/suction-inhg</suction>
+    </attitude-indicator>
+
+    <clock>
+        <name>clock</name>
+        <number>0</number>
+    </clock>
+
+    <heading-indicator>
+        <name>heading-indicator</name>
+        <number>0</number>
+        <suction>/systems/vacuum/suction-inhg</suction>
+    </heading-indicator>
+
+    <heading-indicator-dg>
+        <name>heading-indicator-dg</name>
+        <number>0</number>
+    </heading-indicator-dg>
+
+    <magnetic-compass>
+        <name>magnetic-compass</name>
+        <number>0</number>
+    </magnetic-compass>
+
+    <nav-radio>
+        <name>nav</name>
+        <number>0</number>
+    </nav-radio>
+
+    <nav-radio>
+        <name>nav</name>
+        <number>1</number>
+    </nav-radio>
+    
+    <nav-radio>
+        <name>nav</name>
+        <number>2</number>
+    </nav-radio>
+
+    <slip-skid-ball>
+        <name>slip-skid-ball</name>
+        <number>0</number>
+    </slip-skid-ball>
+
+    <turn-indicator>
+        <name>turn-indicator</name>
+        <number>0</number>
+    </turn-indicator>
+
+    <radar>
+        <name>wxradar</name>
+        <number>0</number>
+    </radar>
+    
+    <air-ground-radar>
+      <name>terrain-radar</name>
+      <number>0</number>
+    </air-ground-radar>
+    
+    <navigation-display>
+        <name>nd</name>
+        <number>0</number>        
+        <symbols include="nav-display-c.xml"/>
+    </navigation-display>
+    
+    <navigation-display>
+        <name>nd</name>
+        <number>1</number>        
+        <symbols include="nav-display-fo.xml"/>
+    </navigation-display>
+    
+
+    <groundradar>
+        <name>groundradar</name>
+        <!--airport-id-source>instrumentation/groundradar/id</airport-id-source-->
+        <range-source>instrumentation/groundradar/range</range-source>
+    </groundradar>
+
+    <mk-viii>
+        <name>mk-viii</name>
+        <number>0</number>
+    </mk-viii>
+
+    <marker-beacon>
+        <name>marker-beacon</name>
+        <number>0</number>
+    </marker-beacon>
+
+    <transponder>
+        <name>transponder</name>
+        <number>0</number>
+    </transponder>
+
+    <encoder>
+        <name>encoder</name>
+        <number>0</number>
+    </encoder>
+
+    <tcas>
+        <name>tcas</name>
+        <number>0</number>
+    </tcas>
+    
+    <inst-vertical-speed-indicator>                                            <!-- 1st ADC sensor -->
+      <name>ivsi-adc</name>
+      <number>0</number>
+      <serviceable type="bool">true</serviceable>
+    </inst-vertical-speed-indicator>
+
+    <inst-vertical-speed-indicator>                                            <!-- 2nd ADC sensor -->
+      <name>ivsi-adc</name>
+      <number>1</number>
+      <serviceable type="bool">true</serviceable>
+    </inst-vertical-speed-indicator>
+    
+    <vertical-speed-indicator>                       
+      <number>0</number>
+      <serviceable type="bool">true</serviceable>
+    </vertical-speed-indicator>
+  
+    <vertical-speed-indicator>                                                 <!-- vented to cabin pressure -->
+      <name>cabin-rate-climb</name>
+      <number>1</number>
+      <static-pressure>instrumentation/pressurisation/cabin-pressure-inhg</static-pressure>
+      <serviceable type="bool">true</serviceable>
+  </vertical-speed-indicator>
+  
+  <radar-altimeter>
+    <name>radar-altimeter</name>
+    <number>0</number>
+  </radar-altimeter>
+  
+</PropertyList>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+	<systems>
+	<hydraulics>
+	<supplier>
+	<pump>
+		<pressure type="integer">5000</pressure>
+	</pump>	
+	</supplier>
+	</hydraulics>
+	</systems>
+	</sim>
+</PropertyList> 

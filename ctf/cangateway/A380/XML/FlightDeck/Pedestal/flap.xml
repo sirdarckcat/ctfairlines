@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/flap.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Instruments</texture-path>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>HANDLE</object-name>
+  <property>/fdm/jsbsim/fcs/flap-cmd-norm</property>
+  <interpolation>
+        <entry><ind>0</ind><dep>0</dep></entry>
+        <entry><ind>1</ind><dep>60</dep></entry>
+  </interpolation>  
+ <center>
+   <x-m>0.07</x-m>
+   <y-m>0.07</y-m>
+   <z-m>-0.04</z-m>
+  </center>  
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+
+</PropertyList> 
+ 

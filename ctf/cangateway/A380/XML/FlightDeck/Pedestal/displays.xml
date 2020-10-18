@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!-- 
+
+    Just contains the three main displays at the top of the pedestal
+
+-->
+
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/displayFrame.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+	
+	<model>
+		<name>cdu1</name>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdu_new_display_01.xml</path>
+		<offsets>
+			<x-m>-0.03</x-m>
+			<y-m>-0.27</y-m>
+			<z-m>-0.0075</z-m>
+		</offsets>
+	</model>
+		
+	<model>
+		<name>ecam</name>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/system_display.xml</path>
+		<offsets>
+			<x-m>-0.03</x-m>
+			<y-m>-0.08</y-m>
+			<z-m>-0.002</z-m>
+		</offsets>
+	</model>
+		
+	<model>
+		<name>cdu2</name>
+		<path>Aircraft/A380/XML/FlightDeck/Pedestal/mcdu_new_display_02.xml</path>
+		<offsets>
+			<x-m>-0.03</x-m>
+			<y-m>0.11</y-m>
+			<z-m>-0.0075</z-m>
+		</offsets>
+	</model>
+
+</PropertyList> 
+ 

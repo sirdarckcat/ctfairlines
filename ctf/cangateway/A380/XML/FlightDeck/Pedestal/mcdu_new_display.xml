@@ -1,0 +1,526 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Pedestal/mcdu_display.ac</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+
+########  Text labels #########################
+
+<text>
+  <name>label.active</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.19</x-m>
+    <y-m>0.033</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>ACTIVE</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.005</character-size>
+  <alignment>right-bottom</alignment>  
+</text>
+
+
+<animation>
+  <type>pick</type>
+  <object-name>menu.active</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.changePage("active.init")</script>
+   </binding>
+  </action>
+</animation>
+
+
+######## active.init page labels #############
+<text>
+  <name>label.FLT_NBR</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.171</x-m>
+    <y-m>0.034</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>FLT NBR</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.005</character-size>
+  <alignment>right-bottom</alignment>
+</text>
+
+<text>
+    <name>label.FROM</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.16</x-m>
+      <y-m>0.034</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>FROM</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+</text>
+  
+<text>
+  <name>label.TO</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.16</x-m>
+    <y-m>0.069</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>TO</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.005</character-size>
+  <alignment>right-bottom</alignment>
+</text>
+
+<text>
+    <name>label.CPY_RTE</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.1466</x-m>
+      <y-m>0.034</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>CPNY RTE</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+</text>
+
+<text>
+    <name>label.ALT_RTE</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.1364</x-m>
+      <y-m>0.034</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>ALTN RTE</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+</text>
+
+<text>
+    <name>label.CRZ_FL</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.118</x-m>
+      <y-m>0.034</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type>literal</type>
+    <text>CRZ FL</text>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+    <alignment>right-bottom</alignment>
+</text>
+
+<text>
+  <name>label.CRZ_TEMP</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.118</x-m>
+    <y-m>0.093</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>CRZ TEMP</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.005</character-size>
+  <alignment>right-bottom</alignment>
+</text>
+
+<text>
+  <name>label.IRS</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.071</x-m>
+    <y-m>0.0515</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>IRS</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.004</character-size>
+  <alignment>center-center</alignment>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>menu.IRS</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.changePage("active.irs")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+  <name>label.DEPARTURE</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.062</x-m>
+    <y-m>0.0515</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>DEPARTURE</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.004</character-size>
+  <alignment>center-center</alignment>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>menu.DEPARTURE</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.changePage("active.departure")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+  <name>label.NAVAIDS</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.053</x-m>
+    <y-m>0.0515</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>NAVAIDS</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.004</character-size>
+  <alignment>center-center</alignment>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>menu.NAVAIDS</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.changePage("active.navaids")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+  <name>label.FUEL_LOAD</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.044</x-m>
+    <y-m>0.0515</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>FUEL &amp; LOAD</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.004</character-size>
+  <alignment>center-center</alignment>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>menu.FUEL_LOAD</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.changePage("active.fuel_load")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+  <name>label.TO_PERF</name>
+  <axis-alignment>yz-plane</axis-alignment>
+  <offsets>
+    <pitch-deg>-90</pitch-deg>
+    <x-m>-0.035</x-m>
+    <y-m>0.0515</y-m>
+    <z-m>0.002</z-m>
+  </offsets>
+  <type>literal</type>
+  <text>T.O PERF</text>
+  <font>helvetica_medium.txf</font>
+  <character-size type="double">0.004</character-size>
+  <alignment>center-center</alignment>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>menu.TO_PERF</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.changePage("active.to_perf")</script>
+   </binding>
+  </action>
+</animation>
+
+
+##########  input fields #################
+
+
+<text>
+    <name>field.FLT_NBR</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.1725</x-m>
+      <y-m>0.0357</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">text-value</type>
+    <property type="string">/instrumentation/mcdu/FLT_NBR</property>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>input.FLT_NBR</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.selectField("FLT_NBR")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+    <name>field.FROM</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.16</x-m>
+      <y-m>0.03725</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">text-value</type>
+    <property type="string">/instrumentation/mcdu/FROM</property>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>input.FROM</object-name>
+    <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.selectField("FROM")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+    <name>field.TO</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.16</x-m>
+      <y-m>0.0715</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">text-value</type>
+    <property type="string">/instrumentation/mcdu/TO</property>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>input.TO</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.selectField("TO")</script>
+   </binding>
+  </action>
+</animation>
+
+<text>
+    <name>field.CRZ_FL</name>
+    <axis-alignment>yz-plane</axis-alignment>
+    <offsets>
+      <pitch-deg>-90</pitch-deg>
+      <x-m>-0.118</x-m>
+      <y-m>0.038</y-m>
+      <z-m>0.002</z-m>
+    </offsets>
+    <type type="string">number-value</type>
+    <property type="string">/instrumentation/mcdu/CRZ_FL</property>
+    <offset type="double">0.01</offset>
+    <format>%3.0f</format>
+    <truncate type="bool">true</truncate>
+    <font>helvetica_medium.txf</font>
+    <character-size type="double">0.005</character-size>
+</text>
+
+<animation>
+  <type>pick</type>
+  <object-name>input.CRZ_FL</object-name>
+  <action>
+   <button>0</button>
+   <repeatable>false</repeatable>
+   <binding>
+      <command>nasal</command>
+      <script>MCDU.selectField("CRZ_FL")</script>
+   </binding>
+  </action>
+</animation>
+
+  
+  ### LABEL Material 
+  <animation>
+    <type>material</type>
+    <object-name>label.active</object-name>
+    <object-name>label.FLT_NBR</object-name>
+    <object-name>label.FROM</object-name>
+    <object-name>label.TO</object-name>
+    <object-name>label.CPY_RTE</object-name>
+    <object-name>label.ALT_RTE</object-name>
+    <object-name>label.CRZ_FL</object-name>
+    <object-name>label.CRZ_TEMP</object-name>
+    <object-name>label.IRS</object-name>
+    <object-name>label.DEPARTURE</object-name>
+    <object-name>label.NAVAIDS</object-name>
+    <object-name>label.FUEL_LOAD</object-name>
+    <object-name>label.TO_PERF</object-name>
+    <emission>
+      <red>0.9</red>
+      <green>0.9</green>
+      <blue>0.9</blue>
+    </emission>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+  </animation>
+
+  ### Field Material
+  <animation>
+    <type>material</type>
+    <object-name>field.FLT_NBR</object-name>
+    <object-name>field.FROM</object-name>
+    <object-name>field.TO</object-name>
+    <object-name>field.CRZ_FL</object-name>
+    <ambient>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.8</blue>
+    </ambient>
+    <emission>
+      <red>0.25</red>
+      <green>0.5</green>
+      <blue>0.8</blue>
+    </emission>
+    <diffuse>
+      <red>0.25</red>
+      <green>0.5</green>
+      <blue>0.8</blue>
+    </diffuse>
+    <specular>
+      <red>0.0</red>
+      <green>0.0</green>
+      <blue>0.0</blue>
+    </specular>
+    <shininess>0.0</shininess>
+    <transparency><alpha>0.7</alpha></transparency>
+  </animation>
+
+###########  Only display what is on the current page ##########
+
+ <animation>
+  <type>select</type>
+  <object-name>label.FLT_NBR</object-name>
+  <object-name>label.FROM</object-name>
+  <object-name>label.TO</object-name>
+  <object-name>label.CPY_RTE</object-name>
+  <object-name>label.ALT_RTE</object-name>
+  <object-name>label.CRZ_FL</object-name>
+  <object-name>label.CRZ_TEMP</object-name>
+  <object-name>label.IRS</object-name>
+  <object-name>label.DEPARTURE</object-name>
+  <object-name>label.NAVAIDS</object-name>
+  <object-name>label.FUEL_LOAD</object-name>
+  <object-name>label.TO_PERF</object-name>
+  
+  <object-name>input.FLT_NBR</object-name>
+  <object-name>input.FROM</object-name>
+  <object-name>input.TO</object-name>
+  <object-name>input.ALTN</object-name>
+  <object-name>input.CO_RTE</object-name>
+  <object-name>input.ALTN_RTE</object-name>
+  <object-name>input.CRZ_FL</object-name>
+  <object-name>input.CRZ_TEMP</object-name>
+  
+  <object-name>field.FLT_NBR</object-name>
+  <object-name>field.FROM</object-name>
+  <object-name>field.TO</object-name>
+  <object-name>field.CPY_RTE</object-name>
+  <object-name>field.ALT_RTE</object-name>
+  <object-name>field.CRZ_FL</object-name>
+  <object-name>field.CRZ_TEMP</object-name>
+  
+  <object-name>menu.RTE_SELECT</object-name>
+  <object-name>menu.ALT_RTE_SELECT</object-name>
+  <object-name>menu.IRS</object-name>
+  <object-name>menu.DEPARTURE</object-name>
+  <object-name>menu.NAVAIDS</object-name>
+  <object-name>menu.FUEL_LOAD</object-name>
+  <object-name>menu.TO_PERF</object-name>
+  <object-name>menu.RTE_SUMM</object-name>
+  <condition>
+    <equals>
+      <property>/instrumentation/mcdu/page</property>
+      <value>active.init</value>
+    </equals>
+  </condition>
+</animation>
+
+
+</PropertyList>

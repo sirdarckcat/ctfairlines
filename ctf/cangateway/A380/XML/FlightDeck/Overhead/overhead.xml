@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+	<path>../../../Models/FlightDeck/Overhead/overhead.3ds</path> 
+	<texture-path>Aircraft/A380/Textures/Common</texture-path>
+
+	<!-- -->
+	<!-- Center -->
+	<!-- Load Anti-ice and lights control panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/anti_ice_lights.xml</path>
+		<name>anti_ice_lights</name>
+		<offsets>
+			<x-m>-0.001495</x-m>
+			<y-m>-0.155497</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	<!-- Load Electric and Air panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/elec_air.xml</path>
+		<name>elec_air</name>
+		<offsets>
+			<x-m>-0.155495</x-m>
+			<y-m>-0.155497</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	<!-- Load Hydraulic & Fuel panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/hyd_fuel.xml</path>
+		<name>hyd_fuel</name>
+		<offsets>
+			<x-m>-0.346995</x-m>
+			<y-m>-0.155497</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	<!-- Load Engine Fire panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/eng_fire.xml</path>
+		<name>eng_fire</name>
+		<offsets>
+			<x-m>-0.555495</x-m>
+			<y-m>-0.155497</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	<!-- Load Ground Hydraulics panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/gnd_hyd.xml</path>
+		<name>gnd_hyd</name>
+		<offsets>
+			<x-m>-0.789245</x-m>
+			<y-m>-0.155497</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	<!-- Misc. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/misc_m.xml</path>
+		<name>misc_m</name>
+		<offsets>
+			<x-m>-0.652495</x-m>
+			<y-m>-0.155497</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	
+	<!-- Captain's side -->
+	<!-- Load APU and ADIRS panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/apu_adirs.xml</path>
+		<name>apu_adirs</name>
+		<offsets>
+			<x-m>-0.43099</x-m>
+			<y-m>-0.306503</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	
+	<!-- Load the misc. panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/misc_c.xml</path>
+		<name>misc_c</name>
+		<offsets>
+			<x-m>-0.001495</x-m>
+			<y-m>-0.306503</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	
+	<!-- First Officer's side -->
+	<!-- Load the misc. panel. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/misc_fo.xml</path>
+		<name>misc_fo</name>
+		<offsets>
+			<x-m>-0.001495</x-m>
+			<y-m>0.158003</y-m>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	
+	<!-- Placeholders -->
+	<!-- Load the placeholders. -->
+	<model>
+		<path>Aircraft/A380/XML/FlightDeck/Overhead/placeholders.xml</path>
+		<name>placeholders</name>
+		<offsets>
+			<z-m>-0.01</z-m>
+		</offsets>
+	</model>
+	
+	
+	<!-- Disable shadows. -->
+	<animation>
+		<type>noshadow</type>
+		<name>anti_ice_lights</name>
+		
+		<name>elec_air</name>
+		<name>hyd_fuel</name>
+		<name>eng_fire</name>
+		<name>gnd_hyd</name>
+		
+		<name>apu_adirs</name>
+		<name>misc_c</name>
+		
+		<name>misc_fo</name>
+		
+		<name>placeholders</name>
+	</animation>
+</PropertyList> 
+ 
