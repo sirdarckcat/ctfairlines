@@ -1,0 +1,222 @@
+/*******************************************************************************
+* PMC825 UDP/IP Socket Interface Test Program                                  *
+*                                                                              *
+* (C) 2010 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: pmc825write.c                                                      *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 03.03.2010    1.0          Initial Version                       M. Stock    *
+* 21.04.2010    1.1          Command line interface added          M. Stock    *
+* 14.06.2010    1.2          Response message checked              M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include "pmc825socket.h"
+#include "can_as.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE	34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+Pmc825StopInterface(&Pmc825);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*20};	/* 20ms frame time */
+#endif
+unsigned int *test[MAX_CAN_MSG_COUNT], host_ip, pmc825_ip, lport, rport;
+unsigned char hip[32], pip[32], ch[8];
+int loops, ret, i, chan, ip[4];
+CAN_MSG tx_buf[MAX_CAN_MSG_COUNT];
+CTRL_MSG tx_ctrl, rx_ctrl;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 4)
+  {
+  printf("usage: %s host_ip pmc825_ip can_channel\n", argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(ch, argv[3]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(ch, "%d", &chan);
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the interface for the PMC825.
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Set CAN baud rate.
+ */
+
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = 0;
+
+ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Setup the CANaerospace transmit messages.
+ */
+
+for (loops = 0; loops < MAX_CAN_MSG_COUNT; loops++)
+  {
+  tx_buf[loops].identifier = 1000 + loops;
+  tx_buf[loops].byte_count = 8;
+  tx_buf[loops].frame_type = DATA;
+
+  for (i = 0; i < 8; i++)
+    tx_buf[loops].data[i] = 0;
+
+  tx_buf[loops].can_status = 0;
+  tx_buf[loops].error_counter = 0;
+  tx_buf[loops].time_stamp_lo = 0;
+  tx_buf[loops].time_stamp_hi = 0;
+
+  test[loops] = (unsigned int *) &(tx_buf[loops].data[0]);
+  *test[loops] = 0;
+  }
+
+/*
+ * Now go into an endless loop writing CAN messages to the PMC825.
+ */
+
+printf("Start writing CAN messages on channel %d:\n", chan);
+
+for (;;)
+  {
+  /*
+   * Get CAN_WRITE_RSP message and check it.
+   */
+
+  do
+    {
+    ret = Pmc825CtrlRead(&Pmc825, &rx_ctrl);
+
+    if (rx_ctrl.opcode == CAN_WRITE_RSP)
+      {
+      if (rx_ctrl.arg[0] != MAX_CAN_MSG_COUNT)
+        printf("%d Messages\n", rx_ctrl.arg[0]);
+      }
+
+    } while (ret == PMC825_NO_MSG);
+
+  /*
+   * Continuously transmit an array of CAN messages.
+   */
+
+  Pmc825RawCanWrite(&Pmc825, (CAN_MSG *) &tx_buf, MAX_CAN_MSG_COUNT);
+
+  for (loops = 0; loops < MAX_CAN_MSG_COUNT; loops++)
+    *test[loops] += 1;
+
+  /*
+   * 20ms time frame.
+   */
+
+#ifndef WIN32
+  nanosleep(&t1,&t2);
+#else
+  Sleep (20);
+#endif
+  }
+exit(0);
+}
+
+/*
+ * End of file.
+ */

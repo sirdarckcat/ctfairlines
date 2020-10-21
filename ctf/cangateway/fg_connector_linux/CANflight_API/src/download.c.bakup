@@ -1,0 +1,251 @@
+/*******************************************************************************
+* PMC825 UDP/IP Socket Interface Test Program                                  *
+*                                                                              *
+* (C) 2011 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: download.c                                                         *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 03.06.2011    1.0          Initial Version                       M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include "pmc825socket.h"
+#include "can_as.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE      34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+Pmc825StopInterface(&Pmc825);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*10};	/* 10ms frame time */
+#endif
+unsigned int *iptr, host_ip, pmc825_ip, lport, rport;
+unsigned char hip[32], pip[32], ch[8], *fnamestr, fname[64];
+char buf[DLOAD_PKT_SIZE];
+int loops, chan, ret, bytes_read, i, kb, old_kb, ip[4];
+CTRL_MSG ctrl;
+UDP_DLOAD_CMD_PKT dload_cmd;
+UDP_DLOAD_DATA_PKT dload_data;
+FILE *fp;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 5)
+  {
+  printf("usage: %s host_ip pmc825_ip can_channel filename\n", argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(ch, argv[3]);
+strcpy(fname, argv[4]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(ch, "%d", &chan);
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the interface for the PMC825 and wait until the ARP messages
+ * have been exchanged.
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Now send a download command packet to the PMC825/CANflight. Note that we
+ * have to wait some time to allow the Ethernet communication to be set up.
+ */
+
+sleep(1);
+
+dload_cmd.opcode = HOST_DOWNLOAD_CMD;
+dload_cmd.svc_rsp_code = START_DOWNLOAD;
+
+for (loops = 0; loops < 12; loops++)
+  dload_cmd.fname[loops] = fname[loops];
+
+ret = Pmc825DownloadCmd(&Pmc825, &dload_cmd);
+
+if (ret != PMC825_OK)
+  {
+  printf("Pmc825DownloadCmd() failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+fp = 0;
+bytes_read = 0;
+
+/*
+ * Now get the file from the PMC825/CANflight.
+ */
+
+for (;;)
+  {
+  ret = Pmc825DownloadResp(&Pmc825, &dload_data);
+
+  if (ret == PMC825_OK)
+    {
+    if (dload_data.svc_rsp_code == NO_SUCH_FILE)
+      {
+      printf("File not found.\n");
+      Pmc825StopInterface(&Pmc825);
+      exit(0);
+      }
+    else if ((dload_data.svc_rsp_code == DATA_PACKET) ||
+             (dload_data.svc_rsp_code == LAST_PACKET))
+      {
+      memcpy(&buf, &(dload_data.data[0]), dload_data.byte_count);
+
+      bytes_read += dload_data.byte_count;
+
+      kb = bytes_read/102400;
+
+      if (kb > old_kb)
+        {
+        printf("%d kBytes read\n", kb*100);
+        old_kb = kb;
+        }
+
+      /*
+       * Open a file for data storage if not already done.
+       */
+
+      if (fp == 0)
+        {
+	if ((fp = fopen(fname,"w+")) == NULL)
+	  {
+	  perror("fopen");
+	  exit(1);
+	  }
+        else
+	  printf("File %s opened ....\n", fname);
+        }
+
+      /*
+       * Store the received data.
+       */
+
+      fwrite(buf, dload_data.byte_count, 1, fp);
+
+      /*
+       * Send an acknowledge response to the PMC825/CANflight.
+       */
+
+      dload_cmd.opcode = HOST_DOWNLOAD_CMD;
+      dload_cmd.svc_rsp_code = DATA_ACKNOWLEDGE;
+
+      ret = Pmc825DownloadCmd(&Pmc825, &dload_cmd);
+
+      if (ret != PMC825_OK)
+	{
+	printf("Pmc825DownloadCmd() failed, exiting ...\n");
+	Pmc825StopInterface(&Pmc825);
+	exit(0);
+	}
+
+      if (dload_data.svc_rsp_code == LAST_PACKET)
+        {
+	fclose(fp);
+	Pmc825StopInterface(&Pmc825);
+        printf("%d kBytes read, exiting ....\n", bytes_read/1024);
+	exit(0);
+        }
+      }
+    }
+
+  /*
+   * 10ms time frame.
+   */
+
+#ifndef WIN32
+  nanosleep(&t1,&t2);
+#else
+  Sleep(10);
+#endif
+  }
+}
+
+/*
+ * End of file.
+ */

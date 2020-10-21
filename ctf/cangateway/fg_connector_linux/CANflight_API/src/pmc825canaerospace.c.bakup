@@ -1,0 +1,404 @@
+/*******************************************************************************
+* PMC825 UDP/IP Socket Interface Test Program                                  *
+*                                                                              *
+* (C) 2010-2011 Stock Flight Systems. All rights reserved.                     *
+*                                                                              *
+* Filename: pmc825canaerospace.c                                               *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 26.02.2010    1.0          Initial Version                       M. Stock    *
+* 21.04.2010    1.1          Command line interface added          M. Stock    *
+* 12.05.2010    1.2          Error frames printed                  M. Stock    *
+* 11.06.2010    1.3          Some minor bugs fixed                 M. Stock    *
+* 23.12.2011    1.4          Bug in byte swap macro fixed          M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include "pmc825socket.h"
+#include "can_as.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE	34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+#define PRINT_CAN_MSGS
+//#define PRINT_CTRL_MSGS
+//#define TX_TEST_MSG
+//#define RES_TIME
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+Pmc825StopInterface(&Pmc825);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*5};	/* 10ms frame time */
+#endif
+unsigned int *iptr, ts, tsl, tsh, *test, host_ip, pmc825_ip, lport, rport;
+unsigned short tmr_res;
+unsigned char *ucptr, tmp[4], hip[32], pip[32], ch[8];
+int loops, statseq, ret, rxseq, txseq, ctrlseq, chan, ip[4];
+float *fptr, tsf;
+CAN_AS_MSG rx_buf, tx_buf;
+CTRL_MSG rx_ctrl, tx_ctrl;
+CAN_STAT_REGS *stat;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 4)
+  {
+  printf("usage: %s host_ip pmc825_ip can_channel\n", argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(ch, argv[3]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(ch, "%d", &chan);
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+tmr_res = 1 << chan;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the interface for the PMC825.
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Set CAN baud rate.
+ */
+
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = 0;
+
+ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Setup the CANaerospace transmit message.
+ */
+
+tx_buf.identifier = 1111;
+tx_buf.byte_count = 8;
+tx_buf.frame_type = DATA;
+tx_buf.node_id = 100;
+tx_buf.data_type = AS_ULONG;
+tx_buf.service_code = 0;
+tx_buf.msg_code = 0;
+tx_buf.can_status = 0;
+tx_buf.error_counter = 0;
+tx_buf.time_stamp_lo = 0;
+tx_buf.time_stamp_hi = 0;
+
+test = (unsigned int *) &(tx_buf.data[0]);
+*test = 0;
+
+/*
+ * Initialize other variables.
+ */
+
+rxseq = 0;
+txseq = 0;
+ctrlseq = 0;
+statseq = 0;
+
+/*
+ * Now go into an endless loop reading from and writing to the PMC825.
+ */
+
+printf("Start processing PMC825 data CAN %d [Host IP %s]\n", chan, hip);
+
+for (;;)
+  {
+  /*
+   * Get received CAN control messages and print them.
+   */
+
+  ret = Pmc825CtrlRead(&Pmc825, &rx_ctrl);
+
+  while (ret != PMC825_NO_MSG)
+    {
+#ifdef PRINT_CTRL_MSGS
+    switch (rx_ctrl.opcode)
+      {
+      case CAN_WRITE_RSP:
+	printf("Ethernet WRITE_RSP Packet\n");
+	printf("-------------------------\n");
+	printf("Response Code     = %d\n", rx_ctrl.svc_rsp_code);
+	printf("Messages written  = %d\n", rx_ctrl.arg[0]);
+        break;
+
+      case CAN_CTRL_RSP:
+	printf("Ethernet CTRL_RSP Packet\n");
+	printf("------------------------\n");
+	printf("Response Code  = %d\n", rx_ctrl.svc_rsp_code);
+
+        for (loops = 0; loops < 64; loops++)
+          printf("arg[%03d]  = 0x%04x\n", loops, rx_ctrl.arg[loops]);
+
+        printf("\n");
+        break;
+
+      case CAN_STATUS:
+        if (statseq < 50)
+          statseq++;
+        else
+          {
+          statseq = 0;
+          stat = (CAN_STAT_REGS *) &(rx_ctrl.arg[0]);
+
+          printf("\nEthernet STATUS Packet\n");
+          printf("----------------------\n");
+          printf("PMC825 Name       = %s\n",stat->name);
+          printf("PMC825 IP Address = %d.%d.%d.%d\n",stat->ip_addr[0],
+                                                     stat->ip_addr[1],
+                                                     stat->ip_addr[2],
+                                                     stat->ip_addr[3]);
+          printf("CAN Channel       = %d\n",chan);
+          printf("Bus Timing Reg    = 0x%04x\n",stat->btr);
+          printf("CAN Status        = 0x%04x\n",stat->can_status);
+          printf("Error Counters    = 0x%04x\n",stat->error_counter);
+          printf("CPM Setting       = 0x%04x\n",stat->cpm_mode);
+          printf("TX Msgs (100ms)   = %d\n",    stat->tx_msgs);
+          printf("RX Msgs (100ms)   = %d\n",    stat->rx_msgs);
+          printf("TX Bits (100ms)   = %d\n",    stat->tx_bits);
+          printf("RX Bits (100ms)   = %d\n",    stat->rx_bits);
+          printf("Board Temperature = %d\n",    stat->t1);
+          printf("FPGA Temperature  = %d\n",    stat->t2);
+          sleep(1);
+          }
+        break;
+
+      default:
+	printf("Unknown Ethernet Packet\n");
+	printf("-----------------------\n");
+	printf("Unknown Opcode    = %d\n", rx_ctrl.opcode);
+	printf("Service Code      = 0x%04x\n", rx_ctrl.svc_rsp_code);
+        break;
+      }
+#endif
+    ret = Pmc825CtrlRead(&Pmc825, &rx_ctrl);
+    }
+
+  /*
+   * Get all received CANaerospace messages and print them.
+   */
+
+  ret = Pmc825CanAerospaceRead(&Pmc825, &rx_buf);
+
+  while (ret != PMC825_NO_MSG)
+    {
+#ifdef PRINT_CAN_MSGS
+    /*
+     * Artificially reduce the time stamp resolution from 31,25ns to 1us
+     * for display purposes.
+     */
+
+    tsl = rx_buf.time_stamp_lo;
+    tsh = rx_buf.time_stamp_hi;
+    tsl = (tsl >> 5) & 0x07ffffff;
+    tsh = (tsh << 27) & 0xf8000000;
+    ts = tsl | tsh;
+    tsf = ((float) ts)/1e6;
+
+    if (rx_buf.frame_type == (char) ERROR_FRAME)
+      {
+      printf("%1.4f  Error Frame\n", tsf);
+      }
+    else
+      {
+      if ((rx_buf.identifier & EXT_ID) == EXT_ID)
+	{
+	rx_buf.identifier &= ~EXT_ID;
+	printf("%1.4f  EXT-ID $%08X [%03d %03d %03d %03d] -> ",
+               tsf, rx_buf.identifier, rx_buf.node_id, rx_buf.data_type,
+	       (rx_buf.service_code & 0xff), (rx_buf.msg_code & 0xff));
+	}
+      else
+	printf("%1.4f  STD-ID %04d [%03d %03d %03d %03d] -> ",
+               tsf, rx_buf.identifier, rx_buf.node_id, rx_buf.data_type,
+	       (rx_buf.service_code & 0xff), (rx_buf.msg_code & 0xff));
+
+      if (rx_buf.data_type == AS_FLOAT)
+	{
+#ifdef LITTLE_ENDIAN
+	tmp[0] = rx_buf.data[0];
+	tmp[1] = rx_buf.data[1];
+	tmp[2] = rx_buf.data[2];
+	tmp[3] = rx_buf.data[3];
+
+	rx_buf.data[0] = tmp[3];
+	rx_buf.data[1] = tmp[2];
+	rx_buf.data[2] = tmp[1];
+	rx_buf.data[3] = tmp[0];
+#endif
+	fptr = (float *) &(rx_buf.data[0]);
+	printf("Data = %.1f\n", *fptr);
+	}
+      else if ((rx_buf.data_type == AS_LONG) ||
+               (rx_buf.data_type == AS_ULONG) ||
+               (rx_buf.data_type == AS_BLONG))
+	{
+#ifdef LITTLE_ENDIAN
+	tmp[0] = rx_buf.data[0];
+	tmp[1] = rx_buf.data[1];
+	tmp[2] = rx_buf.data[2];
+	tmp[3] = rx_buf.data[3];
+
+	rx_buf.data[0] = tmp[3];
+	rx_buf.data[1] = tmp[2];
+	rx_buf.data[2] = tmp[1];
+	rx_buf.data[3] = tmp[0];
+#endif
+	iptr = (unsigned int *) &(rx_buf.data[0]);
+	printf("Data = %08x\n", *iptr);
+	}
+      else
+	{
+	for (loops = 4; loops < rx_buf.byte_count; loops++)
+	  printf("0x%02X ", rx_buf.data[loops] & 0xff);
+	printf("\n");
+	}
+      }
+#endif
+    ret = Pmc825CanAerospaceRead(&Pmc825, &rx_buf);
+    }
+
+  /*
+   * Transmit a CANaerospace message every second.
+   */
+
+#ifdef TX_TEST_MSG
+  if (txseq < 100)
+    txseq++;
+  else
+    {
+    txseq = 0;
+    *test += 1;
+    tx_buf.msg_code++;
+
+    Pmc825CanAerospaceWrite(&Pmc825, &tx_buf, 1);
+    }
+#endif
+
+  /*
+   * Reset the time stamp every 10 seconds.
+   */
+
+#ifdef RES_TIME
+  if (ctrlseq < 1000)
+    ctrlseq++;
+  else
+    {
+    ctrlseq = 0;
+    tx_ctrl.opcode = CAN_CTRL;
+    tx_ctrl.svc_rsp_code = RESET_TIME_STAMP;
+    tx_ctrl.arg[0] = tmr_res;
+
+    Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+    }
+#endif
+
+  /*
+   * 10ms time frame.
+   */
+
+#ifndef WIN32
+  nanosleep(&t1,&t2);
+#else
+  Sleep (10);
+#endif
+  }
+exit(0);
+}
+
+/*
+ * End of file.
+ */

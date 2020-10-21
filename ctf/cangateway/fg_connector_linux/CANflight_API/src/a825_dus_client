@@ -1,0 +1,651 @@
+/*******************************************************************************
+* PMC825 Data Upload Service (DUS) Client Software                             *
+*                                                                              *
+* (C) 2010 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: a825_dus_client.c                                                  *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 25.07.2010    1.0          Initial Version                       M. Stock    *
+* 09.08.2010    1.1          Swapxx() functions added              M. Stock    *
+* 30.08.2010    1.2          Second control message bug fixed      M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include <stdio.h>
+#include "pmc825socket.h"
+#include "arinc825.h"
+
+/*
+ * Local definitions.
+ */
+
+#define MAX_FILESIZE    32768
+#define MSG_BUFSIZE     (MAX_FILESIZE/8 + 1)
+
+#define	LPORT_BASE	34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+//#define PRINT_SERVER_MSGS
+//#define PRINT_CONTROL_MSGS
+//#define STOP_CPM
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+CTRL_MSG tx_ctrl;
+int ret;
+
+/*
+ * Stop the CPM.
+ */
+
+#ifdef STOP_CPM
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = 0;
+
+Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+#endif
+
+Pmc825StopInterface(&Pmc825);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*10};	/* 10ms frame time */
+#endif
+unsigned int ts, tsl, tsh, *uiptr, *d03ptr, *d47ptr, msg_sep, blk_sep;
+unsigned int host_ip, pmc825_ip, lport, rport, *c_byte_count, next_time;
+unsigned int msgs_written, crc, crc_index, msb, sreg, avail;
+unsigned short *c_sfc, *s_sfc, *s_blk_size, *c_blk_size, *s_blk_sep_tm;
+unsigned short *c_blk_sep_tm, *c_dest_id, tmr_res, cpm_mode;
+unsigned char *s_msg_sep_tm, *c_msg_sep_tm, *c_constant, *s_resp_code, s_sid;
+unsigned char hip[32], pip[32], ch[8], server_id[32], crc_byte[4], *crc_pos;
+unsigned char buf[MAX_FILESIZE+8];
+short write_resp;
+int loops, ret, chan, ip[4], validity_flag, wait, fsize, msg_cnt, last_bc, i;
+int blk_size, blk_nr, resp_received, msg_index, total_msg_count, next_msg_count;
+int c_sid, server_detected, txn = 0, rxn = 0;
+FILE *fp;
+float tsf;
+CTRL_MSG tx_ctrl, rx_ctrl;
+ARINC825_MSG rx_buf, tx_buf, data_msg[MSG_BUFSIZE];
+DATA_LOAD_CTRL load_ctrl;
+CAN_STAT_REGS *stat;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 6)
+  {
+  printf("usage: %s <host_ip> <pmc825_ip> <can_channel> <sid> <datafile>\n",
+          argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(ch, argv[3]);
+strcpy(server_id, argv[4]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(ch, "%d", &chan);
+sscanf(server_id, "%d", &c_sid);
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+tmr_res = 1 << chan;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the PMC825 interface.
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Set CAN baud rate and enable the CPM.
+ */
+
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = CPM_ENABLE;
+
+ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Setup the ARINC825 transmit/receive message buffers. The Data Upload
+ * Service is characterized by the following settings:
+ *
+ * LCC            = NSC (Node Service Channel)
+ * Client FID     = TEST_MAINT_FID
+ * Server FID     = FLT_CTRL_FNC_ID
+ * Server ID      = 123 ...
+ * RCI            = RCI_B
+ * Destination ID = DST_UNIT_CFG
+ */
+
+tx_buf.identifier.lcc   = NSC;
+tx_buf.identifier.scfid = TEST_MAINT_FID;
+tx_buf.identifier.smt   = DUS_SMT_CLIENT;
+tx_buf.identifier.lcl   = 0;
+tx_buf.identifier.pvt   = DUS_PVT_CTRL;
+tx_buf.identifier.rci   = RCI_B;
+tx_buf.identifier.sfid  = FLT_CTRL_FNC_ID;
+tx_buf.identifier.sid   = (unsigned char) c_sid;
+
+tx_buf.byte_count       = 8;
+tx_buf.frame_type       = DATA_FRAME;
+tx_buf.msg_control      = 0;
+tx_buf.can_status       = 0;
+tx_buf.error_counter    = 0;
+tx_buf.time_stamp_lo    = 0;
+tx_buf.time_stamp_hi    = 0;
+
+c_sfc = (unsigned short *) &(tx_buf.data[0]);
+c_dest_id = (unsigned short *) &(tx_buf.data[2]);
+c_constant = (unsigned char *) &(tx_buf.data[2]);
+c_msg_sep_tm = (unsigned char *) &(tx_buf.data[3]);
+c_byte_count = (unsigned int *) &(tx_buf.data[4]);
+c_blk_size = (unsigned short *) &(tx_buf.data[4]);
+c_blk_sep_tm = (unsigned short *) &(tx_buf.data[6]);
+
+s_sfc = (unsigned short *) &(rx_buf.data[0]);
+s_resp_code = (unsigned char *) &(rx_buf.data[2]);
+s_msg_sep_tm = (unsigned char *) &(rx_buf.data[3]);
+s_blk_size = (unsigned short *) &(rx_buf.data[4]);
+s_blk_sep_tm = (unsigned short *) &(rx_buf.data[6]);
+
+/* 
+ * Open the data file, copy the content and check its size.
+ */
+
+if ((fp = fopen(argv[5], "r")) <= 0)
+  {
+  perror("fopen");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+for (fsize = 0; fsize <= MAX_FILESIZE; fsize++)
+  {
+  buf[fsize] = (unsigned char) fgetc(fp);
+
+  if (buf[fsize] == 0xff)
+    break;
+  }
+
+if (fsize >= MAX_FILESIZE)
+  {
+  printf("file too large [max: %d bytes]\n", MAX_FILESIZE);
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/* 
+ * Calculate the CRC and append the result to the data buffer.
+ */
+
+crc = CRC_INIT;
+
+for (loops = 0; loops < fsize; loops++)
+  {
+  sreg = loops << 24;
+
+  for (i = 8; i > 0; --i)
+    {
+    msb = sreg & 0x80000000;
+
+    if (msb)
+      sreg = (sreg << 1) ^ GENERATOR;
+    else
+      sreg = sreg << 1;
+    }
+
+  crc_index = ((crc >> 24) ^ (unsigned int) buf[loops]) & 0x000000ff;
+  crc = (crc << 8) ^ sreg;
+  }
+
+crc = crc ^ FINAL_XOR;
+crc_pos = (unsigned char *) &crc;
+
+#ifdef LITTLE_ENDIAN
+buf[fsize] = crc_pos[3];
+buf[fsize+1] = crc_pos[2];
+buf[fsize+2] = crc_pos[1];
+buf[fsize+3] = crc_pos[0];
+#else
+buf[fsize] = crc_pos[0];
+buf[fsize+1] = crc_pos[1];
+buf[fsize+2] = crc_pos[2];
+buf[fsize+3] = crc_pos[3];
+#endif
+
+fsize += 4;
+
+last_bc = fsize % 8;
+
+if (last_bc == 0)
+  total_msg_count = fsize/8;
+else
+  total_msg_count = fsize/8 + 1;
+
+printf("Filesize    = %d\n", (fsize - 4));
+printf("CAN msgs    = %d\n", total_msg_count);
+printf("Last BC     = %d\n", last_bc);
+printf("Total Bytes = %d\n", ((total_msg_count - 1) * 8 + last_bc));
+printf("CRC         = 0x%08x\n", crc);
+
+/*
+ * Initialize other variables.
+ */
+
+load_ctrl.byte_count = fsize;
+load_ctrl.byte_index = 0;
+load_ctrl.dest_identity = DEST_UNIT_CFG;
+load_ctrl.ctrl_seq = DUS_INIT_1;
+load_ctrl.selected_blk_size = 0xffff;
+load_ctrl.selected_msg_sep_time = 0;
+load_ctrl.selected_blk_sep_time = 0;
+
+wait = 0;
+resp_received = 1;
+msgs_written = 0;
+msg_index = 0;
+cpm_mode = 0;
+server_detected = 0;
+
+/*
+ * Now wait 100ms and perform the actual data upload.
+ */
+
+for (loops = 0; loops < 10; loops++)
+  nanosleep(&t1,&t2);
+  
+printf("Start Data Upload [CAN %d, %d bytes]\n", chan, fsize);
+
+for (;;)
+  {
+  if (wait > 0)
+    wait--;
+
+  /*
+   * Send initial control message.
+   */
+
+  if (load_ctrl.ctrl_seq == DUS_INIT_1)
+    {
+    *c_sfc = Swap16(A825_DUS);
+    *c_dest_id = Swap16(load_ctrl.dest_identity);
+    *c_byte_count = Swap32(load_ctrl.byte_count);
+
+    Pmc825Arinc825Write(&Pmc825, &tx_buf, 1);
+
+    load_ctrl.ctrl_seq = DUS_INIT_2;
+    wait = 10;  /* Wait 100ms for server responses */
+    }
+
+  /*
+   * Send second control message.
+   */
+
+  if ((wait == 0) && (load_ctrl.ctrl_seq == DUS_INIT_2))
+    {
+    if (server_detected == 0)
+      {
+      printf("Error: No Server detected.\n");
+      load_ctrl.ctrl_seq = DUS_END;
+      }
+    else
+      {
+      *c_sfc = Swap16(A825_DUS);
+      *c_constant = DUS_CONSTANT;
+      *c_msg_sep_tm = load_ctrl.selected_msg_sep_time;
+      *c_blk_size = Swap16(load_ctrl.selected_blk_size);
+      *c_blk_sep_tm = Swap16(load_ctrl.selected_blk_sep_time);
+
+      Pmc825Arinc825Write(&Pmc825, &tx_buf, 1);
+
+      load_ctrl.ctrl_seq = DUS_CONFIG;
+      wait = 10;  /* Wait 100ms for server responses */
+      }
+    }
+
+  /*
+   * Configure the message buffer.
+   */
+
+  if ((wait == 0) && (load_ctrl.ctrl_seq == DUS_CONFIG))
+    {
+    msg_sep = ((unsigned int) load_ctrl.selected_msg_sep_time) * CPM_TIME_1MS;
+    blk_sep = ((unsigned int) load_ctrl.selected_blk_sep_time) * CPM_TIME_1MS;
+    blk_size = ((int) load_ctrl.selected_blk_size)/8;
+    next_time = /*msg_sep*/ 2 * CPM_TIME_100MS;
+
+    printf("Selected Block Size = %d bytes\n", load_ctrl.selected_blk_size);
+    printf("Selected Msg Sep.   = %d ms\n", load_ctrl.selected_msg_sep_time);
+    printf("Selected Block Sep. = %d ms\n", load_ctrl.selected_blk_sep_time);
+
+    uiptr = (unsigned int *) &(buf[0]);
+
+    for (loops = 0; loops < total_msg_count; loops++)
+      {
+      data_msg[loops].identifier.lcc   = NSC;
+      data_msg[loops].identifier.scfid = TEST_MAINT_FID;
+      data_msg[loops].identifier.smt   = DUS_SMT_CLIENT;
+      data_msg[loops].identifier.lcl   = 0;
+      data_msg[loops].identifier.pvt   = DUS_PVT_DATA;
+      data_msg[loops].identifier.rci   = RCI_B;
+      data_msg[loops].identifier.sfid  = FLT_CTRL_FNC_ID;
+      data_msg[loops].identifier.sid   = (unsigned char) c_sid;
+
+      if (loops == (total_msg_count - 1))
+        data_msg[loops].byte_count     = last_bc;
+      else
+        data_msg[loops].byte_count     = 8;
+
+      data_msg[loops].frame_type       = DATA_FRAME;
+      data_msg[loops].msg_control      = 0;
+      data_msg[loops].can_status       = 0;
+      data_msg[loops].error_counter    = 0;
+      data_msg[loops].time_stamp_hi    = 0;
+
+      blk_nr += 1;
+
+      if (blk_nr < blk_size)
+        next_time += msg_sep;
+      else
+        {
+        next_time += blk_sep;
+        blk_nr = 0;
+        }
+
+      data_msg[loops].time_stamp_lo = next_time;
+
+      d03ptr = (unsigned int *) &(data_msg[loops].data[0]);
+      *d03ptr = *uiptr++;
+      d47ptr = (unsigned int *) &(data_msg[loops].data[4]);
+      *d47ptr = *uiptr++;
+      }
+
+    tx_ctrl.opcode = CAN_CTRL;
+    tx_ctrl.svc_rsp_code = RESET_TIME_STAMP;
+    tx_ctrl.arg[0] = tmr_res;
+
+    Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+    load_ctrl.ctrl_seq = DUS_START;
+    msg_index = 0;
+    }
+
+  /*
+   * Transmit the data messages.
+   */
+
+  if (load_ctrl.ctrl_seq == DUS_START)
+    {
+    if (resp_received == 1)
+      {
+      msg_index += msgs_written;
+
+      if ((msg_index + MAX_CAN_MSG_COUNT) <= total_msg_count)
+        next_msg_count = MAX_CAN_MSG_COUNT;
+      else
+        next_msg_count = total_msg_count - msg_index;
+
+      if (next_msg_count > 0)
+        {
+        Pmc825Arinc825Write(&Pmc825, &(data_msg[msg_index]), next_msg_count);
+#ifdef PRINT_CONTROL_MSGS
+        printf("TX# = %d [%d]\n", txn++, next_msg_count);
+#endif
+        }
+      resp_received = 0;
+      }
+
+    if (total_msg_count == msg_index)
+      {
+      if ((cpm_mode & CPM_STATUS_MASK) == CPM_STATUS_IDLE)
+        load_ctrl.ctrl_seq = DUS_END;
+      }
+    }
+
+  /*
+   * Terminate program after the Data Upload is completed.
+   */
+
+  if (load_ctrl.ctrl_seq == DUS_END)
+    {
+    /*
+     * Stop the CPM.
+     */
+
+#ifdef STOP_CPM
+    tx_ctrl.opcode = CAN_CTRL;
+    tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+    tx_ctrl.arg[0] = CAN_1M;
+    tx_ctrl.arg[1] = 0;
+    tx_ctrl.arg[2] = 0;
+    tx_ctrl.arg[3] = 0;
+    tx_ctrl.arg[4] = 0;
+
+    Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+#endif
+
+    printf("Data Upload completed, %d CAN messages written.\n", msg_index);
+
+    Pmc825StopInterface(&Pmc825);
+    fclose(fp);
+    exit(0);
+    }
+
+  /*
+   * Wait some time, then get server response messages and process them.
+   */
+
+  ret = Pmc825Arinc825Read(&Pmc825, &rx_buf);
+
+  while (ret != PMC825_NO_MSG)
+    {
+    if ((rx_buf.identifier.lcc == tx_buf.identifier.lcc) &&
+        (rx_buf.identifier.scfid == tx_buf.identifier.scfid) &&
+        (rx_buf.identifier.smt == DUS_SMT_SERVER) &&
+        (rx_buf.identifier.lcl == tx_buf.identifier.lcl) &&
+        (rx_buf.identifier.pvt == DUS_PVT_CTRL) &&
+        (rx_buf.identifier.rci == tx_buf.identifier.rci))
+      {
+      if (Swap16(*s_sfc) == A825_DUS)
+        {
+        validity_flag = 0;
+
+        if ((tx_buf.identifier.sfid == MCAST_SFID) ||
+            (rx_buf.identifier.sfid == tx_buf.identifier.sfid))
+          validity_flag++;
+
+        if ((tx_buf.identifier.sid == MCAST_SID) ||
+            (rx_buf.identifier.sid == tx_buf.identifier.sid))
+          validity_flag++;
+
+        if (validity_flag == 2)
+          {
+          if (*s_resp_code == DUS_ACK)
+            {
+	    if (rx_buf.byte_count == 8)
+              {
+              server_detected = 1;
+
+              if (*s_msg_sep_tm > load_ctrl.selected_msg_sep_time)
+        	load_ctrl.selected_msg_sep_time = *s_msg_sep_tm;
+
+              if (Swap16(*s_blk_size) < load_ctrl.selected_blk_size)
+        	load_ctrl.selected_blk_size = Swap16(*s_blk_size);
+
+              if (Swap16(*s_blk_sep_tm) > load_ctrl.selected_blk_sep_time)
+        	load_ctrl.selected_blk_sep_time = Swap16(*s_blk_sep_tm);
+              }
+            }
+          else /* Abort dataload */
+            {
+	    printf("Abort by server %d with response %d\n",
+	           tx_buf.identifier.sid, *s_resp_code);
+	    Pmc825StopInterface(&Pmc825);
+	    exit(0);
+            }
+          }
+        }
+      }
+
+#ifdef PRINT_SERVER_MSGS
+    tsl = rx_buf.time_stamp_lo;
+    tsh = rx_buf.time_stamp_hi;
+    tsl = (tsl >> 5) & 0x07ffffff;
+    tsh = (tsh << 27) & 0xf8000000;
+    ts = tsl | tsh;
+    tsf = ((float) ts)/1e6;
+
+    printf("%1.4f  LCC=%d, SCFID=%03d, SMT=%d, PVT=%d, SID=%d, RCI=%02d -> ",
+           tsf, rx_buf.identifier.lcc, rx_buf.identifier.scfid,
+	   rx_buf.identifier.smt, rx_buf.identifier.pvt,
+	   rx_buf.identifier.sid, rx_buf.identifier.rci);
+
+    for (loops = 0; loops < rx_buf.byte_count; loops++)
+      printf("0x%02X ", rx_buf.data[loops] & 0xff);
+
+    printf("\n");
+#endif
+
+    ret = Pmc825Arinc825Read(&Pmc825, &rx_buf);
+    }
+
+  /*
+   * Get received CAN control messages.
+   */
+
+  ret = Pmc825CtrlRead(&Pmc825, &rx_ctrl);
+
+  while (ret != PMC825_NO_MSG)
+    {
+    if (rx_ctrl.opcode == CAN_WRITE_RSP)
+      {
+      resp_received = 1;
+      write_resp = rx_ctrl.svc_rsp_code;
+
+      if (load_ctrl.ctrl_seq == DUS_START)
+        {
+        msgs_written = rx_ctrl.arg[0];
+        avail = rx_ctrl.arg[1];
+        }
+
+#ifdef PRINT_CONTROL_MSGS
+      if (load_ctrl.ctrl_seq == DUS_START)
+        {
+        printf("RX# = %d [%d]\n", rxn++, msgs_written);
+        printf("WRITE_RSP = %d [%d/%d]\n", write_resp, msgs_written, avail);
+        }
+#endif
+      }
+    else if (rx_ctrl.opcode == CAN_STATUS)
+      {
+      stat = (CAN_STAT_REGS *) &(rx_ctrl.arg[0]);
+      cpm_mode = stat->cpm_mode;
+      }
+    ret = Pmc825CtrlRead(&Pmc825, &rx_ctrl);
+    }
+
+  /*
+   * 10ms time frame.
+   */
+
+#ifndef WIN32
+  nanosleep(&t1,&t2);
+#else
+  Sleep(10);
+#endif
+  }
+exit(0);
+}
+
+/*
+ * End of file.
+ */

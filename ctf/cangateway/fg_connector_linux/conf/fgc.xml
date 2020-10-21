@@ -13,4 +13,5 @@
       <IP>default</IP>
     </Item>
   </CanAerospace>
+  <TransferServer><Delay>600</Delay><MatchFile>Match.xml</MatchFile><Item><Txt>TestInstrument</Txt><IP>127.0.0.1</IP><SendPort>7000</SendPort><RecvPort>7001</RecvPort></Item></TransferServer>
 </Connection>

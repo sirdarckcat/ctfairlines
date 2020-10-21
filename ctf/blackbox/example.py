@@ -24,10 +24,16 @@ revision_required = 1
 # create a receiver and announce ourselves to the bus
 recv = Receiver(revision_required)
 
-def indicatedairspeed( speed ):
-  print "IASPEED is is now %f\n" % (speed)
+def printval( val ):
+  print "val is is now %f\n" % (val)
 
-recv.requestDataF(IAS_M_S.Id(), indicatedairspeed)
+recv.requestDataF(IAS_M_S.Id(), printval)
+recv.requestDataF(PITCH_DEG.Id(), printval)
+recv.requestDataF(BANK_DEG.Id(), printval)
+# recv.requestDataF(G_LOAD_NORMAL.Id(), printval)
+recv.requestDataF(ENG_N1_PERCENT.Id(), printval)
+recv.requestDataF(ENG_EGT_K.Id(), printval)
+
 background = AsyncReceiverRun(recv)
 background.start()
 

@@ -1,0 +1,309 @@
+/*******************************************************************************
+* PMC825 UDP/IP Socket Interface Test Program                                  *
+*                                                                              *
+* (C) 2010 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: loopback.c                                                         *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 20.06.2010    1.0          Initial Version                       M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include "pmc825socket.h"
+#include "can_as.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE	34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+#define PRINT_CAN_MSGS
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825a, Pmc825b;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+Pmc825StopInterface(&Pmc825a);
+Pmc825StopInterface(&Pmc825b);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+unsigned int *testa, *testb, host_ip, pmc825_ip;
+unsigned int lporta, rporta, lportb, rportb;
+unsigned char hip[32], pip[32], cha[8], chb[8], ch;
+int loops, ret, i, chana, chanb, ip[4];
+CAN_MSG tx_bufa, tx_bufb, rx_buf;
+CTRL_MSG tx_ctrl, rx_ctrl;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 5)
+  {
+  printf("usage: %s host_ip pmc825_ip cha chb\n", argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(cha, argv[3]);
+strcpy(chb, argv[4]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(cha, "%d", &chana);
+sscanf(chb, "%d", &chanb);
+
+lporta = LPORT_BASE + chana * 2;
+rporta = RPORT_BASE + chana * 2;
+lportb = LPORT_BASE + chanb * 2;
+rportb = RPORT_BASE + chanb * 2;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the interfaces for the PMC825.
+ */
+
+ret = Pmc825StartInterface(&Pmc825a, pmc825_ip, host_ip, rporta, lporta, chana);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825a);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825a);
+  exit(0);
+  }
+
+ret = Pmc825StartInterface(&Pmc825b, pmc825_ip, host_ip, rportb, lportb, chanb);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825b);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825b);
+  exit(0);
+  }
+
+/*
+ * Set CAN baud rate.
+ */
+
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = 0;
+
+ret = Pmc825CtrlWrite(&Pmc825a, &tx_ctrl);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825a);
+  exit(0);
+  }
+
+ret = Pmc825CtrlWrite(&Pmc825b, &tx_ctrl);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825b);
+  exit(0);
+  }
+
+/*
+ * Setup the CANaerospace transmit messages.
+ */
+
+tx_bufa.identifier = 0xab;
+tx_bufa.byte_count = 8;
+tx_bufa.frame_type = DATA;
+tx_bufa.can_status = 0;
+tx_bufa.error_counter = 0;
+tx_bufa.time_stamp_lo = 0;
+tx_bufa.time_stamp_hi = 0;
+
+testa = (unsigned int *) &(tx_bufa.data[0]);
+*testa = 0;
+testa = (unsigned int *) &(tx_bufa.data[4]);
+*testa = 0x10;
+
+tx_bufb.identifier = 0xcd;
+tx_bufb.byte_count = 8;
+tx_bufb.frame_type = DATA;
+tx_bufb.can_status = 0;
+tx_bufb.error_counter = 0;
+tx_bufb.time_stamp_lo = 0;
+tx_bufb.time_stamp_hi = 0;
+
+testb = (unsigned int *) &(tx_bufb.data[0]);
+*testb = 0;
+testb = (unsigned int *) &(tx_bufb.data[4]);
+*testb = 0;
+
+/*
+ * Now go into an endless loop writing and reading CAN messages.
+ */
+
+printf("Start transferring CAN messages between channels %d and %d:\n",
+        chana, chanb);
+
+for (;;)
+  {
+  /*
+   * Get all received CAN messages and print them.
+   */
+
+  ret = Pmc825RawCanRead(&Pmc825a, &rx_buf);
+
+  while (ret != PMC825_NO_MSG)
+    {
+#ifdef PRINT_CAN_MSGS
+    if ((rx_buf.identifier & EXT_ID) == EXT_ID)
+      {
+      rx_buf.identifier &= ~EXT_ID;
+      printf("Rx[%d]-> EXT-CAN-ID $%08X: ", chana, rx_buf.identifier);
+      }
+    else
+      printf("Rx[%d]-> STD-CAN-ID $%03X: ", chana, rx_buf.identifier);
+
+    for (loops = 0; loops < rx_buf.byte_count; loops++)
+      printf("$%02X ", rx_buf.data[loops] & 0xff);
+    printf("\n");
+#endif
+    ret = Pmc825RawCanRead(&Pmc825a, (CAN_MSG *) &rx_buf);
+    }
+
+  ret = Pmc825RawCanRead(&Pmc825b, &rx_buf);
+
+  while (ret != PMC825_NO_MSG)
+    {
+#ifdef PRINT_CAN_MSGS
+    if ((rx_buf.identifier & EXT_ID) == EXT_ID)
+      {
+      rx_buf.identifier &= ~EXT_ID;
+      printf("Rx[%d]-> EXT-CAN-ID $%08X: ", chanb, rx_buf.identifier);
+      }
+    else
+      printf("Rx[%d]-> STD-CAN-ID $%03X: ", chanb, rx_buf.identifier);
+
+    for (loops = 0; loops < rx_buf.byte_count; loops++)
+      printf("$%02X ", rx_buf.data[loops] & 0xff);
+    printf("\n");
+#endif
+    ret = Pmc825RawCanRead(&Pmc825b, (CAN_MSG *) &rx_buf);
+    }
+
+  /*
+   * Continuously transmit CAN messages.
+   */
+
+  /*
+   * 1s time frame.
+   */
+
+#ifndef WIN32
+  sleep(1);
+#else
+  Sleep(1000);
+#endif
+
+  printf("Tx[%d]-> 0x%08x\n", chana, *testa);
+  Pmc825RawCanWrite(&Pmc825a, &tx_bufa, 1);
+  *testa += 1;
+
+  /*
+   * 1s time frame.
+   */
+
+#ifndef WIN32
+  sleep(1);
+#else
+  Sleep(1000);
+#endif
+
+  printf("Tx[%d]-> 0x%08x\n", chanb, *testb);
+  Pmc825RawCanWrite(&Pmc825b, &tx_bufb, 1);
+  *testb += 1;
+
+  /*
+   * 1s time frame.
+   */
+
+#ifndef WIN32
+  sleep(1);
+#else
+  Sleep(1000);
+#endif
+  }
+exit(0);
+}
+
+/*
+ * End of file.
+ */

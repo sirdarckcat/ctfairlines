@@ -22,8 +22,14 @@
 #include "interface_can.h"
 
 #include <ansicreceiver.h>
+#include "pmc825socket.h"
+#include "can_as.h"
 
 void * can_recv;
+PMC825_IF Pmc825;
+
+CTRL_MSG rx_ctrl, tx_ctrl;
+CAN_AS_MSG rx_buf, tx_buf;
 
 int main(int argc, char *argv[]) {
 
@@ -37,6 +43,7 @@ int main(int argc, char *argv[]) {
 
 	int result;
 	int i;
+        int ret;
 
 	if (argc < 2) {
 		fprintf(stderr, "too few parameters\n");
@@ -76,8 +83,18 @@ int main(int argc, char *argv[]) {
 	/*	sendto(socket_id, message, total_length, 0, (struct sockaddr *) &address, len); */
 
         /* declare receiver */
-        can_recv = createReceiver(2);
-
+        can_recv = createReceiver(1);
+        ret = Pmc825StartInterface(&Pmc825, 0x7F000001, 0x7F000001, 7988, 7966, 0);
+        tx_ctrl.opcode = CAN_CTRL;
+        tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+        tx_ctrl.arg[0] = CAN_1M;
+        tx_ctrl.arg[1] = 0;
+        tx_ctrl.arg[2] = 0;
+        tx_ctrl.arg[3] = 0;
+        tx_ctrl.arg[4] = 0;
+        
+        ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+        
 	/* start communication procedure */
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 0;
@@ -124,19 +141,29 @@ int main(int argc, char *argv[]) {
 			unsigned char frame[2048];
 			unsigned char length;
 			size_t offset;
-
                         run(can_recv);
 
-                        if (target->type == TARGET_CANAERO) {
-                          for (i=0; i<flightgear_status.values_count; i++) {
-                            int id = atoi(flightgear_status.values[i].canid);
-                            run(can_recv);
-                            sendDataF(can_recv, id, id>=(2<<11), *((float *) flightgear_status.values[i].value));
-                            run(can_recv);
-                            printf("Just sent %d\n", id);
-                          }
-                          target = target->next;
-                          continue;
+                        for (i=0; i<flightgear_status.values_count; i++) {
+                          int id = atoi(flightgear_status.values[i].canid);
+                          float v = *((float *) flightgear_status.values[i].value);
+                          run(can_recv);
+                          sendDataF(can_recv, id, id>=(2<<11), v);
+                          run(can_recv);
+
+                          tx_buf.identifier = id;
+                          tx_buf.byte_count = sizeof(v);
+                          tx_buf.frame_type = DATA;
+                          tx_buf.node_id = 100;
+                          tx_buf.data_type = AS_FLOAT;
+                          tx_buf.service_code = 0;
+                          tx_buf.msg_code = 0;
+                          tx_buf.can_status = 0;
+                          tx_buf.error_counter = 0;
+                          tx_buf.time_stamp_lo = 0;
+                          tx_buf.time_stamp_hi = 0;
+                          tx_buf.data[0] = flightgear_status.values[i].value;
+                          
+                          Pmc825CanAerospaceWrite(&Pmc825, &tx_buf, 1);
                         }
 
 			if (target->type != TARGET_BROADCAST_SERVER) {

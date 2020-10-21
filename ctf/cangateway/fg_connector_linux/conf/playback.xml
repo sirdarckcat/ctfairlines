@@ -112,7 +112,7 @@
    <chunk>
      <name>airspeed-kt</name>
      <type>float</type>
-     <node>/velocities/airspeed-kt</node>
+     <node>/instrumentation/airspeed-indicator/true-speed-kt</node>
      <CANaeroID>315</CANaeroID>
    </chunk>
 
