@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
 
         /* declare receiver */
         // can_recv = createReceiver(1);
-        ret = Pmc825StartInterface(&Pmc825, 0xAC140408, 0xAC140404, 34567, 34568, 0);
+        ret = Pmc825StartInterface(&Pmc825, 0xAC1404FF, 0xAC140404, 34567, 34568, 0);
 	/* start communication procedure */
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 0;

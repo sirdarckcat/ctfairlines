@@ -1525,7 +1525,7 @@ if (ret < 0)
  * Set the TX socket to broadcast operation if specified.
  */
 
-if ((pm825_ip & 0x000000ff) == 0x00000000)
+if ((pm825_ip & 0x000000ff) == 0x000000ff)
   {
   ret=setsockopt(intf->tx_sock,SOL_SOCKET,SO_BROADCAST,(void*)&arg,sizeof(arg));
 
