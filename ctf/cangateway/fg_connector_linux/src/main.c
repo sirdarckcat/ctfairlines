@@ -83,18 +83,8 @@ int main(int argc, char *argv[]) {
 	/*	sendto(socket_id, message, total_length, 0, (struct sockaddr *) &address, len); */
 
         /* declare receiver */
-        can_recv = createReceiver(1);
-        ret = Pmc825StartInterface(&Pmc825, 0x7F000001, 0x7F000001, 7988, 7966, 0);
-        tx_ctrl.opcode = CAN_CTRL;
-        tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
-        tx_ctrl.arg[0] = CAN_1M;
-        tx_ctrl.arg[1] = 0;
-        tx_ctrl.arg[2] = 0;
-        tx_ctrl.arg[3] = 0;
-        tx_ctrl.arg[4] = 0;
-        
-        ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
-        
+        // can_recv = createReceiver(1);
+        ret = Pmc825StartInterface(&Pmc825, 0xAC140408, 0xAC140404, 34567, 34568, 0);
 	/* start communication procedure */
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 0;
@@ -105,7 +95,7 @@ int main(int argc, char *argv[]) {
 		float data;
 		int start;
 		int i;
-                run(can_recv);
+                // run(can_recv);
 		result = recv(flightgear_status.flightgear_socket_id, buff, 2048, 0);
 		if (result < 1) {
 			;
@@ -141,14 +131,14 @@ int main(int argc, char *argv[]) {
 			unsigned char frame[2048];
 			unsigned char length;
 			size_t offset;
-                        run(can_recv);
+                        // run(can_recv);
 
                         for (i=0; i<flightgear_status.values_count; i++) {
                           int id = atoi(flightgear_status.values[i].canid);
                           float v = *((float *) flightgear_status.values[i].value);
-                          run(can_recv);
-                          sendDataF(can_recv, id, id>=(2<<11), v);
-                          run(can_recv);
+                          // run(can_recv);
+                          // sendDataF(can_recv, id, id>=(2<<11), v);
+                          // run(can_recv);
 
                           tx_buf.identifier = id;
                           tx_buf.byte_count = sizeof(v);
@@ -165,6 +155,7 @@ int main(int argc, char *argv[]) {
                           
                           Pmc825CanAerospaceWrite(&Pmc825, &tx_buf, 1);
                         }
+                        continue;
 
 			if (target->type != TARGET_BROADCAST_SERVER) {
 				target = target->next;

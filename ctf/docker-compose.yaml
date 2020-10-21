@@ -1,13 +1,13 @@
 version: "2"
 services:
-  blackbox:
-    build: ./blackbox
-    depends_on:
-      - cangateway
-    networks:
+#  blackbox:
+#    build: ./blackbox
+#    depends_on:
+#      - cangateway
+#    networks:
 #      internet:
-      canaero:
-        ipv4_address: 172.20.4.2
+#      canaero:
+#        ipv4_address: 172.20.4.2
 
   cangateway:
     build: ./cangateway
@@ -20,8 +20,6 @@ services:
 #    networks:
 #      canaero:
 #        ipv4_address: 172.20.4.8
-#      troubleshooting:
-#        ipv4_address: 172.20.2.8
 
 networks:
 #  internet:
@@ -31,8 +29,3 @@ networks:
     ipam:
       config:
         - subnet: 172.20.4.0/24
-
-#  troubleshooting:
-#    ipam:
-#      config:
-#        - subnet: 172.20.2.0/24

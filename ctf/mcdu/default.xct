@@ -1,0 +1,57 @@
+<XCT>
+    <Version id="1"/>
+    <TopLevelWindow height="1022" width="2015" x="202" y="40"/>
+    <ObjectCanInterface>
+        <Window name="CAN PMC825" yPos="0" open="0" height="400" width="400" xPos="0"/>
+        <Device id="libCanPMC825UDP"/>
+        <Property id="InterfaceName" value="CAN PMC825"/>
+        <Property id="address" value="172.20.4.4"/>
+        <Property id="baudrate" value="12052"/>
+        <Property id="broadcastMode" value="0"/>
+        <Property id="busOffMode" value="0"/>
+        <Property id="channel" value="0"/>
+        <Property id="loopbackMode" value="0"/>
+        <Property id="port" value="34567"/>
+        <Property id="silentMode" value="0"/>
+        <Property id="timeout" value="9999999"/>
+    </ObjectCanInterface>
+    <ObjectReceive>
+        <Window name="unnamed" yPos="0" open="1" height="286" width="494" xPos="0"/>
+        <Mode inputOn="0" numberType="0" displayMode="4" inputInterface="CAN PMC825"/>
+        <Filter minId="0" maxId="536870911" type="0" on="0"/>
+    </ObjectReceive>
+    <ObjectTransmit>
+        <Window name="unnamed" yPos="417" open="1" height="439" width="1035" xPos="75"/>
+        <Mode outputOn="0" autoTx="0" outputInterface="CAN PMC825" numberType="0" displayMode="4"/>
+        <MessageList>
+            <Message name="NoName" msg="0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 " id="469762048" min="0.000000000000" max="1.000000000000" rate="0" length="64" mode="0" type="1" actual="0.000000000000"/>
+        </MessageList>
+    </ObjectTransmit>
+    <ObjectTrace>
+        <Window name="unnamed" yPos="0" open="1" height="310" width="829" xPos="530"/>
+        <Mode inputOn="0" traceFormat="0" outputInterface="All Interfaces" numberType="0" displayMode="6" inputInterface="All Interfaces"/>
+        <Filter minId="0" maxId="536870911" type="0" on="0"/>
+    </ObjectTrace>
+    <ObjectReplay>
+        <Window name="unnamed" yPos="507" open="0" height="245" width="528" xPos="831"/>
+        <Mode autoRepeat="1" outputOn="0" traceFormat="0" outputInterface="All Interfaces" numberType="0" displayMode="0" inputInterface="All Interfaces"/>
+        <Filter minId="0" maxId="536870911" type="0" on="0"/>
+    </ObjectReplay>
+    <ObjectGraph>
+        <Window name="unnamed" yPos="241" open="0" height="355" width="658" xPos="1011"/>
+        <Mode inputOn="1" inputInterface="All Interfaces"/>
+        <Filter minId="0" maxId="536870911" type="0" on="0"/>
+        <Graph splitMode="1" gridOn="1" yMin="-100.000000000000" yMax="100.000000000000" autoMode="1" labelColor="#000000" legendOn="1" autoScale="1" cursorMode="1" gridColor="#ff6666" backgroundColor="#000000" labelBackColor="#bbbbbb" cursorOn="1" xRange="60.000000000000"/>
+        <Message max="1.000000000000" sppBit="0" yMin="0.000000000000" color="#ff8800" autoScale="0" id="0" eppByte="0" pun="Unit" sppByte="0" scaleOffset="0.000000000000" min="0.000000000000" showSamples="0" eppBit="0" endian="1" lsb="0.000000000000" nme="NewPara" scaleFactor="1.000000000000" dtc="0" yMax="100.000000000000" type="2" active="1"/>
+    </ObjectGraph>
+    <ObjectFunctionGen>
+        <Window name="unnamed" yPos="310" open="0" height="451" width="686" xPos="1057"/>
+        <Mode outputOn="1" inputOn="1" outputInterface="All Interfaces" inputInterface="All Interfaces"/>
+        <Generator nodeBaseId="32774" baudrate="32774" nodeId="255"/>
+        <Signal offsetFactor="1" channel="0" dataType="2" active="1" waveForm="0" separation="10" canId="1230" frequency="0.009999999776" amplitudeFactor="1" offset="0.000000000000" amplitude="1.000000000000" frequencyFactor="1"/>
+        <Signal offsetFactor="1" channel="1" dataType="2" active="1" waveForm="0" separation="10" canId="1230" frequency="1.000000000000" amplitudeFactor="1" offset="0.000000000000" amplitude="1.000000000000" frequencyFactor="1"/>
+        <Signal offsetFactor="1" channel="2" dataType="2" active="1" waveForm="0" separation="10" canId="1230" frequency="1.000000000000" amplitudeFactor="1" offset="0.000000000000" amplitude="1.000000000000" frequencyFactor="1"/>
+        <Signal offsetFactor="1" channel="3" dataType="2" active="1" waveForm="0" separation="10" canId="1230" frequency="1.000000000000" amplitudeFactor="1" offset="0.000000000000" amplitude="1.000000000000" frequencyFactor="1"/>
+        <Filter minId="0" maxId="536870911" type="0" on="0"/>
+    </ObjectFunctionGen>
+</XCT>

@@ -1157,7 +1157,7 @@ else
    * Assemble the UDP/IP CAN message packet.
    */
 
-  msg_pkt.opcode = CAN_WRITE;
+  msg_pkt.opcode = CAN_READ;
   msg_pkt.frame_count = intf->tx_frame_count;
   intf->tx_frame_count += 1;
   msg_pkt.msg_count = (unsigned short) msg_count;

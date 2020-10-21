@@ -17,7 +17,7 @@ $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	$(GCC) $(CFLAGS) -c $< -o $@
 
 CANflight_API/src/%.o: CANflight_API/src/%.c
-	$(GCC) -c $< -o $@
+	$(GCC) -ICANflight_API/inc -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
