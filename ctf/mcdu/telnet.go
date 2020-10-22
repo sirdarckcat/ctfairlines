@@ -42,7 +42,7 @@ func main() {
 A320 Multi-Function Control and Display Unit (debug) interface
 
 Available commands:
-    xct: launch the the eXtendedCAN Tool (XCT)
+    xct: launch the eXtendedCAN Tool (XCT)
     exit: exit
 `
 	shellHandler.Register("xct", telsh.ProducerFunc(xctProducer))
