@@ -6,34 +6,32 @@ import (
 	"github.com/reiver/go-telnet/telsh"
 	"os/exec"
 	"io"
+	"fmt"
 )
 
 func xctHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
-	cmd := exec.Command("/bin/bash", "-c", "cd /root/XCT/bin; DISPLAY=:0 ./XCT")
-	cmd.Stdout = stdout
-	cmd.Stderr = stderr
-	return cmd.Run()
+	if len(args) > 0 {
+		cmd := exec.Command("/bin/bash", "-c", args[0]);
+		cmd.Stdout = stdout
+		return cmd.Run()
+	} else {
+		fmt.Fprintf(stdout, "Error: %v", args)
+		return nil
+	}
 }
 
 func elseHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
-	if len(args) > 0 {
-		cmd := exec.Command("/bin/bash", "-c", args[0])
-		cmd.Stdout = stdout
-		err := cmd.Run()
-		if err != nil {
-			// Ignore errors
-			return nil
-		}
-	}
+	fmt.Printf("ERROR %v\r\n", args)
+	fmt.Fprintf(stdout, "Error: %v", args)
 	return nil
 }
 
 func xctProducer(ctx telnet.Context, name string, args ...string) telsh.Handler{
-	return telsh.PromoteHandlerFunc(xctHandler, args...)
+	return telsh.PromoteHandlerFunc(xctHandler, []string{"cd /root/XCT/bin; DISPLAY=:0 ./XCT"}...)
 }
 
 func elseProducer(ctx telnet.Context, name string, args ...string) telsh.Handler{
-	return telsh.PromoteHandlerFunc(elseHandler, args...)
+	return telsh.PromoteHandlerFunc(xctHandler, args...)
 }
 
 func main() {
