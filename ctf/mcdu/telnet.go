@@ -2,61 +2,53 @@ package main
 
 
 import (
-	"github.com/reiver/go-oi"
 	"github.com/reiver/go-telnet"
 	"github.com/reiver/go-telnet/telsh"
-
+	"os/exec"
 	"io"
-	"time"
 )
 
+func xctHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
+	cmd := exec.Command("/bin/bash", "-c", "cd /root/XCT/bin; DISPLAY=:0 ./XCT")
+	cmd.Stdout = stdout
+	cmd.Stderr = stderr
+	return cmd.Run()
+}
 
-func danceHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
-	for i:=0; i<20; i++ {
-		oi.LongWriteString(stdout, "\r⠋")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠙")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠹")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠸")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠼")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠴")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠦")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠧")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠇")
-		time.Sleep(50*time.Millisecond)
-
-		oi.LongWriteString(stdout, "\r⠏")
-		time.Sleep(50*time.Millisecond)
+func elseHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
+	if len(args) > 0 {
+		cmd := exec.Command("/bin/bash", "-c", args[0])
+		cmd.Stdout = stdout
+		err := cmd.Run()
+		if err != nil {
+			// Ignore errors
+			return nil
+		}
 	}
-	oi.LongWriteString(stdout, "\r \r\n")
-
 	return nil
 }
 
-func danceProducer(ctx telnet.Context, name string, args ...string) telsh.Handler{
+func xctProducer(ctx telnet.Context, name string, args ...string) telsh.Handler{
+	return telsh.PromoteHandlerFunc(xctHandler, args...)
+}
 
-	return telsh.PromoteHandlerFunc(danceHandler)
+func elseProducer(ctx telnet.Context, name string, args ...string) telsh.Handler{
+	return telsh.PromoteHandlerFunc(elseHandler, args...)
 }
 
 func main() {
+	addr := ":23"
 	shellHandler := telsh.NewShellHandler()
-	shellHandler.Register("dance", telsh.ProducerFunc(danceProducer))
-	addr := ":5555"
+	shellHandler.WelcomeMessage = `
+
+A320 Multi-Function Control and Display Unit (debug) interface
+
+Available commands:
+    xct: launch the the eXtendedCAN Tool (XCT)
+    exit: exit
+`
+	shellHandler.Register("xct", telsh.ProducerFunc(xctProducer))
+	shellHandler.RegisterElse(telsh.ProducerFunc(elseProducer))
 	if err := telnet.ListenAndServe(addr, shellHandler); nil != err {
 		panic(err)
 	}

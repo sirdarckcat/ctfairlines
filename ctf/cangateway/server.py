@@ -22,6 +22,9 @@ while True:
               "\x00\x11" # board temp
               "\x00\x11" # board temp
               "\x7f\x00\x00\x01" # ip addr
-              "aassddffgg" # name
+              "%s" # name
               "\x00\x01" # cpm buff
-              ""%(struct.pack(">I", 1)), (address[0], 34568))
+              ""%(
+                  struct.pack(">I", 1),
+                  "x"*32
+              ), (address[0], 34568))

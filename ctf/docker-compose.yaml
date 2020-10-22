@@ -1,26 +1,26 @@
 version: "2"
 services:
-  cangateway:
-    build: ./cangateway
-    networks:
-      canaero:
-        ipv4_address: 172.20.4.4
+#  cangateway:
+#    build: ./cangateway
+#    networks:
+#      canaero:
+#        ipv4_address: 172.20.4.4
 
   blackbox:
     build: ./blackbox
-    depends_on:
-      - cangateway
     networks:
       canaero:
         ipv4_address: 172.20.4.2
 
-#  mcdu:
-#    build: ./mcdu
-#    depends_on:
-#      - cangateway
-#    networks:
-#      canaero:
-#        ipv4_address: 172.20.4.8
+  mcdu:
+    build: ./mcdu
+    ports:
+      - "9923:23"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    networks:
+      canaero:
+        ipv4_address: 172.20.4.8
 
 networks:
   canaero:

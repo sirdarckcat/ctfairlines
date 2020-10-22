@@ -5,13 +5,13 @@ RUN wget -q http://www.wetzel-technology.com/files/XCT/XCT.1.8.9.Ubuntu.16.04.ru
 RUN chmod +x ./XCT* && ./XCT*
 COPY default.xct /root/XCT/bin/default.xct
 
-RUN apt update && apt install -y socat git
-
-COPY telnet.go shell.go
+RUN apt update && apt install -y socat git strace xkb-data
 
 RUN wget -q https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz
-RUN /usr/local/go/bin/go get github.com/reiver/go-telnet/telsh
+RUN /usr/local/go/bin/go get github.com/reiver/go-telnet
+
+COPY telnet.go shell.go
 RUN /usr/local/go/bin/go build -o /out/shell .
 
-CMD sleep 1d
+CMD /out/shell
