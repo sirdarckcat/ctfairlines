@@ -1,5 +1,6 @@
-INCLUDE_FLAGS=-Iobj_dir -I/usr/share/verilator/include/vltstd -I/usr/share/verilator/include
-VERILOG_INCLUDE=/usr/share/verilator/include/
+INCLUDE_FLAGS=-Iobj_dir -I/usr/share/verilator/include/vltstd -I/usr/share/verilator/include -ICANflight_API/inc
+VERILOG_INCLUDE=/usr/share/verilator/include
+
 all: main
 
 obj_dir/VCDLS.cpp: CDLS.sv
@@ -8,10 +9,8 @@ obj_dir/VCDLS.cpp: CDLS.sv
 VCDLS_gen.cpp: ./obj_dir/VCDLS.cpp ./obj_dir/VCDLS__Trace.cpp ./obj_dir/VCDLS__Syms.cpp ./obj_dir/VCDLS__Trace__Slow.cpp
 	cat $^ > $@
 
-main: cdls.cpp VCDLS_gen.cpp
-	g++ ${INCLUDE_FLAGS} VDCLS_gen.cpp cdls.cpp ${VERILOG_INCLUDE}/verilated.cpp ${VERILOG_INCLUDE}/verilated_vcd_c.cpp -O2 -o main
+pmc825socket.o: CANflight_API/src/pmc825socket.c
+	g++ -fpermissive -ICANflight_API/inc -c $< -o $@
 
-run: main
-	./main
-
-.PHONY: run
+main: cdls.cpp VCDLS_gen.cpp pmc825socket.o
+	g++ ${INCLUDE_FLAGS} pmc825socket.o VCDLS_gen.cpp cdls.cpp ${VERILOG_INCLUDE}/verilated.cpp ${VERILOG_INCLUDE}/verilated_vcd_c.cpp -O2 -o main
