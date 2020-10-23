@@ -1,0 +1,308 @@
+/*******************************************************************************
+* PMC825 Identification Service (IDS) Server Software                          *
+*                                                                              *
+* (C) 2010 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: a825_ids_server.c                                                  *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 09.08.2010    1.0          Initial Version                       M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include <stdio.h>
+#include "pmc825socket.h"
+#include "arinc825.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE	34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+#define PRINT_CLIENT_MSGS
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+Pmc825StopInterface(&Pmc825);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*10};	/* 10ms frame time */
+#endif
+unsigned int ts, tsl, tsh, host_ip, pmc825_ip, lport, rport;
+unsigned short *c_sfc, *s_sfc, *s_profile_id, *s_lru_code, *s_profile_sub_id;
+unsigned char hip[32], pip[32], ch[8], server_id[32], server_function_id[32];
+int loops, ret, chan, ip[4], validity_flag, i, ctrl_seq, ids_request_received;
+int c_sid, c_sfid;
+float tsf;
+CTRL_MSG tx_ctrl, rx_ctrl;
+ARINC825_MSG rx_buf, tx_buf;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 6)
+  {
+  printf("usage: %s <host_ip> <pmc825_ip> <can_channel> <sid> <sfid>\n",
+          argv[0]);
+  exit(0);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(ch, argv[3]);
+strcpy(server_id, argv[4]);
+strcpy(server_function_id, argv[5]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(ch, "%d", &chan);
+sscanf(server_id, "%d", &c_sid);
+sscanf(server_function_id, "%d", &c_sfid);
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the PMC825 interface (CAN channel 0).
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Set CAN baud rate.
+ */
+
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = 0;
+
+ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Setup the ARINC825 transmit/receive message buffers. The Identification
+ * Service is characterized by the following settings:
+ *
+ * LCC            = TMC (Test & Maintenance Channel)
+ * Client FID     = TEST_MAINT_FID
+ * Server FID     = FLT_CTRL_FNC_ID
+ * Server ID      = 123 ...
+ * RCI            = Any
+ */
+
+tx_buf.identifier.lcc   = TMC;
+tx_buf.identifier.scfid = TEST_MAINT_FID;
+tx_buf.identifier.smt   = 0;
+tx_buf.identifier.lcl   = 0;
+tx_buf.identifier.pvt   = 0;
+tx_buf.identifier.rci   = RCI_A;
+tx_buf.identifier.sfid  = (unsigned char) c_sfid;
+tx_buf.identifier.sid   = (unsigned char) c_sid;
+
+tx_buf.byte_count       = 8;
+tx_buf.frame_type       = DATA_FRAME;
+tx_buf.msg_control      = 0;
+tx_buf.can_status       = 0;
+tx_buf.error_counter    = 0;
+tx_buf.time_stamp_lo    = 0;
+tx_buf.time_stamp_hi    = 0;
+
+c_sfc = (unsigned short *) &(rx_buf.data[0]);
+
+s_sfc = (unsigned short *) &(tx_buf.data[0]);
+s_profile_id = (unsigned short *) &(tx_buf.data[2]);
+s_profile_sub_id = (unsigned short *) &(tx_buf.data[4]);
+s_lru_code = (unsigned short *) &(tx_buf.data[6]);
+
+/*
+ * Initialize other variables.
+ */
+
+ids_request_received = 0;
+
+/*
+ * Now go into an endless loop anwering IDS requests.
+ */
+
+printf("Starting Identification Server processing [CAN %d]:\n", chan);
+
+#ifdef LITTLE_ENDIAN
+printf("Endianness  = Little\n");
+#else
+printf("Endianness  = Big\n");
+#endif
+
+for (;;)
+  {
+  /*
+   * Respond to Identification Service Request.
+   */
+
+  if (ids_request_received == 1)
+    {
+    *s_sfc = Swap16(A825_IDS);
+    *s_profile_id = Swap16(0x1234);
+    *s_profile_sub_id = Swap16(0x5678);
+    *s_lru_code = Swap16(0xabcd);
+
+    Pmc825Arinc825Write(&Pmc825, &tx_buf, 1);
+
+    ids_request_received = 0;
+    }
+
+  /*
+   * Get client messages and process them.
+   */
+
+  ret = Pmc825Arinc825Read(&Pmc825, &rx_buf);
+
+  while (ret != PMC825_NO_MSG)
+    {
+#ifdef PRINT_CLIENT_MSGS
+      tsl = rx_buf.time_stamp_lo;
+      tsh = rx_buf.time_stamp_hi;
+      tsl = (tsl >> 5) & 0x07ffffff;
+      tsh = (tsh << 27) & 0xf8000000;
+      ts = tsl | tsh;
+      tsf = ((float) ts)/1e6;
+
+      printf("%1.4f  LCC=%d, SCFID=%03d, SMT=%d, LCL=%d, PVT=%d, RCI=%02d -> ",
+             tsf, rx_buf.identifier.lcc, rx_buf.identifier.scfid,
+	     rx_buf.identifier.smt, rx_buf.identifier.lcl,
+	     rx_buf.identifier.pvt, rx_buf.identifier.rci);
+
+      for (loops = 0; loops < rx_buf.byte_count; loops++)
+        printf("0x%02X ", rx_buf.data[loops] & 0xff);
+
+      printf("\n");
+#endif
+
+    if ((rx_buf.identifier.lcc == tx_buf.identifier.lcc) &&
+        (rx_buf.identifier.scfid == tx_buf.identifier.scfid) &&
+        (rx_buf.identifier.smt == 1) &&
+        (rx_buf.identifier.pvt == 0) &&
+        (rx_buf.identifier.lcl == tx_buf.identifier.lcl) &&
+        (rx_buf.identifier.rci == tx_buf.identifier.rci))
+      {
+      if (Swap16(*c_sfc) == A825_IDS)
+        {
+        /*
+         * IDS request message.
+         */
+
+        validity_flag = 0;
+
+        if ((rx_buf.identifier.sfid == MCAST_SFID) ||
+            (rx_buf.identifier.sfid == tx_buf.identifier.sfid))
+          validity_flag++;
+
+        if ((rx_buf.identifier.sid == MCAST_SID) ||
+            (rx_buf.identifier.sid == tx_buf.identifier.sid))
+          validity_flag++;
+
+        if (validity_flag == 2)
+          {
+          printf("IDS Request received.\n");
+          ids_request_received = 1;
+          }
+        }
+
+      }
+    ret = Pmc825Arinc825Read(&Pmc825, &rx_buf);
+    }
+
+  /*
+   * 10ms time frame.
+   */
+
+#ifndef WIN32
+  nanosleep(&t1,&t2);
+#else
+  Sleep(10);
+#endif
+  }
+exit(0);
+}
+
+/*
+ * End of file.
+ */

@@ -1,0 +1,67 @@
+#!/bin/csh
+#########################################################################
+#                                                                       #
+# This shell script builds an application targeted for the GNU          #
+# toolset. It takes all assembler (.s) and "C" (.c) sources and the     #
+# corresponding include files (.inc, .h) in the current and calls       #
+# "make" with those sources as argument.                                #
+# The Makefile compiles and assembles the sources and links them        #
+# according to the commands specified in the Makefile.                  #
+#                                                                       #
+#                                                                       #
+# MODIFICATIONS:							#
+#									#
+#	Date		Vers	Description		Name		#
+#	---------------------------------------------------------       #
+#	14.02.2000	1.0	Initial Vers.           M. Stock        #
+#									#
+#########################################################################
+
+#################
+# Set variables #
+#################
+
+set USAGE = "Usage: build <prog>|clean"
+
+set SYSTEM = `uname -s`
+
+if (${SYSTEM} == "SunOS") then
+	set LF = "-lm -lsocket -lnsl -lposix4"
+else
+	set LF = "-lm"
+endif
+
+####################
+# Check invocation #
+####################
+
+if ($#argv < 1) then
+      echo "$USAGE"
+      exit 1
+endif
+
+##################################################
+# Now let's see which source files are available #
+##################################################
+
+set C_SRC = `ls *.c`
+set HDR = `ls *.h`
+set ASM_SRC = `ls *.s`
+set INC = `ls *.inc`
+
+#################################
+# Let's do the make on all that #
+#################################
+
+if ($1 == "clean") then
+  make clean "C_SOURCES = $C_SRC"
+else
+  make "PROGRAM = $1" "C_SOURCES = $C_SRC" "HEADERS = $HDR" "LIBFLAGS = $LF"
+endif
+
+##############
+# That's it. #
+##############
+
+echo "All done for $1."
+exit 0

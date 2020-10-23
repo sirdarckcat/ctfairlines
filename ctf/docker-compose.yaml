@@ -1,10 +1,10 @@
 version: "2"
 services:
-#  cangateway:
-#    build: ./cangateway
-#    networks:
-#      canaero:
-#        ipv4_address: 172.20.4.4
+  cangateway:
+    build: ./cangateway
+    networks:
+      canaero:
+        ipv4_address: 172.20.4.4
 
   blackbox:
     build: ./blackbox
