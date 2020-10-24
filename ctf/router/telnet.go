@@ -10,8 +10,8 @@ import (
 	"fmt"
 )
 
-ban := time.Now()
-attempts := 0
+var ban = time.Now()
+var attempts = 0
 
 func dnsHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
 	fmt.Fprintf(stderr, "For the simulator, use docker-compose --dns=1.1.1.1 up instead.\r\n")
@@ -24,9 +24,11 @@ func unlockHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCl
 	}
 	if attempts >= 3 {
 		// Lock the user for 5 minutes after 3 attempts
-		ban = time.Now().Add(time.ParseDuration("5m"))
+		five, _ := time.ParseDuration("5m")
+		ban = time.Now().Add(five)
 		return nil
 	}
+	attempts += 1
 	return exec.Command("./unlock.sh", args...).Run()
 }
 
