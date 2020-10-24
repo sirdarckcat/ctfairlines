@@ -1,6 +1,6 @@
 <XCT>
     <Version id="1"/>
-    <TopLevelWindow height="989" width="1638" x="202" y="40"/>
+    <TopLevelWindow height="989" width="1507" x="202" y="40"/>
     <ObjectCanInterface>
         <Window height="400" name="CAN PMC825" yPos="0" width="400" open="0" xPos="0"/>
         <Device id="libCanPMC825UDP"/>
@@ -16,7 +16,7 @@
         <Property id="timeout" value="9999999"/>
     </ObjectCanInterface>
     <ObjectReceive>
-        <Window height="171" name="LAST VALUE" yPos="0" width="640" open="1" xPos="0"/>
+        <Window height="422" name="LAST VALUE" yPos="0" width="640" open="1" xPos="0"/>
         <Mode displayMode="3" numberType="1" inputOn="1" inputInterface="CAN PMC825"/>
         <Filter type="1" minId="1984" maxId="1989" on="0">
             <FilterId id="1988"/>
@@ -24,27 +24,27 @@
         </Filter>
     </ObjectReceive>
     <ObjectGraph>
-        <Window height="482" name="GRAPH" yPos="420" width="1356" open="1" xPos="4"/>
+        <Window height="482" name="GRAPH" yPos="420" width="1292" open="1" xPos="4"/>
         <Mode inputOn="1" inputInterface="CAN PMC825"/>
         <Filter type="0" minId="0" maxId="536870911" on="0"/>
         <Graph cursorMode="1" cursorOn="1" autoScale="1" gridColor="#ff6666" xRange="17.742759704590" yMin="-100.000000000000" yMax="100.000000000000" autoMode="1" legendOn="1" splitMode="1" gridOn="1" labelColor="#000000" labelBackColor="#bbbbbb" backgroundColor="#000000"/>
-        <Message scaleFactor="1.000000000000" showSamples="1" max="1.000000000000" yMin="0.000000000000" sppBit="0" color="#ff8800" eppBit="7" pun="BUTTON" min="0.000000000000" endian="1" nme="BUTTON" lsb="0.000000000000" id="1985" dtc="3" yMax="100.000000000000" scaleOffset="0.000000000000" eppByte="4" type="1" autoScale="1" sppByte="7" active="1"/>
+        <Message scaleFactor="1.000000000000" showSamples="1" max="1.000000000000" yMin="0.000000000000" sppBit="0" color="#ff8800" eppBit="7" pun="BUTTON" min="0.000000000000" endian="1" nme="BUTTON" lsb="0.000000000000" id="1985" dtc="5" yMax="100.000000000000" scaleOffset="0.000000000000" eppByte="4" type="1" autoScale="1" sppByte="7" active="1"/>
         <Message scaleFactor="1.000000000000" showSamples="1" max="1.000000000000" yMin="0.000000000000" sppBit="0" color="#ffff00" eppBit="7" pun="" min="0.000000000000" endian="1" nme="LIGHTS" lsb="0.000000000000" id="1988" dtc="5" yMax="100.000000000000" scaleOffset="0.000000000000" eppByte="4" type="1" autoScale="1" sppByte="7" active="1"/>
     </ObjectGraph>
     <ObjectDial>
-        <Window height="416" name="GET_STATUS" yPos="2" width="360" open="1" xPos="997"/>
+        <Window height="416" name="GET_STATUS" yPos="2" width="360" open="0" xPos="997"/>
         <Mode displayType="0" showProperties="0" minValue="0.000000000000" maxValue="1.000000000000" precision="2" name="NewPara" dataType="15" inputOn="1" unit="Unit" canId="1988" endian="1" inputInterface="CAN PMC825"/>
         <Color red="200" green="0" blue="0"/>
         <Filter type="0" minId="0" maxId="536870911" on="0"/>
     </ObjectDial>
     <ObjectDial>
-        <Window height="417" name="PRESS_BUTTON" yPos="0" width="359" open="1" xPos="636"/>
+        <Window height="417" name="PRESS_BUTTON" yPos="1" width="359" open="0" xPos="639"/>
         <Mode displayType="0" showProperties="0" minValue="0.000000000000" maxValue="1.000000000000" precision="2" name="NewPara" dataType="15" inputOn="1" unit="Unit" canId="1985" endian="1" inputInterface="CAN PMC825"/>
         <Color red="200" green="0" blue="0"/>
         <Filter type="0" minId="0" maxId="536870911" on="0"/>
     </ObjectDial>
     <ObjectTrace>
-        <Window height="243" name="unnamed" yPos="173" width="635" open="1" xPos="2"/>
+        <Window height="421" name="TRACE" yPos="0" width="656" open="1" xPos="641"/>
         <Mode displayMode="3" numberType="1" traceFormat="3" inputOn="1" outputInterface="All Interfaces" inputInterface="CAN PMC825"/>
         <Filter type="1" minId="0" maxId="536870911" on="0">
             <FilterId id="1988"/>
