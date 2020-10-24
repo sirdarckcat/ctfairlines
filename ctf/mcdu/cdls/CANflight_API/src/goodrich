@@ -1,0 +1,761 @@
+/*******************************************************************************
+* PMC825 UDP/IP Socket Interface Test Program                                  *
+*                                                                              *
+* (C) 2010 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: test_device_1.c                                                    *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 26.04.2010    1.0          Initial Version                       M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include <math.h>
+#include "pmc825socket.h"
+#include "arinc825.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE  34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE  34568           /* PMC825 UDP/IP port number base */
+
+//#define DEVICE_1SINE
+#define DEVICE_1
+//#define DEVICE_2
+//#define DEVICE_3
+//#define MAXLOAD
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*5};	/* 10ms frame time */
+#endif
+unsigned short tmr_res;
+float *sine, angle;
+unsigned int *iptr, host_ip, pmc825_ip, lport, rport, last_end_time;
+unsigned char tmp[4], hip[32], pip[32], ch[8], input;
+int loops, dataset, ctrl_seq, ret, chan, ip[4];
+ARINC825_MSG tx_buf[2048];
+CTRL_MSG tx_ctrl, rx_ctrl;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 4)
+  {
+  printf("usage: %s host_ip pmc825_ip can_channel\n", argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+strcpy(ch, argv[3]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(ch, "%d", &chan);
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+tmr_res = 1 << chan;
+
+/*
+ * Initialize the interface for the PMC825.
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(1);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(1);
+  }
+
+/*
+ * Setup the ARINC825 message buffer.
+ */
+
+#ifdef DEVICE_1SINE
+
+last_end_time = 0;
+
+for (dataset = 0; dataset < (1200); dataset += 12)
+  {
+  for (loops = 0; loops < 12; loops++)
+    {
+    tx_buf[loops+dataset].identifier.lcc = NOC;
+    tx_buf[loops+dataset].identifier.scfid = 5;
+    tx_buf[loops+dataset].identifier.smt = 0;
+    tx_buf[loops+dataset].identifier.lcl = 0;
+    tx_buf[loops+dataset].identifier.pvt = 1;
+    tx_buf[loops+dataset].identifier.rci = RCI_A;
+    tx_buf[loops+dataset].frame_type = DATA_FRAME;
+    tx_buf[loops+dataset].can_status = 0;
+    tx_buf[loops+dataset].error_counter = 0;
+    tx_buf[loops+dataset].time_stamp_hi = 0;
+
+    iptr = (unsigned int *) &(tx_buf[loops+dataset].data[0]);
+    *iptr = 0;
+
+    iptr = (unsigned int *) &(tx_buf[loops+dataset].data[4]);
+    *iptr = 0;
+    }
+
+  tx_buf[0+dataset].identifier.doc = 50;
+  tx_buf[0+dataset].byte_count = 5;
+  tx_buf[0+dataset].time_stamp_lo = last_end_time + CPM_TIME_1MS;
+  tx_buf[0+dataset].data[0] = 50;
+
+  tx_buf[1+dataset].identifier.doc = 60;
+  tx_buf[1+dataset].byte_count = 6;
+  tx_buf[1+dataset].time_stamp_lo = tx_buf[0+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[1+dataset].data[0] = 60;
+
+  tx_buf[2+dataset].identifier.doc = 70;
+  tx_buf[2+dataset].byte_count = 7;
+  tx_buf[2+dataset].time_stamp_lo = tx_buf[1+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[2+dataset].data[0] = 70;
+
+  tx_buf[3+dataset].identifier.doc = 80;
+  tx_buf[3+dataset].byte_count = 8;
+  tx_buf[3+dataset].time_stamp_lo = tx_buf[2+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[3+dataset].data[0] = 80;
+
+  tx_buf[4+dataset].identifier.doc = 10;
+  tx_buf[4+dataset].byte_count = 1;
+  tx_buf[4+dataset].time_stamp_lo = tx_buf[3+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[4+dataset].data[0] = 10;
+
+  tx_buf[5+dataset].identifier.doc = 20;
+  tx_buf[5+dataset].byte_count = 2;
+  tx_buf[5+dataset].time_stamp_lo = tx_buf[4+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[5+dataset].data[0] = 20;
+
+  tx_buf[6+dataset].identifier.doc = 30;
+  tx_buf[6+dataset].byte_count = 3;
+  tx_buf[6+dataset].time_stamp_lo = tx_buf[5+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[6+dataset].data[0] = 30;
+
+  tx_buf[7+dataset].identifier.doc = 40;
+  tx_buf[7+dataset].byte_count = 4;
+  tx_buf[7+dataset].time_stamp_lo = tx_buf[6+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[7+dataset].data[0] = 40;
+
+  tx_buf[8+dataset].identifier.doc = 50;
+  tx_buf[8+dataset].byte_count = 5;
+  tx_buf[8+dataset].time_stamp_lo = tx_buf[7+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[8+dataset].data[0] = 50;
+
+  tx_buf[9+dataset].identifier.doc = 60;
+  tx_buf[9+dataset].byte_count = 6;
+  tx_buf[9+dataset].time_stamp_lo = tx_buf[8+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[9+dataset].data[0] = 60;
+
+  tx_buf[10+dataset].identifier.doc = 70;
+  tx_buf[10+dataset].byte_count = 7;
+  tx_buf[10+dataset].time_stamp_lo = tx_buf[9+dataset].time_stamp_lo + CPM_TIME_500US;
+  tx_buf[10+dataset].data[0] = 70;
+
+  tx_buf[11+dataset].identifier.doc = 80;
+  tx_buf[11+dataset].byte_count = 8;
+  tx_buf[11+dataset].time_stamp_lo = tx_buf[0+dataset].time_stamp_lo + CPM_TIME_1MS * 8;
+  tx_buf[11+dataset].data[0] = 80;
+
+  last_end_time = tx_buf[11+dataset].time_stamp_lo;
+
+  sine = (float *) &(tx_buf[7+dataset].data[0]);
+  *sine = (float) sin((double) angle);
+  angle += 0.062832;
+
+  //printf("Sine Wave [%04d] T = 0x%08x : %.2f\n", (7+dataset), tx_buf[7+dataset].time_stamp_lo, *sine);
+
+#ifdef LITTLE_ENDIAN
+  tmp[0] = tx_buf[7+dataset].data[0];
+  tmp[1] = tx_buf[7+dataset].data[1];
+  tmp[2] = tx_buf[7+dataset].data[2];
+  tmp[3] = tx_buf[7+dataset].data[3];
+
+  tx_buf[7+dataset].data[0] = tmp[3];
+  tx_buf[7+dataset].data[1] = tmp[2];
+  tx_buf[7+dataset].data[2] = tmp[1];
+  tx_buf[7+dataset].data[3] = tmp[0];
+#endif
+  }
+#endif
+
+#ifdef DEVICE_1
+for (loops = 0; loops < 12; loops++)
+  {
+  tx_buf[loops].identifier.lcc = NOC;
+  tx_buf[loops].identifier.scfid = 5;
+  tx_buf[loops].identifier.smt = 0;
+  tx_buf[loops].identifier.lcl = 0;
+  tx_buf[loops].identifier.pvt = 1;
+  tx_buf[loops].identifier.rci = RCI_A;
+  tx_buf[loops].frame_type = DATA_FRAME;
+  tx_buf[loops].can_status = 0;
+  tx_buf[loops].error_counter = 0;
+  tx_buf[loops].time_stamp_hi = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[0]);
+  *iptr = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[4]);
+  *iptr = 0;
+  }
+
+tx_buf[0].identifier.doc = 50;
+tx_buf[0].byte_count = 5;
+tx_buf[0].time_stamp_lo = CPM_TIME_1MS;
+tx_buf[0].data[0] = 50;
+
+tx_buf[1].identifier.doc = 60;
+tx_buf[1].byte_count = 6;
+tx_buf[1].time_stamp_lo = tx_buf[0].time_stamp_lo + CPM_TIME_500US;
+tx_buf[1].data[0] = 60;
+
+tx_buf[2].identifier.doc = 70;
+tx_buf[2].byte_count = 7;
+tx_buf[2].time_stamp_lo = tx_buf[1].time_stamp_lo + CPM_TIME_500US;
+tx_buf[2].data[0] = 70;
+
+tx_buf[3].identifier.doc = 80;
+tx_buf[3].byte_count = 8;
+tx_buf[3].time_stamp_lo = tx_buf[2].time_stamp_lo + CPM_TIME_500US;
+tx_buf[3].data[0] = 80;
+
+tx_buf[4].identifier.doc = 10;
+tx_buf[4].byte_count = 1;
+tx_buf[4].time_stamp_lo = tx_buf[3].time_stamp_lo + CPM_TIME_500US;
+tx_buf[4].data[0] = 10;
+
+tx_buf[5].identifier.doc = 20;
+tx_buf[5].byte_count = 2;
+tx_buf[5].time_stamp_lo = tx_buf[4].time_stamp_lo + CPM_TIME_500US;
+tx_buf[5].data[0] = 20;
+
+tx_buf[6].identifier.doc = 30;
+tx_buf[6].byte_count = 3;
+tx_buf[6].time_stamp_lo = tx_buf[5].time_stamp_lo + CPM_TIME_500US;
+tx_buf[6].data[0] = 30;
+
+tx_buf[7].identifier.doc = 40;
+tx_buf[7].byte_count = 4;
+tx_buf[7].time_stamp_lo = tx_buf[6].time_stamp_lo + CPM_TIME_500US;
+tx_buf[7].data[0] = 40;
+
+tx_buf[8].identifier.doc = 50;
+tx_buf[8].byte_count = 5;
+tx_buf[8].time_stamp_lo = tx_buf[7].time_stamp_lo + CPM_TIME_500US;
+tx_buf[8].data[0] = 50;
+
+tx_buf[9].identifier.doc = 60;
+tx_buf[9].byte_count = 6;
+tx_buf[9].time_stamp_lo = tx_buf[8].time_stamp_lo + CPM_TIME_500US;
+tx_buf[9].data[0] = 60;
+
+tx_buf[10].identifier.doc = 70;
+tx_buf[10].byte_count = 7;
+tx_buf[10].time_stamp_lo = tx_buf[9].time_stamp_lo + CPM_TIME_500US;
+tx_buf[10].data[0] = 70;
+
+tx_buf[11].identifier.doc = 80;
+tx_buf[11].byte_count = 8;
+tx_buf[11].time_stamp_lo = tx_buf[0].time_stamp_lo + CPM_TIME_1MS * 9;
+tx_buf[11].data[0] = 80;
+#endif
+
+#ifdef DEVICE_2
+for (loops = 0; loops < 21; loops++)
+  {
+  tx_buf[loops].identifier.lcc = NOC;
+  tx_buf[loops].identifier.scfid = 13;
+  tx_buf[loops].identifier.smt = 0;
+  tx_buf[loops].identifier.lcl = 0;
+  tx_buf[loops].identifier.pvt = 1;
+  tx_buf[loops].identifier.rci = RCI_A;
+  tx_buf[loops].frame_type = DATA_FRAME;
+  tx_buf[loops].can_status = 0;
+  tx_buf[loops].error_counter = 0;
+  tx_buf[loops].time_stamp_hi = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[0]);
+  *iptr = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[4]);
+  *iptr = 0;
+  }
+
+tx_buf[0].identifier.doc = 10;
+tx_buf[0].byte_count = 1;
+tx_buf[0].time_stamp_lo = CPM_TIME_1MS;
+tx_buf[0].data[0] = 10;
+
+tx_buf[1].identifier.doc = 20;
+tx_buf[1].byte_count = 2;
+tx_buf[1].time_stamp_lo = tx_buf[0].time_stamp_lo + CPM_TIME_125US;
+tx_buf[1].data[0] = 20;
+
+tx_buf[2].identifier.doc = 30;
+tx_buf[2].byte_count = 3;
+tx_buf[2].time_stamp_lo = tx_buf[1].time_stamp_lo + CPM_TIME_125US;
+tx_buf[2].data[0] = 30;
+
+tx_buf[3].identifier.doc = 40;
+tx_buf[3].byte_count = 4;
+tx_buf[3].time_stamp_lo = tx_buf[2].time_stamp_lo + CPM_TIME_125US;
+tx_buf[3].data[0] = 40;
+
+tx_buf[4].identifier.doc = 50;
+tx_buf[4].byte_count = 5;
+tx_buf[4].time_stamp_lo = tx_buf[3].time_stamp_lo + CPM_TIME_125US;
+tx_buf[4].data[0] = 50;
+
+tx_buf[5].identifier.doc = 60;
+tx_buf[5].byte_count = 6;
+tx_buf[5].time_stamp_lo = tx_buf[4].time_stamp_lo + CPM_TIME_125US;
+tx_buf[5].data[0] = 60;
+
+tx_buf[6].identifier.doc = 70;
+tx_buf[6].byte_count = 7;
+tx_buf[6].time_stamp_lo = tx_buf[5].time_stamp_lo + CPM_TIME_125US;
+tx_buf[6].data[0] = 70;
+
+tx_buf[7].identifier.doc = 80;
+tx_buf[7].byte_count = 8;
+tx_buf[7].time_stamp_lo = tx_buf[6].time_stamp_lo + CPM_TIME_125US;
+tx_buf[7].data[0] = 80;
+
+/* 1ms */
+tx_buf[8].identifier.doc = 10;
+tx_buf[8].byte_count = 1;
+tx_buf[8].time_stamp_lo = tx_buf[7].time_stamp_lo + CPM_TIME_1MS;
+tx_buf[8].data[0] = 10;
+
+/* 2ms */
+tx_buf[9].identifier.doc = 10;
+tx_buf[9].byte_count = 1;
+tx_buf[9].time_stamp_lo = tx_buf[8].time_stamp_lo + CPM_TIME_500US;
+tx_buf[9].data[0] = 10;
+
+tx_buf[10].identifier.doc = 20;
+tx_buf[10].byte_count = 2;
+tx_buf[10].time_stamp_lo = tx_buf[9].time_stamp_lo + CPM_TIME_500US;
+tx_buf[10].data[0] = 20;
+
+/* 3ms */
+tx_buf[11].identifier.doc = 10;
+tx_buf[11].byte_count = 1;
+tx_buf[11].time_stamp_lo = tx_buf[10].time_stamp_lo + CPM_TIME_1MS;
+tx_buf[11].data[0] = 10;
+
+/* 4ms */
+tx_buf[12].identifier.doc = 10;
+tx_buf[12].byte_count = 1;
+tx_buf[12].time_stamp_lo = tx_buf[11].time_stamp_lo + CPM_TIME_250US;
+tx_buf[12].data[0] = 10;
+
+tx_buf[13].identifier.doc = 20;
+tx_buf[13].byte_count = 2;
+tx_buf[13].time_stamp_lo = tx_buf[12].time_stamp_lo + CPM_TIME_250US;
+tx_buf[13].data[0] = 20;
+
+tx_buf[14].identifier.doc = 30;
+tx_buf[14].byte_count = 3;
+tx_buf[14].time_stamp_lo = tx_buf[13].time_stamp_lo + CPM_TIME_250US;
+tx_buf[14].data[0] = 30;
+
+tx_buf[15].identifier.doc = 40;
+tx_buf[15].byte_count = 4;
+tx_buf[15].time_stamp_lo = tx_buf[14].time_stamp_lo + CPM_TIME_250US;
+tx_buf[15].data[0] = 40;
+
+tx_buf[16].identifier.doc = 50;
+tx_buf[16].byte_count = 5;
+tx_buf[16].time_stamp_lo = tx_buf[15].time_stamp_lo + CPM_TIME_250US;
+tx_buf[16].data[0] = 50;
+
+/* 5ms */
+tx_buf[17].identifier.doc = 10;
+tx_buf[17].byte_count = 1;
+tx_buf[17].time_stamp_lo = tx_buf[16].time_stamp_lo + CPM_TIME_1MS;
+tx_buf[17].data[0] = 10;
+
+/* 6ms */
+tx_buf[18].identifier.doc = 10;
+tx_buf[18].byte_count = 1;
+tx_buf[18].time_stamp_lo = tx_buf[17].time_stamp_lo + CPM_TIME_500US;
+tx_buf[18].data[0] = 10;
+
+tx_buf[19].identifier.doc = 20;
+tx_buf[19].byte_count = 2;
+tx_buf[19].time_stamp_lo = tx_buf[18].time_stamp_lo + CPM_TIME_500US;
+tx_buf[19].data[0] = 20;
+
+/* 7ms */
+tx_buf[20].identifier.doc = 10;
+tx_buf[20].byte_count = 1;
+tx_buf[20].time_stamp_lo = tx_buf[19].time_stamp_lo + CPM_TIME_500US;
+tx_buf[20].data[0] = 10;
+#endif
+
+#ifdef DEVICE_3
+for (loops = 0; loops < 21; loops++)
+  {
+  tx_buf[loops].identifier.lcc = NOC;
+  tx_buf[loops].identifier.scfid = 120;
+  tx_buf[loops].identifier.smt = 0;
+  tx_buf[loops].identifier.lcl = 0;
+  tx_buf[loops].identifier.pvt = 1;
+  tx_buf[loops].identifier.rci = RCI_A;
+  tx_buf[loops].frame_type = DATA_FRAME;
+  tx_buf[loops].can_status = 0;
+  tx_buf[loops].error_counter = 0;
+  tx_buf[loops].time_stamp_hi = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[0]);
+  *iptr = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[4]);
+  *iptr = 0;
+  }
+
+tx_buf[0].identifier.doc = 10;
+tx_buf[0].byte_count = 8;
+tx_buf[0].time_stamp_lo = CPM_TIME_1MS;
+tx_buf[0].data[0] = 10;
+
+tx_buf[1].identifier.doc = 20;
+tx_buf[1].byte_count = 7;
+tx_buf[1].time_stamp_lo = tx_buf[0].time_stamp_lo + CPM_TIME_125US;
+tx_buf[1].data[0] = 20;
+
+tx_buf[2].identifier.doc = 30;
+tx_buf[2].byte_count = 6;
+tx_buf[2].time_stamp_lo = tx_buf[1].time_stamp_lo + CPM_TIME_125US;
+tx_buf[2].data[0] = 30;
+
+tx_buf[3].identifier.doc = 40;
+tx_buf[3].byte_count = 5;
+tx_buf[3].time_stamp_lo = tx_buf[2].time_stamp_lo + CPM_TIME_125US;
+tx_buf[3].data[0] = 40;
+
+tx_buf[4].identifier.doc = 50;
+tx_buf[4].byte_count = 4;
+tx_buf[4].time_stamp_lo = tx_buf[3].time_stamp_lo + CPM_TIME_125US;
+tx_buf[4].data[0] = 50;
+
+tx_buf[5].identifier.doc = 60;
+tx_buf[5].byte_count = 3;
+tx_buf[5].time_stamp_lo = tx_buf[4].time_stamp_lo + CPM_TIME_125US;
+tx_buf[5].data[0] = 60;
+
+tx_buf[6].identifier.doc = 70;
+tx_buf[6].byte_count = 2;
+tx_buf[6].time_stamp_lo = tx_buf[5].time_stamp_lo + CPM_TIME_125US;
+tx_buf[6].data[0] = 70;
+
+tx_buf[7].identifier.doc = 80;
+tx_buf[7].byte_count = 1;
+tx_buf[7].time_stamp_lo = tx_buf[6].time_stamp_lo + CPM_TIME_125US;
+tx_buf[7].data[0] = 80;
+
+/* 1ms */
+tx_buf[8].identifier.doc = 10;
+tx_buf[8].byte_count = 8;
+tx_buf[8].time_stamp_lo = tx_buf[7].time_stamp_lo + CPM_TIME_1MS;
+tx_buf[8].data[0] = 10;
+
+/* 2ms */
+tx_buf[9].identifier.doc = 10;
+tx_buf[9].byte_count = 8;
+tx_buf[9].time_stamp_lo = tx_buf[8].time_stamp_lo + CPM_TIME_500US;
+tx_buf[9].data[0] = 10;
+
+tx_buf[10].identifier.doc = 20;
+tx_buf[10].byte_count = 7;
+tx_buf[10].time_stamp_lo = tx_buf[9].time_stamp_lo + CPM_TIME_500US;
+tx_buf[10].data[0] = 20;
+
+/* 3ms */
+tx_buf[11].identifier.doc = 10;
+tx_buf[11].byte_count = 8;
+tx_buf[11].time_stamp_lo = tx_buf[10].time_stamp_lo + CPM_TIME_1MS;
+tx_buf[11].data[0] = 10;
+
+/* 4ms */
+tx_buf[12].identifier.doc = 10;
+tx_buf[12].byte_count = 8;
+tx_buf[12].time_stamp_lo = tx_buf[11].time_stamp_lo + CPM_TIME_250US;
+tx_buf[12].data[0] = 10;
+
+tx_buf[13].identifier.doc = 20;
+tx_buf[13].byte_count = 7;
+tx_buf[13].time_stamp_lo = tx_buf[12].time_stamp_lo + CPM_TIME_250US;
+tx_buf[13].data[0] = 20;
+
+tx_buf[14].identifier.doc = 30;
+tx_buf[14].byte_count = 6;
+tx_buf[14].time_stamp_lo = tx_buf[13].time_stamp_lo + CPM_TIME_250US;
+tx_buf[14].data[0] = 30;
+
+tx_buf[15].identifier.doc = 40;
+tx_buf[15].byte_count = 5;
+tx_buf[15].time_stamp_lo = tx_buf[14].time_stamp_lo + CPM_TIME_250US;
+tx_buf[15].data[0] = 40;
+
+tx_buf[16].identifier.doc = 50;
+tx_buf[16].byte_count = 4;
+tx_buf[16].time_stamp_lo = tx_buf[15].time_stamp_lo + CPM_TIME_250US;
+tx_buf[16].data[0] = 50;
+
+/* 5ms */
+tx_buf[17].identifier.doc = 10;
+tx_buf[17].byte_count = 8;
+tx_buf[17].time_stamp_lo = tx_buf[16].time_stamp_lo + CPM_TIME_1MS;
+tx_buf[17].data[0] = 10;
+
+/* 6ms */
+tx_buf[18].identifier.doc = 10;
+tx_buf[18].byte_count = 8;
+tx_buf[18].time_stamp_lo = tx_buf[17].time_stamp_lo + CPM_TIME_500US;
+tx_buf[18].data[0] = 10;
+
+tx_buf[19].identifier.doc = 20;
+tx_buf[19].byte_count = 7;
+tx_buf[19].time_stamp_lo = tx_buf[18].time_stamp_lo + CPM_TIME_500US;
+tx_buf[19].data[0] = 20;
+
+/* 7ms */
+tx_buf[20].identifier.doc = 10;
+tx_buf[20].byte_count = 8;
+tx_buf[20].time_stamp_lo = tx_buf[19].time_stamp_lo + CPM_TIME_500US;
+tx_buf[20].data[0] = 10;
+#endif
+
+#ifdef MAXLOAD
+for (loops = 0; loops < 8; loops++)
+  {
+  tx_buf[loops].identifier.lcc = NOC;
+  tx_buf[loops].identifier.scfid = 5;
+  tx_buf[loops].identifier.smt = 0;
+  tx_buf[loops].identifier.lcl = 0;
+  tx_buf[loops].identifier.pvt = 1;
+  tx_buf[loops].identifier.rci = RCI_A;
+  tx_buf[loops].frame_type = DATA_FRAME;
+  tx_buf[loops].can_status = 0;
+  tx_buf[loops].error_counter = 0;
+  tx_buf[loops].time_stamp_hi = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[0]);
+  *iptr = 0;
+
+  iptr = (unsigned int *) &(tx_buf[loops].data[4]);
+  *iptr = 0;
+  }
+
+tx_buf[0].identifier.doc = 50;
+tx_buf[0].byte_count = 8;
+tx_buf[0].time_stamp_lo = CPM_TIME_250US;
+tx_buf[0].data[0] = 50;
+
+tx_buf[1].identifier.doc = 60;
+tx_buf[1].byte_count = 8;
+tx_buf[1].time_stamp_lo = tx_buf[0].time_stamp_lo + 2000;
+tx_buf[1].data[0] = 60;
+
+tx_buf[2].identifier.doc = 70;
+tx_buf[2].byte_count = 8;
+tx_buf[2].time_stamp_lo = tx_buf[1].time_stamp_lo + 2000;
+tx_buf[2].data[0] = 70;
+
+tx_buf[3].identifier.doc = 80;
+tx_buf[3].byte_count = 8;
+tx_buf[3].time_stamp_lo = tx_buf[2].time_stamp_lo + 2000;
+tx_buf[3].data[0] = 80;
+
+tx_buf[4].identifier.doc = 10;
+tx_buf[4].byte_count = 8;
+tx_buf[4].time_stamp_lo = tx_buf[3].time_stamp_lo + 2000;
+tx_buf[4].data[0] = 10;
+
+tx_buf[5].identifier.doc = 20;
+tx_buf[5].byte_count = 8;
+tx_buf[5].time_stamp_lo = tx_buf[4].time_stamp_lo + 2000;
+tx_buf[5].data[0] = 20;
+
+tx_buf[6].identifier.doc = 30;
+tx_buf[6].byte_count = 8;
+tx_buf[6].time_stamp_lo = tx_buf[5].time_stamp_lo + 2000;
+tx_buf[6].data[0] = 30;
+
+tx_buf[7].identifier.doc = 40;
+tx_buf[7].byte_count = 8;
+tx_buf[7].time_stamp_lo = tx_buf[6].time_stamp_lo + CPM_TIME_250US;
+tx_buf[7].data[0] = 40;
+
+#endif
+
+/*
+ * Initialize other variables.
+ */
+
+ctrl_seq = -1;
+
+/*
+ * Now go into an endless loop controlling the PMC825.
+ */
+
+printf("Start Device Simulation on CAN channel %d:\n", chan);
+
+while (ctrl_seq < 2)
+  {
+  /*
+   * Set up the device generator and start it.
+   */
+
+  if (ctrl_seq < 2)
+    ctrl_seq += 1;
+
+  switch (ctrl_seq)
+    {
+    case 0:
+#ifdef DEVICE_1SINE
+      for (loops = 0; loops < 24; loops++)
+	  {
+		ret = Pmc825Arinc825Write(&Pmc825, &(tx_buf[loops*50]), MAX_CAN_MSG_COUNT);
+		Sleep(200);
+		printf("%d/23 ", loops);
+	  }
+#endif
+
+#ifdef MAXLOAD
+      ret = Pmc825Arinc825Write(&Pmc825, &(tx_buf[0]), 8);
+#endif
+
+#ifdef DEVICE_1
+      ret = Pmc825Arinc825Write(&Pmc825, &(tx_buf[0]), 12);
+#endif
+
+#ifdef DEVICE_2
+      ret = Pmc825Arinc825Write(&Pmc825, &(tx_buf[0]), 21);
+#endif
+
+#ifdef DEVICE_3
+      ret = Pmc825Arinc825Write(&Pmc825, &(tx_buf[0]), 21);
+#endif
+      if (ret < 0)
+        printf("Pmc825CanAerospaceWrite: %d\n", ret);
+      break;
+
+    case 1:
+      tx_ctrl.opcode = CAN_CTRL;
+      tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+
+      tx_ctrl.arg[0] = CAN_1M;
+      tx_ctrl.arg[1] = 0;
+      tx_ctrl.arg[2] = 0;
+      tx_ctrl.arg[3] = 0;
+      tx_ctrl.arg[4] = CPM_ENABLE | CPM_CYCLIC;
+
+      ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+      if (ret < 0)
+	printf("Pmc825CtrlWrite[INIT_CAN_CHIP]: %d\n", ret);
+      break;
+
+    case 2:
+      tx_ctrl.opcode = CAN_CTRL;
+      tx_ctrl.svc_rsp_code = RESET_TIME_STAMP;
+      tx_ctrl.arg[0] = tmr_res;
+
+      Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+      break;
+
+    default:
+      break;
+    }
+
+  /*
+   * 10ms time frame.
+   */
+
+#ifndef WIN32
+  nanosleep(&t1,&t2);
+#else
+  Sleep (10);
+#endif
+  }
+
+/*
+ * Terminate the device simulation if any key is pressed.
+ */
+
+scanf("%c", &input);
+
+/*
+ * Stop the CPM and release all resources, then quit.
+ */
+
+tx_ctrl.opcode = CAN_CTRL;
+tx_ctrl.svc_rsp_code = INIT_CAN_CHIP;
+tx_ctrl.arg[0] = CAN_1M;
+tx_ctrl.arg[1] = 0;
+tx_ctrl.arg[2] = 0;
+tx_ctrl.arg[3] = 0;
+tx_ctrl.arg[4] = 0;
+
+ret = Pmc825CtrlWrite(&Pmc825, &tx_ctrl);
+
+if (ret < 0)
+  printf("Pmc825CtrlWrite[INIT_CAN_CHIP]: %d\n", ret);
+
+Pmc825StopInterface(&Pmc825);
+printf("Program terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * End of file.
+ */

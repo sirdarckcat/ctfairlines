@@ -35,6 +35,7 @@ Available commands:
 
 `)
 	} else if args[0] == "unlock" {
+		fmt.Fprintf(stdout, "/cdls/unlock %s\n", args[1])
 		return exec.Command("/cdls/unlock", args[1]).Run()
 	}
 	return nil;

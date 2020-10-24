@@ -29,6 +29,7 @@ module CircuitLocked(
       // If the password was set up, check whether the current entered password is correct.
       if (password_was_set_up) 
         locked = (is_enter_pressed && do_eval) ? !correct_password_entered : 1;
+      
    end
 endmodule
 module CircuitBitmask(

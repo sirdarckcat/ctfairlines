@@ -12,18 +12,31 @@ services:
       canaero:
         ipv4_address: 172.20.4.2
 
+  cdls:
+    build: ./cdls
+    networks:
+      canaero:
+        ipv4_address: 172.20.4.16
+
   mcdu:
     build: ./mcdu
     ports:
-      - "9923:23"
+      - "127.0.0.1:9923:23"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
     networks:
+      debug_port:
+        ipv4_address: 192.168.88.88
       canaero:
         ipv4_address: 172.20.4.8
 
 networks:
+  debug_port:
+    ipam:
+      config:
+        - subnet: 192.168.88.0/24
   canaero:
+    internal: true
     ipam:
       config:
         - subnet: 172.20.4.0/24

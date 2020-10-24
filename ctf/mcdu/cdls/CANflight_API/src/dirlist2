@@ -1,0 +1,171 @@
+/*******************************************************************************
+* PMC825 UDP/IP Socket Interface Test Program                                  *
+*                                                                              *
+* (C) 2011 Stock Flight Systems. All rights reserved.                          *
+*                                                                              *
+* Filename: dirlist.c                                                          *
+*                                                                              *
+* This file contains a test program which interfaces to the PMC825 via the     *
+* UDP/IP socket interface.                                                     *
+*                                                                              *
+* Function names                                                               *
+* ____________________________________________________________________________ *
+*                                                                              *
+* int main(void)                                                               *
+* void ExceptionHandler(void)                                                  *
+*                                                                              *
+* MODIFICATIONS:                                                               *
+*                                                                              *
+* When          Version      What                                  Who         *
+* ____________________________________________________________________________ *
+*                                                                              *
+* 15.05.2011    1.0          Initial Version                       M. Stock    *
+*                                                                              *
+*******************************************************************************/
+
+/*
+ * Includes.
+ */
+
+#include "pmc825socket.h"
+#include "can_as.h"
+
+/*
+ * Local definitions.
+ */
+
+#define	LPORT_BASE      34567           /* Local UDP/IP port number base */
+#define	RPORT_BASE      34568           /* PMC825 UDP/IP port number base */
+
+/*
+ * Globals.
+ */
+
+PMC825_IF Pmc825;
+
+/*
+ * ExceptionHandler() frees all resources then terminates.
+ */
+
+void ExceptionHandler(void)
+{
+Pmc825StopInterface(&Pmc825);
+printf("\nProgram terminated, all resources released.\n");
+exit(0);
+}
+
+/*
+ * main() starts here.
+ */
+
+int main (int argc, char *argv[])
+{
+#ifndef WIN32
+struct timespec t2,t1 = {0,1000000*10};	/* 10ms frame time */
+#endif
+unsigned int *iptr, ts, tsl, tsh, *test, host_ip, pmc825_ip, lport, rport;
+unsigned char hip[32], pip[32], ch[8];
+int loops, ret, i, ip[4];
+UDP_CAN_CTRL_PKT ls_cmd;
+UDP_LOAD_CTRL_PKT ls_resp;
+
+/*
+ * First of all, get IP addresses and CAN channel number.
+ */
+
+if (argc != 3)
+  {
+  printf("usage: %s host_ip pmc825_ip\n", argv[0]);
+  exit(1);
+  }
+
+strcpy(hip, argv[1]);
+strcpy(pip, argv[2]);
+
+sscanf(hip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+host_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+sscanf(pip, "%d.%d.%d.%d", &ip[0], &ip[1], &ip[2], &ip[3]);
+pmc825_ip = (ip[0] << 24) | (ip[1] << 16) | (ip[2] << 8) | ip[3];
+
+lport = LPORT_BASE + chan * 2;
+rport = RPORT_BASE + chan * 2;
+
+/*
+ * Set up the exception handler. We want to make sure that we perform
+ * cleanup in case we are terminated by some unexpected event.
+ */
+
+#ifndef WIN32
+signal(SIGQUIT, (void *) ExceptionHandler);
+signal(SIGINT,  (void *) ExceptionHandler);
+signal(SIGTERM, (void *) ExceptionHandler);
+signal(SIGKILL, (void *) ExceptionHandler);
+signal(SIGPIPE, (void *) ExceptionHandler);
+#endif
+
+/*
+ * Initialize the interface for the PMC825.
+ */
+
+ret = Pmc825StartInterface(&Pmc825, pmc825_ip, host_ip, rport, lport, chan);
+
+if (ret == PMC825_MEM_ALLOC_ERR)
+  {
+  printf("Memory allocation error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+else if (ret == PMC825_SOCKET_ERR)
+  {
+  printf("Socket error, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+/*
+ * Read the PMC825 SD card FAT32 file system directory and print it, then exit.
+ */
+
+ls_cmd.opcode = TARGET_LIST_DIR_CMD;
+
+ret = Pmc825CtrlWrite(&Pmc825, &ls_cmd);
+
+if (ret != PMC825_OK)
+  {
+  printf("INIT_CAN_CHIP failed, exiting ...\n");
+  Pmc825StopInterface(&Pmc825);
+  exit(0);
+  }
+
+sleep(1);
+
+ret = Pmc825CtrlRead(&Pmc825, &ls_resp);
+
+if (ret != PMC825_NO_MSG)
+  {
+  if (ls_resp.opcode == TARGET_LIST_DIR_RESP)
+    {
+    printf("Files on SDcard:\n");
+
+    for (loops = 0; loops < svc_rsp_code; loops++)
+      {
+      printf("%c%c%c%c%c%c%c%c%c%c%c%c\n", ls_resp.fname[i],ls_resp.fname[i+1],
+                                           ls_resp.fname[i+2],ls_resp.fname[i+3],
+                                           ls_resp.fname[i+4],ls_resp.fname[i+5],
+                                           ls_resp.fname[i+6],ls_resp.fname[i+7],
+                                           ls_resp.fname[i+8],ls_resp.fname[i+9],
+                                           ls_resp.fname[i+10],ls_resp.fname[i+11]);
+      i += 12;
+      }
+    }
+  }
+else
+  printf("No response received!\n");
+
+exit(0);
+}
+
+/*
+ * End of file.
+ */
