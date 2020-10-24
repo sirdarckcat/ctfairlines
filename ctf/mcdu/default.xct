@@ -1,10 +1,10 @@
 <XCT>
     <Version id="1"/>
-    <TopLevelWindow height="989" width="1507" x="202" y="40"/>
+    <TopLevelWindow height="833" width="1507" x="459" y="185"/>
     <ObjectCanInterface>
-        <Window height="400" name="CAN PMC825" yPos="0" width="400" open="0" xPos="0"/>
+        <Window height="400" name="gw" yPos="0" width="400" open="0" xPos="0"/>
         <Device id="libCanPMC825UDP"/>
-        <Property id="InterfaceName" value="CAN PMC825"/>
+        <Property id="InterfaceName" value="gw"/>
         <Property id="address" value="172.20.4.4"/>
         <Property id="baudrate" value="12052"/>
         <Property id="broadcastMode" value="1"/>
@@ -16,7 +16,7 @@
         <Property id="timeout" value="9999999"/>
     </ObjectCanInterface>
     <ObjectReceive>
-        <Window height="422" name="LAST VALUE" yPos="0" width="640" open="1" xPos="0"/>
+        <Window height="296" name="LAST VALUE" yPos="0" width="640" open="1" xPos="0"/>
         <Mode displayMode="3" numberType="1" inputOn="1" inputInterface="CAN PMC825"/>
         <Filter type="1" minId="1984" maxId="1989" on="0">
             <FilterId id="1988"/>
@@ -24,7 +24,7 @@
         </Filter>
     </ObjectReceive>
     <ObjectGraph>
-        <Window height="482" name="GRAPH" yPos="420" width="1292" open="1" xPos="4"/>
+        <Window height="453" name="GRAPH" yPos="294" width="1292" open="1" xPos="2"/>
         <Mode inputOn="1" inputInterface="CAN PMC825"/>
         <Filter type="0" minId="0" maxId="536870911" on="0"/>
         <Graph cursorMode="1" cursorOn="1" autoScale="1" gridColor="#ff6666" xRange="17.742759704590" yMin="-100.000000000000" yMax="100.000000000000" autoMode="1" legendOn="1" splitMode="1" gridOn="1" labelColor="#000000" labelBackColor="#bbbbbb" backgroundColor="#000000"/>
@@ -44,7 +44,7 @@
         <Filter type="0" minId="0" maxId="536870911" on="0"/>
     </ObjectDial>
     <ObjectTrace>
-        <Window height="421" name="TRACE" yPos="0" width="656" open="1" xPos="641"/>
+        <Window height="295" name="TRACE" yPos="0" width="656" open="1" xPos="641"/>
         <Mode displayMode="3" numberType="1" traceFormat="3" inputOn="1" outputInterface="All Interfaces" inputInterface="CAN PMC825"/>
         <Filter type="1" minId="0" maxId="536870911" on="0">
             <FilterId id="1988"/>
