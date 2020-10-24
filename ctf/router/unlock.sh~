@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "$1" | socat - tcp:172.20.4.8:23

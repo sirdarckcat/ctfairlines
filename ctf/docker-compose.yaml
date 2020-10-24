@@ -25,18 +25,18 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
     networks:
-      debug_port:
-        ipv4_address: 192.168.88.88
       canaero:
         ipv4_address: 172.20.4.8
 
+  router:
+    build: ./router
+    ports:
+      - "8823:23"
+    links:
+      - "mcdu"
+
 networks:
-  debug_port:
-    ipam:
-      config:
-        - subnet: 192.168.88.0/24
   canaero:
-    internal: true
     ipam:
       config:
         - subnet: 172.20.4.0/24
