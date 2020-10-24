@@ -10,12 +10,12 @@ import (
 )
 
 func dnsHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
-	fmt.Fprintf(stdout, 'For the simulator, use docker-compose --dns=1.1.1.1 up instead.')
+	fmt.Fprintf(stdout, "For the simulator, use docker-compose --dns=1.1.1.1 up instead.\n")
 	return nil
 }
 
 func unlockHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
-	return exec.Command('./unlock.sh', args...).Run()
+	return exec.Command("./unlock.sh", args...).Run()
 }
 
 func dnsProducer(ctx telnet.Context, name string, args ...string) telsh.Handler{

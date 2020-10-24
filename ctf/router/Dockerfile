@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-RUN apt update && apt install -y socat git strace
+RUN apt update && apt install -y socat git strace wget
 
 RUN wget -q https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz

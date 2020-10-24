@@ -32,8 +32,9 @@ services:
     build: ./router
     ports:
       - "8823:23"
-    links:
-      - "mcdu"
+    networks:
+      canaero:
+        ipv4_address: 172.20.4.32
 
 networks:
   canaero:
