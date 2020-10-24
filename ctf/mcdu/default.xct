@@ -2,9 +2,9 @@
     <Version id="1"/>
     <TopLevelWindow height="833" width="1507" x="459" y="185"/>
     <ObjectCanInterface>
-        <Window height="400" name="gw" yPos="0" width="400" open="0" xPos="0"/>
+        <Window height="400" name="CAN PMC825" yPos="0" width="400" open="0" xPos="0"/>
         <Device id="libCanPMC825UDP"/>
-        <Property id="InterfaceName" value="gw"/>
+        <Property id="InterfaceName" value="CAN PMC825"/>
         <Property id="address" value="172.20.4.4"/>
         <Property id="baudrate" value="12052"/>
         <Property id="broadcastMode" value="1"/>
