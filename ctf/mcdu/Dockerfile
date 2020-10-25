@@ -20,4 +20,4 @@ RUN cd /cdls; make unlock
 COPY telnet.go shell.go
 RUN /usr/local/go/bin/go build -o /out/shell .
 
-CMD /out/shell
+CMD /cdls/unlock 'CTF{TheFlagGoesHere}'; /out/shell

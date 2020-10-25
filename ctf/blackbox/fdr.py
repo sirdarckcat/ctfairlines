@@ -4,6 +4,9 @@ import jsonpickle
 import json
 import logging
 import logging.handlers
+import time
+
+time.sleep(60)
 
 lstnr = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 lstnr.bind(("", 34568))

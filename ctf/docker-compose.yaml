@@ -8,6 +8,8 @@ services:
 
   blackbox:
     build: ./blackbox
+    depends_on:
+      - mcdu
     networks:
       canaero:
         ipv4_address: 172.20.4.2
@@ -20,6 +22,8 @@ services:
 
   mcdu:
     build: ./mcdu
+    depends_on:
+      - cdls
     ports:
       - "127.0.0.1:9923:23"
     volumes:
@@ -30,6 +34,8 @@ services:
 
   router:
     build: ./router
+    depends_on:
+      - mcdu
     ports:
       - "8823:23"
     networks:
