@@ -151,8 +151,9 @@ int main(int argc, char *argv[]) {
                           tx_buf.error_counter = 0;
                           tx_buf.time_stamp_lo = 0;
                           tx_buf.time_stamp_hi = 0;
-                          tx_buf.data[0] = flightgear_status.values[i].value;
-                          
+                          float fval = *((float *) flightgear_status.values[i].value);
+                          float * fptr = (float *) &(tx_buf.data[0]);
+                          *fptr = fval;
                           Pmc825CanAerospaceWrite(&Pmc825, &tx_buf, 1);
                         }
                         continue;
