@@ -6,11 +6,10 @@ organizers/nsjail/nsjail:
 chroots/%: players/%
 	rm -rf $@
 	mkdir -p $@
-	docker build -t $< $<
-	docker export $(shell docker create $<) | gzip > $@/img.tgz
+	docker export $(shell docker create $(shell docker build -q $<)) | gzip > $@/img.tgz
 
 server: organizers Dockerfile chroots/blackbox chroots/cdls chroots/mcdu
-	docker build -t server .
+	docker build -q .
 
 clean:
 	rm -rf chroots/*
