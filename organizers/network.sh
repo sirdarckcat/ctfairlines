@@ -16,16 +16,24 @@ ip netns exec net_fdr ip link set veth_fdr up
 ip netns exec net_mcdu ip link set lo up
 ip netns exec net_fdr ip link set lo up
 
-ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/cdls -- /bin/bash -c '/root/main' &
+ip netns exec net_fdr nsjail/nsjail -d -N --chroot /chroots/cdls -- /root/main
 
 sleep 1s
+
 ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
-ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ./fdr.sh' &
 
+sleep 1s
 
-# this one probably should be not root
-ip netns exec net_mcdu nsjail/nsjail -N --chroot /chroots/mcdu -- /bin/bash -c '/out/shell :9923' &
+ip netns exec net_fdr nsjail/nsjail -d -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ./fdr.sh'
+
+ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -d -N --chroot /chroots/mcdu -- /out/shell :9923
 
 sleep 3s
 
-ip netns exec net_mcdu socat - tcp:127.0.0.1:9923
+ip netns exec net_mcdu socat unix-listen:/tmp/mcdu,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >/tmp/mcdu.log &
+
+sleep 1s
+
+ip netns exec net_fdr socat unix-connect:/tmp/proxy tcp-listen:127.0.0.1:1080,fork &
+
+sleep 1d

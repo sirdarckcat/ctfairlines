@@ -1,7 +1,7 @@
 PHONY=server
 
 server: organizers/nsjail chroots/blackbox chroots/cdls chroots/mcdu
-	docker run --privileged -it $$(docker build -q .)
+	docker run -P --privileged -it $$(docker build -q .)
 
 organizers/nsjail:
 	cd organizers/nsjail && git submodule init

@@ -18,10 +18,18 @@ RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     pkg-config \
     protobuf-compiler
 
-RUN apt update && apt install -y socat iproute2 util-linux strace net-tools
+RUN apt update && apt install -y socat iproute2 util-linux strace net-tools uidmap git tar wget
+
+RUN wget -q https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz
 
 RUN groupadd -g 1000 user && useradd -g 1000 -u 1000 -ms /bin/bash user
 
-COPY organizers /home/user
-RUN cd /home/user/nsjail && make clean && make
-CMD cd /home/user/ && ./start-network.sh
+COPY --chown=user organizers /home/user
+USER user
+RUN cd /home/user/nsjail && make
+RUN /usr/local/go/bin/go get github.com/armon/go-socks5
+RUN cd /home/user && /usr/local/go/bin/go build -o socks .
+USER root
+EXPOSE 23
+CMD cd /home/user/ && socat tcp-listen:23,fork system:./start-network.sh
