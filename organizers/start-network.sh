@@ -26,7 +26,7 @@ done
 echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
-./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
+GODEBUG=netdns=go ./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
 
 sleep 1s
 
