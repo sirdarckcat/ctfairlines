@@ -30,7 +30,7 @@ tmp=$(mktemp -d)
 
 sleep 1s
 
-nsjail/nsjail -d -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / ./network.sh
+nsjail/nsjail -d -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log ./network.sh
 
 echo -n 'Loading (waiting for MCDU)'
 while [ ! -S $tmp/mcdu ]; do echo -n . && sleep 1; done
