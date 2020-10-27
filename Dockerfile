@@ -18,11 +18,10 @@ RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     pkg-config \
     protobuf-compiler
 
-RUN apt update && apt install -y socat iproute2 util-linux
+RUN apt update && apt install -y socat iproute2 util-linux strace net-tools
 
-RUN useradd -ms /bin/bash user
-USER user
-COPY --chown=user organizers /home/user
+RUN groupadd -g 1000 user && useradd -g 1000 -u 1000 -ms /bin/bash user
+
+COPY organizers /home/user
 RUN cd /home/user/nsjail && make clean && make
-USER root
 CMD cd /home/user/ && ./start-network.sh

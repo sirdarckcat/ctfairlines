@@ -20,7 +20,9 @@ ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
 ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ./fdr.sh' &
 
 
-ip netns exec net_mcdu nsjail/nsjail --cap CAP_NET_BIND_SERVICE -g 0 -u 0 -N --chroot /chroots/mcdu -- /bin/bash -c '/out/shell :9923' &
+# this one probably should be not root
+ip netns exec net_mcdu nsjail/nsjail -N --chroot /chroots/mcdu -- /bin/bash -c '/out/shell :9923' &
 
+sleep 3s
 
-sleep 1d
+ip netns exec net_fdr socat - tcp:172.20.4.8:9923
