@@ -13,6 +13,9 @@ ip netns exec net_fdr ip addr add 172.20.4.2/24 dev veth_fdr
 ip netns exec net_mcdu ip link set veth_mcdu up
 ip netns exec net_fdr ip link set veth_fdr up
 
+ip netns exec net_mcdu ip link set lo up
+ip netns exec net_fdr ip link set lo up
+
 ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/cdls -- /bin/bash -c '/root/main' &
 
 sleep 1s
@@ -25,4 +28,4 @@ ip netns exec net_mcdu nsjail/nsjail -N --chroot /chroots/mcdu -- /bin/bash -c '
 
 sleep 3s
 
-ip netns exec net_fdr socat - tcp:172.20.4.8:9923
+ip netns exec net_mcdu socat - tcp:127.0.0.1:9923
