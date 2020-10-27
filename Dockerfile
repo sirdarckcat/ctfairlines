@@ -18,7 +18,7 @@ RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     pkg-config \
     protobuf-compiler
 
-RUN apt update && apt install -y socat iproute2 util-linux strace net-tools uidmap git tar wget
+RUN apt update && apt install -y socat iproute2 util-linux strace net-tools uidmap git tar wget python3
 
 RUN wget -q https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz

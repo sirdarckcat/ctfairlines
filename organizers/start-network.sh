@@ -1,19 +1,29 @@
 #!/bin/bash
 
+python3 pow.py ask 1337 || exit
+
+sleep 1
+echo -e '\E[H\E[J'
 sleep 1
 
 echo -e '\e[31;47m'
-
-cat banner.txt
-
+awk '{print $0; system("sleep .1");}' banner.txt
 echo -e '\e[m'
 
-sleep 5s
+sleep 1
+echo -e '\E[H\E[J'
+sleep 1
 
-echo -en 'DNS Server Address \n> '
-read dns
+echo -e '\033[0;36m[[ DHCP >> DNS >> Config ]]\033[0m'
 
-echo '[*] Setting DNS Server to $dns'
+dns=""
+while [ -z "$dns" ]
+do
+  echo -en 'DNS Server Address \n> '
+  read dns
+done
+
+echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
 ./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
@@ -27,10 +37,13 @@ while [ ! -S $tmp/mcdu ]; do echo -n . && sleep 1; done
 
 echo '!'
 
-while :
+input=" "
+while [ ! -z "$input" ]
 do
-  echo -en 'Send door lock combination \n> '
-  read input || (cat $tmp/*.log; rm -rf $tmp; exit)
-  echo Sending $input to CDLS
+  echo -en 'Send cockpit door lock combination \n> '
+  read input || exit
+  if [ -z "$input" ]; then rm -rf $tmp; exit; fi
+  sleep 1
   echo "cdls unlock $input" | socat unix-client:$tmp/mcdu -
+  sleep 1
 done
