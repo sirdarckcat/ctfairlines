@@ -17,7 +17,7 @@ ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/cdls -- /bin/bash -c '/
 
 sleep 1s
 ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
-ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -- /bin/bash -c 'cd /fdr/; ./fdr.sh' &
+ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ./fdr.sh' &
 
 
 ip netns exec net_mcdu nsjail/nsjail --cap CAP_NET_BIND_SERVICE -g 0 -u 0 -N --chroot /chroots/mcdu -- /bin/bash -c '/out/shell :9923' &

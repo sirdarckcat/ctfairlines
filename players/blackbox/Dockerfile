@@ -6,4 +6,6 @@ COPY . fdr
 RUN cd kaitai-struct-compiler-0.9/bin && ./kaitai-struct-compiler --target python /fdr/arinc825.ksy && mv pcm825.py /fdr
 RUN python3 -m venv fdr/env && pip3 install kaitaistruct jsonpickle
 
+VOLUME /fdr/log
+
 CMD /fdr/venv/activate && cd /fdr && ./fdr.sh

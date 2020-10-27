@@ -13,7 +13,7 @@ lstnr.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 lstnr.bind(("0.0.0.0", 34568))
 stream = pcm825.KaitaiStream(lstnr.makefile('rb'))
 handler = logging.handlers.TimedRotatingFileHandler(
-    'fdr-log', when='m', backupCount=3)
+    'log/fdr-log', when='m', backupCount=3)
 logger = logging.getLogger('Flight Data Recorder')
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
