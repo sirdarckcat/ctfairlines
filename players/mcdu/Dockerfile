@@ -19,5 +19,6 @@ RUN cd /cdls; make unlock
 
 COPY telnet.go shell.go
 RUN /usr/local/go/bin/go build -o /out/shell .
+RUN setcap CAP_NET_BIND_SERVICE=+ep /out/shell
 
-CMD /cdls/unlock 'CTF{TheFlagGoesHere}'; /out/shell
+CMD /cdls/unlock 'CTF{ThisIsATestingFlag}'; /out/shell

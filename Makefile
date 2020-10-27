@@ -1,15 +1,15 @@
 PHONY=server
 
-server: organizers/nsjail/nsjail Dockerfile chroots/blackbox chroots/cdls chroots/mcdu
-	docker build .
+server: organizers/nsjail chroots/blackbox chroots/cdls chroots/mcdu
+	docker run --privileged -it $$(docker build -q .)
 
-organizers/nsjail/nsjail:
-	cd organizers/nsjail; git submodule init; make
+organizers/nsjail:
+	cd organizers/nsjail && git submodule init
 
 chroots/%: players/%
 	rm -rf $@
 	mkdir -p $@
-	docker export $(shell docker create $(shell docker build -q $<)) | gzip > $@/img.tgz
+	docker export $$(docker create $$(docker build -q $<)) | gzip > $@/img.tgz
 
 clean:
 	rm -rf chroots/*

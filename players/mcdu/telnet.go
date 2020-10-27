@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"io"
 	"fmt"
+	"os"
 )
 
 func cdlsHandler(stdin io.ReadCloser, stdout io.WriteCloser, stderr io.WriteCloser, args ...string) error {
@@ -73,6 +74,9 @@ func elseProducer(ctx telnet.Context, name string, args ...string) telsh.Handler
 
 func main() {
 	addr := ":23"
+	if len(os.Args) > 1 {
+		addr = os.Args[1]
+	}
 	shellHandler := telsh.NewShellHandler()
 	shellHandler.WelcomeMessage = `
 

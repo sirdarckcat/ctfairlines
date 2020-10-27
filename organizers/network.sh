@@ -2,26 +2,25 @@
 
 set -x
 
-iface="test"
-net1=$iface-net1
-net2=$iface-net2
-veth1=$iface-veth1
-veth2=$iface-veth2
+ip netns add net_mcdu
+ip netns add net_fdr
 
-ip netns add $net1
-ip netns add $net2
+ip link add veth_mcdu netns net_mcdu type veth peer name veth_fdr netns net_fdr
 
-ip link add $veth1 netns $net1 type veth peer name $veth2 netns $net2
+ip netns exec net_mcdu ip addr add 172.20.4.8/24 dev veth_mcdu
+ip netns exec net_fdr ip addr add 172.20.4.2/24 dev veth_fdr
 
-# MCDU
-ip netns exec $net1 ip addr add 172.20.0.8/24 dev $veth1
+ip netns exec net_mcdu ip link set veth_mcdu up
+ip netns exec net_fdr ip link set veth_fdr up
 
-# FDR/CDLS/GW
-ip netns exec $net2 ip addr add 172.20.0.2/24 dev $veth2
+ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/cdls -- /bin/bash -c '/root/main' &
 
-ip netns exec $net1 ip link set $veth1 up
-ip netns exec $net2 ip link set $veth2 up
+sleep 1s
+ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
+ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -- /bin/bash -c 'cd /fdr/; ./fdr.sh' &
 
-ip netns exec $net1 nsjail/nsjail -g 1000 -u 1000 -d -N --chroot / -- /bin/bash -c 'yes broadcastedpacket | socat - UDP-DATAGRAM:172.20.0.255:1234,broadcast'
 
-ip netns exec $net2 nsjail/nsjail -g 1000 -u 1000 -N --chroot / -- /bin/bash -c 'socat - UDP-RECV:1234,reuseaddr | head -n 3'
+ip netns exec net_mcdu nsjail/nsjail --cap CAP_NET_BIND_SERVICE -g 0 -u 0 -N --chroot /chroots/mcdu -- /bin/bash -c '/out/shell :9923' &
+
+
+sleep 1d
