@@ -24,13 +24,14 @@ ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
 
 sleep 1s
 
-ip netns exec net_fdr nsjail/nsjail -d -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ./fdr.sh'
+ip netns exec net_fdr nsjail/nsjail -d -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5h://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh'
 
 ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -d -N --chroot /chroots/mcdu -- /out/shell :9923
 
 sleep 3s
 
 ip netns exec net_mcdu socat unix-listen:/tmp/mcdu,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >/tmp/mcdu.log &
+ip netns exec net_mcdu socat tcp-listen:23,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >/tmp/mcdu.log &
 
 sleep 1s
 
