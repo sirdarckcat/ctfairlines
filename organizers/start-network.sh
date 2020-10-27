@@ -19,7 +19,7 @@ echo -e '\033[0;36m[[ DHCP >> DNS >> Config ]]\033[0m'
 dns=""
 while [ -z "$dns" ]
 do
-  echo -en 'DNS Server Address \n> '
+  echo -en 'DNS Server Address (format: 8.8.8.8:53) \n> '
   read dns
 done
 

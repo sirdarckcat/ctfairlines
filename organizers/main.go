@@ -9,19 +9,12 @@ import (
 	"github.com/armon/go-socks5"
 )
 
-type UserResolver struct {}
+type UserResolver struct {
+	r *net.Resolver
+}
 
-func (d UserResolver) Resolve(ctx context.Context, name string) (context.Context, net.IP, error) {
-	r := &net.Resolver{
-		PreferGo: true,
-		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
-			d := net.Dialer{
-				Timeout: time.Millisecond * time.Duration(10000),
-			}
-			return d.DialContext(ctx, "udp", os.Args[2])
-		},
-	}
-	ip, err := r.LookupIP(context.Background(), "ip4", name)
+func (u UserResolver) Resolve(ctx context.Context, name string) (context.Context, net.IP, error) {
+	ip, err := u.r.LookupIP(context.Background(), "ip4", name)
 	if len(ip) < 1 {
 		return ctx, nil, err
 	}
@@ -34,10 +27,19 @@ func main() {
 		return
 	}
 
-	conf := &socks5.Config{
-		Resolver: UserResolver{},
-	}
-	server, err := socks5.New(conf)
+	server, err := socks5.New(&socks5.Config{
+		Resolver: &UserResolver{
+			r: &net.Resolver{
+				PreferGo: true,
+				Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+					d := net.Dialer{
+						Timeout: time.Millisecond * time.Duration(10000),
+					}
+					return d.DialContext(ctx, "udp", os.Args[2])
+				},
+			},
+		},
+	})
 	if err != nil {
 		panic(err)
 	}
