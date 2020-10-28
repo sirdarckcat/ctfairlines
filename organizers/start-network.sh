@@ -27,6 +27,7 @@ echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
 GODEBUG=netdns=go ./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
+socat "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 >$tmp/dns.log  &
 
 sleep 1s
 

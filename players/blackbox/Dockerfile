@@ -7,5 +7,6 @@ RUN cd kaitai-struct-compiler-0.9/bin && ./kaitai-struct-compiler --target pytho
 RUN python3 -m venv fdr/env && pip3 install kaitaistruct jsonpickle
 
 VOLUME /fdr/log
+RUN echo nameserver 127.0.0.1 > /etc/resolv.conf
 
 CMD /fdr/venv/activate && cd /fdr && ./fdr.sh
