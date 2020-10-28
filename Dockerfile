@@ -32,4 +32,4 @@ RUN /usr/local/go/bin/go get github.com/armon/go-socks5
 RUN cd /home/user && /usr/local/go/bin/go build -o socks .
 USER root
 EXPOSE 23
-CMD cd /home/user/ && socat tcp-listen:23,fork system:./start-network.sh
+CMD cd /home/user/ && socat tcp-listen:23,fork system:'timeout -k 610s 600s ./start-network.sh'

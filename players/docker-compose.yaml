@@ -36,6 +36,7 @@ services:
     build: ./router
     depends_on:
       - mcdu
+      - blackbox
     ports:
       - "8823:23"
     networks:
