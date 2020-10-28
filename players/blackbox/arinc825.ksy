@@ -224,7 +224,7 @@ types:
       - id: config
         type: str
         encoding: ascii
-        size-eos: true
+        size: 512
   get_module_info_rsp:
     seq:
       - id: firmware_loop_count
