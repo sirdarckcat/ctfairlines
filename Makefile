@@ -1,10 +1,10 @@
 PHONY=server
 
-server: organizers/nsjail chroots/blackbox chroots/cdls chroots/mcdu
+server: router/nsjail chroots/blackbox chroots/cdls chroots/mcdu
 	docker run -P --privileged -it $$(docker build -q .)
 
-organizers/nsjail:
-	cd organizers/nsjail && git submodule init
+router/nsjail:
+	cd router/nsjail && git submodule init
 
 chroots/%: players/%
 	rm -rf $@

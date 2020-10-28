@@ -25,7 +25,7 @@ RUN tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz
 
 RUN groupadd -g 1000 user && useradd -g 1000 -u 1000 -ms /bin/bash user
 
-COPY --chown=user organizers /home/user
+COPY --chown=user router /home/user
 USER user
 RUN cd /home/user/nsjail && make
 RUN /usr/local/go/bin/go get github.com/armon/go-socks5
