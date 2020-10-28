@@ -4,7 +4,7 @@ server: router/nsjail chroots/blackbox chroots/cdls chroots/mcdu
 	docker run -P --privileged -it $$(docker build -q .)
 
 router/nsjail:
-	cd router/nsjail && git submodule init
+	git submodule update --init --recursive
 
 chroots/%: players/%
 	rm -rf $@
