@@ -6,7 +6,6 @@ import (
 	"github.com/reiver/go-telnet/telsh"
 	"os/exec"
 	"io"
-	"time"
 	"fmt"
 )
 
