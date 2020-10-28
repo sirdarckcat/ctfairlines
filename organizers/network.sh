@@ -35,7 +35,7 @@ ip netns exec net_mcdu socat tcp-listen:23,fork,forever tcp-connect:127.0.0.1:99
 
 sleep 1s
 
-ip netns exec net_fdr socat unix-client:/tmp/proxy,forever tcp-listen:1080,reuseaddr,fork,forever,range=127.0.0.1/8 2>&1 1>/tmp/socatsocks.log
+ip netns exec net_fdr socat unix-client:/tmp/proxy,forever tcp-listen:1080,reuseaddr,fork,forever,bind=127.0.0.1 2>&1 1>/tmp/socatsocks.log
 
 # this should be unreachable
 sleep 999d
