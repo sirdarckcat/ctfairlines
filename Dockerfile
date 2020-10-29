@@ -35,7 +35,8 @@ USER root
 RUN echo nameserver 127.0.0.1 > /chroots/blackbox/etc/resolv.conf
 EXPOSE 23
 
-# Replace with --env FLAG=CTF{SOMETHINGELSE} during docker run
+# Replace with --env FLAG=CTF{SOMETHINGELSE} --env POW=31337 during docker run
 ENV FLAG CTF{PLZZNOHACKINDURINGTHEFLIGHTOKTHANKS}
+ENV POW 1337
 
 CMD /home/user/nsjail/nsjail -t 630 --max_cpus 1 -Ml --port 23 -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D /home/user --disable_clone_newcgroup --disable_clone_newuts --disable_clone_newipc --disable_clone_newpid --disable_clone_newns --disable_clone_newuser --disable_clone_newnet --keep_caps --keep_env --rw --chroot / ./start-network.sh

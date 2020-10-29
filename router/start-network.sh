@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python3 pow.py ask 1337 || exit
+python3 pow.py ask $POW || exit
 
 sleep 1
 echo -e '\E[H\E[J'

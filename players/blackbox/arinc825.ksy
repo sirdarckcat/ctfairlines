@@ -200,9 +200,7 @@ types:
       - id: ip_address
         type: u4
       - id: module_name
-        type: str
         size: 32
-        encoding: ascii
       - id: cpm_buffer
         type: u2
   reset_timestamp_req:
@@ -222,8 +220,6 @@ types:
   config_ip_interface_req:
     seq:
       - id: config
-        type: str
-        encoding: ascii
         size: 512
   get_module_info_rsp:
     seq:
@@ -240,12 +236,8 @@ types:
       - id: built_in_test_result
         type: u4
       - id: module_name
-        type: str
         size: 32
-        encoding: ascii
   set_module_name_req:
     seq:
       - id: module_name
-        type: str
         size: 32
-        encoding: ascii
