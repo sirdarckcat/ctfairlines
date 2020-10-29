@@ -4,9 +4,6 @@ import jsonpickle
 import json
 import logging
 import logging.handlers
-import time
-
-time.sleep(60)
 
 lstnr = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 lstnr.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

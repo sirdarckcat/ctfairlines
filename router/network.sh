@@ -24,7 +24,7 @@ sleep 1s
 
 ip netns exec net_fdr nsjail/nsjail -t 600 -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh' 2>&1 1>>/tmp/fdrbb.log &
 
-ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -t 600 -N --chroot /chroots/mcdu -- /out/shell :9923 2>&1 1>>/tmp/mcdulog.log &
+ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -t 600 -N --chroot /chroots/mcdu -T /tmp -- /out/shell :9923 2>&1 1>>/tmp/mcdulog.log &
 
 sleep 3s
 
