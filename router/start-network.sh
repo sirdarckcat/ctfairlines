@@ -21,17 +21,18 @@ while [ -z "$dns" ]
 do
   echo -en 'DNS Server Address (format: 8.8.8.8:53) \n> '
   read dns
+  dns=$(echo "$dns" | egrep '([0-9]{1,3}\.){3}[0-9]{1,3}:[0-9]{1,5}')
 done
 
 echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
-timeout -k 10s 600s ./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
-timeout -k 10s 600s socat "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 >$tmp/dns.log &
+timeout -k 10s 600s ./socks $tmp/proxy "$dns" 2>&1 >>$tmp/socks.log &
+timeout -k 10s 600s socat "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 >>$tmp/dns.log &
 
 sleep 1s
 
-nsjail/nsjail -t 600 -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log ./network.sh &
+nsjail/nsjail -t 600 -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log -E FLAG ./network.sh 2>&1 1>$tmp/networkout.log &
 
 (sleep 600s; rm -rf $tmp) &
 

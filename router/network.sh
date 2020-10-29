@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 ip netns add net_mcdu
 ip netns add net_fdr
 
@@ -16,17 +14,17 @@ ip netns exec net_fdr ip link set veth_fdr up
 ip netns exec net_mcdu ip link set lo up
 ip netns exec net_fdr ip link set lo up
 
-ip netns exec net_fdr nsjail/nsjail -d -N --chroot /chroots/cdls -- /root/main
+ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/cdls -- /root/main 2>&1 1>>/tmp/cdls.log &
 
 sleep 1s
 
-ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
+ip netns exec net_fdr /chroots/mcdu/cdls/unlock $FLAG 2>&1 1>/dev/null
 
 sleep 1s
 
-ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh' &
+ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh' 2>&1 1>>/tmp/fdrbb.log &
 
-ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -N --chroot /chroots/mcdu -- /out/shell :9923 &
+ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -N --chroot /chroots/mcdu -- /out/shell :9923 2>&1 1>>/tmp/mcdulog.log &
 
 sleep 3s
 
