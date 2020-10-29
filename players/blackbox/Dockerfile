@@ -7,6 +7,8 @@ RUN cd kaitai-struct-compiler-0.9/bin && ./kaitai-struct-compiler --target pytho
 RUN pip3 install kaitaistruct jsonpickle
 
 VOLUME /fdr/log
-RUN echo nameserver 127.0.0.1 > /etc/resolv.conf
+
+# README.ctf: nsjail runs things as uid 1000
+RUN groupadd -g 1000 user && useradd -g 1000 -u 1000 -ms /bin/bash user
 
 CMD cd /fdr && ./fdr.sh

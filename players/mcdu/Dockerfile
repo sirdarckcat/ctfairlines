@@ -1,10 +1,6 @@
 FROM ubuntu:16.04
 # for XCT
-RUN apt update && apt install -y wget x11-apps libgl1-mesa-glx libdbus-1-3 libxi6 xkb-data
-# for CDLS
-RUN apt update && apt install -y build-essential g++
-# for telnet.go
-RUN apt update && apt install -y socat git strace
+RUN apt update && apt install -y wget x11-apps libgl1-mesa-glx libdbus-1-3 libxi6 xkb-data build-essential g++ socat git strace python3-venv
 
 RUN wget -q http://www.wetzel-technology.com/files/XCT/XCT.1.8.9.Ubuntu.16.04.run
 RUN chmod +x ./XCT* && ./XCT*
@@ -20,5 +16,8 @@ RUN cd /cdls; make unlock
 COPY telnet.go shell.go
 RUN /usr/local/go/bin/go build -o /out/shell .
 RUN setcap CAP_NET_BIND_SERVICE=+ep /out/shell
+
+# README.ctf: nsjail runs things as uid 1000
+RUN groupadd -g 1000 user && useradd -g 1000 -u 1000 -ms /bin/bash user
 
 CMD /cdls/unlock 'CTF{ThisIsATestingFlag}'; /out/shell
