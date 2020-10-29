@@ -24,19 +24,17 @@ ip netns exec net_fdr /chroots/mcdu/cdls/unlock CTF{TheGoodFlag}
 
 sleep 1s
 
-ip netns exec net_fdr nsjail/nsjail -d -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh'
+ip netns exec net_fdr nsjail/nsjail -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh' &
 
-ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -d -N --chroot /chroots/mcdu -- /out/shell :9923
+ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -N --chroot /chroots/mcdu -- /out/shell :9923 &
 
 sleep 3s
 
-ip netns exec net_mcdu socat unix-listen:/tmp/mcdu,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >/tmp/mcdu.log &
-ip netns exec net_mcdu socat tcp-listen:23,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >/tmp/mcdu.log &
+ip netns exec net_mcdu socat unix-listen:/tmp/mcdu,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >>/tmp/mcdu.log &
+ip netns exec net_mcdu socat tcp-listen:23,fork,forever tcp-connect:127.0.0.1:9923 2>&1 >>/tmp/mcdu.log &
 
 sleep 1s
 
-ip netns exec net_fdr socat unix-client:/tmp/dns,forever udp-recvfrom:53,fork,reuseaddr,bind=127.0.0.1 2>&1 1>/tmp.dns2.log &
-ip netns exec net_fdr socat unix-client:/tmp/proxy,forever tcp-listen:1080,reuseaddr,fork,forever,bind=127.0.0.1 2>&1 1>/tmp/socatsocks.log
+ip netns exec net_fdr socat unix-client:/tmp/dns,forever udp-recvfrom:53,fork,reuseaddr,bind=127.0.0.1 2>&1 1>>/tmp.dns2.log &
 
-# this should be unreachable
-sleep 999d
+while :; do ip netns exec net_fdr socat unix-client:/tmp/proxy tcp-listen:1080,reuseaddr,bind=127.0.0.1 2>&1 1>>/tmp/socatsocks.log; done

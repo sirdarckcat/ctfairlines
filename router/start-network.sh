@@ -26,24 +26,24 @@ done
 echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
-GODEBUG=netdns=go ./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
-socat "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 >$tmp/dns.log  &
+timeout -k 10s 600s ./socks $tmp/proxy "$dns" 2>&1 >$tmp/socks.log &
+timeout -k 10s 600s socat "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 >$tmp/dns.log &
 
 sleep 1s
 
-nsjail/nsjail -d -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log ./network.sh
+nsjail/nsjail -t 600 -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log ./network.sh &
+
+(sleep 600s; rm -rf $tmp) &
 
 echo -n 'Loading (waiting for MCDU)'
 while [ ! -S $tmp/mcdu ]; do echo -n . && sleep 1; done
 
 echo '!'
 
-input=" "
-while [ ! -z "$input" ]
+while :
 do
   echo -en 'Send cockpit door lock combination \n> '
-  read input || exit
-  if [ -z "$input" ]; then rm -rf $tmp; exit; fi
+  read input
   sleep 1
   echo "cdls unlock $input" | socat unix-client:$tmp/mcdu -
   sleep 1
