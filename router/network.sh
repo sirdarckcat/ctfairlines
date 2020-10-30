@@ -14,7 +14,7 @@ ip netns exec net_fdr ip link set veth_fdr up
 ip netns exec net_mcdu ip link set lo up
 ip netns exec net_fdr ip link set lo up
 
-&>>/tmp/cdls.log ip netns exec net_fdr nsjail/nsjail -t $TIME -N --chroot /chroots/cdls -- /root/main &
+ip netns exec net_fdr nsjail/nsjail -t $TIME -N --chroot /chroots/cdls -- /root/main &
 
 sleep 1s
 
@@ -22,17 +22,17 @@ sleep 1s
 
 sleep 1s
 
-&>>/tmp/fdrbb.log ip netns exec net_fdr nsjail/nsjail -t $TIME -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh' &
+ip netns exec net_fdr nsjail/nsjail -t $TIME -N --chroot /chroots/blackbox -T /fdr/log -- /bin/bash -c 'cd /fdr/; ALL_PROXY=socks5://127.0.0.1:1080 NO_PROXY=172.20.4.8,127.0.0.1 ./fdr.sh' &
 
 &>>/tmp/mcdushell.log ip netns exec net_mcdu /sbin/runuser -u user -g user -- nsjail/nsjail -t $TIME -N --chroot /chroots/mcdu -T /tmp -- /out/shell :9923 &
 
 sleep 3s
 
-&>>/tmp/mcdu9923.log timeout -k 10s ${TIME}s ip netns exec net_mcdu socat -d -d unix-listen:/tmp/mcdu,fork,forever tcp-connect:127.0.0.1:9923 &
-&>>/tmp/mcdu23.log timeout -k 10s ${TIME}s ip netns exec net_mcdu socat -d -d tcp-listen:23,fork,forever tcp-connect:127.0.0.1:9923 &
+&>>/tmp/mcdu9923.log timeout -k 10s ${TIME}s ip netns exec net_mcdu socat unix-listen:/tmp/mcdu,fork,forever tcp-connect:127.0.0.1:9923 &
+&>>/tmp/mcdu23.log timeout -k 10s ${TIME}s ip netns exec net_mcdu socat tcp-listen:23,fork,forever tcp-connect:127.0.0.1:9923 &
 
 sleep 1s
 
-&>>/tmp/dns2.log timeout -k 10s ${TIME}s ip netns exec net_fdr socat -d -d unix-client:/tmp/dns,forever udp-recvfrom:53,fork,reuseaddr,bind=127.0.0.1 &
+timeout -k 10s ${TIME}s ip netns exec net_fdr socat -d -d unix-client:/tmp/dns,forever udp-recvfrom:53,fork,reuseaddr,bind=127.0.0.1 &
 
-while :; do &>>/tmp/socatsocks.log timeout -k 10s 30s ip netns exec net_fdr socat -d -d unix-client:/tmp/proxy tcp-listen:1080,reuseaddr,bind=127.0.0.1; done
+while :; do timeout -k 10s 30s ip netns exec net_fdr socat -d -d unix-client:/tmp/proxy tcp-listen:1080,reuseaddr,bind=127.0.0.1; done

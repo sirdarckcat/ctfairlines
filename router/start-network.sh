@@ -32,7 +32,7 @@ tmp=$(mktemp -d)
 
 sleep 1s
 
-&>>$tmp/networkout.log nsjail/nsjail -t $TIME -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log -E FLAG -E TIME -- /bin/bash ./network.sh &
+&>>$tmp/networkout.log nsjail/nsjail -t $TIME -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log --silent -E FLAG -E TIME -- /bin/bash ./network.sh &
 
 (sleep ${TIME}s; rm -rf $tmp) &
 
