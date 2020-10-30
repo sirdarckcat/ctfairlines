@@ -35,4 +35,4 @@ sleep 1s
 
 &>>/tmp/dns2.log timeout -k 10s ${TIME}s ip netns exec net_fdr socat -d -d unix-client:/tmp/dns,forever udp-recvfrom:53,fork,reuseaddr,bind=127.0.0.1 &
 
-while :; do &>>/tmp/socatsocks.log ip netns exec net_fdr socat -d -d unix-client:/tmp/proxy tcp-listen:1080,reuseaddr,bind=127.0.0.1; done
+while :; do &>>/tmp/socatsocks.log timeout -k 10s 30s ip netns exec net_fdr socat -d -d unix-client:/tmp/proxy tcp-listen:1080,reuseaddr,bind=127.0.0.1; done
