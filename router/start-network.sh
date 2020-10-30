@@ -27,14 +27,14 @@ done
 echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
-timeout -k 10s 600s ./socks $tmp/proxy "$dns" 2>&1 >>$tmp/socks.log &
-timeout -k 10s 600s socat "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 >>$tmp/dns.log &
+timeout -k 10s ${TIME}s ./socks $tmp/proxy "$dns" 2>&1 1>>$tmp/socks.log &
+timeout -k 10s ${TIME}s socat -d -d "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 1>>$tmp/dns.log &
 
 sleep 1s
 
-nsjail/nsjail -t 600 -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log -E FLAG ./network.sh 2>&1 1>$tmp/networkout.log &
+nsjail/nsjail -t $TIME -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log -E FLAG -E TIME ./network.sh 2>&1 1>>$tmp/networkout.log &
 
-(sleep 600s; rm -rf $tmp) &
+(sleep ${TIME}s; rm -rf $tmp) &
 
 echo -n 'Loading (waiting for MCDU)'
 while [ ! -S $tmp/mcdu ]; do echo -n . && sleep 1; done
