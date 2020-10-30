@@ -27,12 +27,12 @@ done
 echo "[*] Setting DNS Server to $dns"
 
 tmp=$(mktemp -d)
-timeout -k 10s ${TIME}s ./socks $tmp/proxy "$dns" 2>&1 1>>$tmp/socks.log &
-timeout -k 10s ${TIME}s socat -d -d "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr 2>&1 1>>$tmp/dns.log &
+&>>$tmp/proxy.log timeout -k 10s ${TIME}s ./socks $tmp/proxy "$dns" &
+&>>$tmp/dns.log timeout -k 10s ${TIME}s socat -d -d "udp:$dns" unix-listen:$tmp/dns,fork,reuseaddr &
 
 sleep 1s
 
-nsjail/nsjail -t $TIME -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log -E FLAG -E TIME ./network.sh 2>&1 1>>$tmp/networkout.log &
+&>>$tmp/networkout.log nsjail/nsjail -t $TIME -u 0:0:65536 -g 0:0:65536 --proc_rw --keep_caps -D $PWD -T /run/netns -B $tmp:/tmp --rw --chroot / -l $tmp/network.log -E FLAG -E TIME -- /bin/bash ./network.sh &
 
 (sleep ${TIME}s; rm -rf $tmp) &
 
